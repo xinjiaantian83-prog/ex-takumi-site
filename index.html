@@ -1,105 +1,1474 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>5万円でホームページ作ります | 個人・小規模事業者向け</title>
-<meta name="description" content="とりあえずホームページが欲しい方向け。5万円でスマホ対応のシンプルなホームページを制作します。最短3日。">
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- スマホ最優先表示のためのviewport設定 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+<!-- ===== SEO関連メタタグ ===== -->
+<title>カーポート専門店 EXたくみ｜松山市・伊予市・東温市の現場職人が直接対応</title>
+<meta name="description" content="カーポート施工1000台超えの職人が在籍する松山市の専門店「EXたくみ」。無理な営業なし、LINEで写真を送るだけで相談OK。松山市・伊予市・東温市のカーポート設置はお任せください。" />
+<meta name="keywords" content="カーポート,松山市,伊予市,東温市,カーポート工事,カーポート専門店,EXたくみ,愛媛,駐車場屋根" />
+<meta name="robots" content="index,follow" />
+<meta name="author" content="カーポート専門店 EXたくみ" />
+
+<!-- ===== OGP（SNSシェア時の見栄え） ===== -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="カーポート専門店 EXたくみ｜松山市・伊予市・東温市" />
+<meta property="og:description" content="施工1000台超えの職人が現場目線で提案。LINE相談OK、写真だけでも見積もり可能。" />
+<meta property="og:site_name" content="カーポート専門店 EXたくみ" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:image" content="images/ogp.jpg" />
+
+<!-- ===== 構造化データ（地域ビジネス情報・SEO強化） ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "カーポート専門店 EXたくみ",
+  "image": "images/ogp.jpg",
+  "telephone": "089-000-0000",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "松山市",
+    "addressRegion": "愛媛県",
+    "addressCountry": "JP"
+  },
+  "areaServed": ["松山市", "伊予市", "東温市"],
+  "url": ""
+}
+</script>
+
 <style>
-  body{
-    margin:0;
-    font-family:sans-serif;
-    background:#0a0a0a;
-    color:#fff;
-    line-height:1.6;
+/* =========================================
+   ベースリセット
+   ========================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* スマホでフォントサイズが勝手に変わるのを防止 */
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3",
+    "Yu Gothic", "Meiryo", sans-serif;
+  color: #1a1a1a;
+  background: #ffffff;
+  line-height: 1.75;
+  font-size: 16px;
+  /* iOS Safariでのスクロール時のジャギ防止 */
+  -webkit-font-smoothing: antialiased;
+  /* 下部固定LINEボタン分の余白確保 */
+  padding-bottom: 72px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================
+   カラーテーマ変数（白ベース + 黒 + 木目系）
+   ========================================= */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-sub: #6b6b6b;
+  --color-line: #e8e4dd;       /* 木目に馴染む薄色 */
+  --color-wood: #8b6f47;       /* 木目アクセント */
+  --color-wood-light: #f5f0e8; /* 木目背景 */
+  --color-black: #111111;
+  --color-line-green: #06c755; /* LINEブランドカラー */
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================
+   共通レイアウト
+   ========================================= */
+.container {
+  width: 100%;
+  max-width: 720px; /* スマホ最優先のためコンテナ狭め */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+section {
+  padding: 56px 0;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.section-sub {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-sub);
+  margin-bottom: 32px;
+  letter-spacing: 0.1em;
+}
+
+/* セクションタイトル下の木目アクセントライン */
+.section-title::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--color-wood);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+/* =========================================
+   ヘッダー
+   ========================================= */
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--color-black);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.logo-text small {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--color-sub);
+}
+
+.tel-link {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border: 1px solid var(--color-black);
+  border-radius: 999px;
+}
+
+/* =========================================
+   ファーストビュー（FV）
+   ========================================= */
+.hero {
+  position: relative;
+  padding: 0;
+  background: var(--color-wood-light);
+}
+
+.hero-image {
+  /* ダミー写真枠：あとから背景画像のURLを差し替えるだけ */
+  width: 100%;
+  aspect-ratio: 4 / 5; /* スマホ縦表示で見栄えのいい比率 */
+  background-color: #d9d2c4;
+  background-image:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.05)),
+    url('images/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* 画像が無いときに見える、ダミーであることを示すラベル */
+.hero-image::before {
+  content: "[ ここにカーポート施工写真 ]";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  padding: 32px 24px 40px;
+  width: 100%;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.hero-title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.45;
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+.hero-title em {
+  font-style: normal;
+  background: linear-gradient(transparent 65%, var(--color-wood) 65%);
+  padding: 0 4px;
+}
+
+.hero-text {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  opacity: 0.95;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-line-green);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.hero-cta:active {
+  transform: scale(0.97);
+}
+
+/* FV下に小さくキャッチ */
+.hero-strip {
+  background: var(--color-black);
+  color: #fff;
+  text-align: center;
+  padding: 14px 20px;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+.hero-strip strong {
+  color: #ffd97a;
+  font-size: 16px;
+  margin: 0 4px;
+}
+
+/* =========================================
+   施工事例（カードスクロール）
+   ========================================= */
+.works-scroll {
+  /* スマホで横スクロールできるギャラリー */
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 20px 24px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.works-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.work-card {
+  flex: 0 0 80%;
+  scroll-snap-align: start;
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.work-photo {
+  /* ダミー画像枠（後で background-image を差し替え） */
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #ddd6c7;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.work-photo.w1 { background-image: url('images/work1.jpg'); }
+.work-photo.w2 { background-image: url('images/work2.jpg'); }
+.work-photo.w3 { background-image: url('images/work3.jpg'); }
+.work-photo.w4 { background-image: url('images/work4.jpg'); }
+.work-photo.w5 { background-image: url('images/work5.jpg'); }
+.work-photo.w6 { background-image: url('images/work6.jpg'); }
+
+.work-info {
+  padding: 14px 16px 18px;
+}
+
+.work-area {
+  font-size: 11px;
+  color: var(--color-wood);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.work-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.work-desc {
+  font-size: 12px;
+  color: var(--color-sub);
+  line-height: 1.6;
+}
+
+.works-hint {
+  text-align: center;
+  font-size: 11px;
+  color: var(--color-sub);
+  letter-spacing: 0.15em;
+  margin-top: 4px;
+}
+
+/* =========================================
+   選ばれる理由
+   ========================================= */
+.reasons {
+  background: var(--color-wood-light);
+}
+
+.reason-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reason-item {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--color-wood);
+}
+
+.reason-num {
+  font-family: "Georgia", serif;
+  font-size: 28px;
+  color: var(--color-wood);
+  font-weight: 700;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.reason-body h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.reason-body p {
+  font-size: 13px;
+  color: var(--color-sub);
+  line-height: 1.7;
+}
+
+/* =========================================
+   よくある悩み
+   ========================================= */
+.troubles {
+  background: #fff;
+}
+
+.trouble-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trouble {
+  position: relative;
+  background: #f7f5f1;
+  padding: 16px 16px 16px 50px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.trouble::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  width: 22px;
+  height: 22px;
+  background: var(--color-black);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.trouble:nth-child(1)::before { content: "1"; line-height: 22px; text-align: center; }
+.trouble:nth-child(2)::before { content: "2"; line-height: 22px; text-align: center; }
+.trouble:nth-child(3)::before { content: "3"; line-height: 22px; text-align: center; }
+.trouble:nth-child(4)::before { content: "4"; line-height: 22px; text-align: center; }
+.trouble:nth-child(5)::before { content: "5"; line-height: 22px; text-align: center; }
+
+.trouble-answer {
+  margin-top: 24px;
+  padding: 22px;
+  background: var(--color-black);
+  color: #fff;
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.trouble-answer strong {
+  color: #ffd97a;
+}
+
+/* =========================================
+   LINE相談導線
+   ========================================= */
+.line-block {
+  background: linear-gradient(180deg, #f7faf3 0%, #eaf6d8 100%);
+  text-align: center;
+}
+
+.line-balloon {
+  display: inline-block;
+  background: #fff;
+  border: 2px solid var(--color-line-green);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-line-green);
+  margin-bottom: 16px;
+}
+
+.line-headline {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.line-text {
+  font-size: 14px;
+  color: var(--color-sub);
+  line-height: 1.8;
+  margin-bottom: 26px;
+}
+
+.line-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-line-green);
+  color: #fff;
+  font-weight: 700;
+  font-size: 17px;
+  padding: 18px 36px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(6, 199, 85, 0.35);
+  transition: transform 0.2s ease;
+}
+
+.line-btn:active {
+  transform: scale(0.97);
+}
+
+.line-note {
+  font-size: 11px;
+  color: var(--color-sub);
+  margin-top: 14px;
+  letter-spacing: 0.05em;
+}
+
+/* =========================================
+   対応エリア
+   ========================================= */
+.area-block {
+  background: #fff;
+}
+
+.area-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.area-card {
+  background: var(--color-wood-light);
+  text-align: center;
+  padding: 22px 8px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-black);
+  border: 1px solid var(--color-line);
+}
+
+.area-card small {
+  display: block;
+  font-size: 10px;
+  color: var(--color-sub);
+  margin-top: 4px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+}
+
+.area-note {
+  font-size: 12px;
+  color: var(--color-sub);
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+/* Google Maps埋め込み枠 */
+.map-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #eee;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.map-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* =========================================
+   お客様の声
+   ========================================= */
+.voices {
+  background: var(--color-wood-light);
+}
+
+.voice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.voice {
+  background: #fff;
+  padding: 22px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.voice-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.voice-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-wood);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.voice-name {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.voice-name small {
+  display: block;
+  font-size: 11px;
+  color: var(--color-sub);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.voice-text {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #333;
+}
+
+/* =========================================
+   施工の流れ
+   ========================================= */
+.flow {
+  background: #fff;
+}
+
+.flow-list {
+  position: relative;
+  padding-left: 20px;
+}
+
+.flow-list::before {
+  /* 縦のタイムラインライン */
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--color-wood);
+  opacity: 0.4;
+}
+
+.flow-step {
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.flow-step::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-wood);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--color-wood);
+}
+
+.flow-step:last-child {
+  padding-bottom: 0;
+}
+
+.flow-step h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.flow-step .flow-no {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--color-wood);
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.flow-step p {
+  font-size: 13px;
+  color: var(--color-sub);
+  line-height: 1.7;
+}
+
+/* =========================================
+   会社情報
+   ========================================= */
+.company {
+  background: #fafafa;
+}
+
+.company-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.company-table th,
+.company-table td {
+  text-align: left;
+  padding: 14px 16px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-line);
+  line-height: 1.7;
+}
+
+.company-table th {
+  background: #f5f0e8;
+  width: 36%;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--color-black);
+}
+
+.company-table tr:last-child th,
+.company-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================
+   お問い合わせ
+   ========================================= */
+.contact {
+  background: #fff;
+}
+
+.contact-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-card {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  text-align: center;
+}
+
+.contact-card.line {
+  background: #f4faea;
+  border-color: var(--color-line-green);
+}
+
+.contact-card.tel {
+  background: #fff;
+}
+
+.contact-card h4 {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: var(--color-sub);
+  margin-bottom: 8px;
+}
+
+.contact-card .big {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.contact-card .sub {
+  font-size: 11px;
+  color: var(--color-sub);
+  letter-spacing: 0.05em;
+}
+
+.contact-card .pill {
+  display: inline-block;
+  background: var(--color-line-green);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* =========================================
+   フッター
+   ========================================= */
+footer.site-footer {
+  background: var(--color-black);
+  color: #ddd;
+  padding: 40px 0 24px;
+  margin-top: 24px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.footer-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.footer-text {
+  color: #aaa;
+  margin-bottom: 18px;
+}
+
+.footer-areas {
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.footer-areas strong {
+  color: #ffd97a;
+  font-weight: 700;
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: #888;
+  text-align: center;
+  border-top: 1px solid #333;
+  padding-top: 16px;
+  letter-spacing: 0.05em;
+}
+
+/* =========================================
+   下部固定LINEボタン（スマホ常時表示）
+   ========================================= */
+.fixed-line {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 200;
+  background: var(--color-line-green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 6px 18px rgba(6, 199, 85, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.fixed-line:active {
+  transform: scale(0.98);
+}
+
+.fixed-line svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* =========================================
+   フェードイン用アニメーション
+   ========================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   スマホ以外（タブレット以上）の最低限の調整
+   ========================================= */
+@media (min-width: 640px) {
+  .hero-title {
+    font-size: 30px;
   }
-  .container{
-    max-width:600px;
-    margin:0 auto;
-    padding:40px 20px;
+  .section-title {
+    font-size: 26px;
   }
-  h1{
-    font-size:28px;
-    line-height:1.4;
-    margin-bottom:20px;
+  .hero-image {
+    aspect-ratio: 16 / 10;
   }
-  .price{
-    font-size:42px;
-    font-weight:bold;
-    color:#06C755;
-    margin:20px 0;
+  .work-card {
+    flex: 0 0 50%;
   }
-  .box{
-    background:#111;
-    padding:20px;
-    border-radius:8px;
-    margin-bottom:20px;
-  }
-  .btn{
-    display:block;
-    text-align:center;
-    background:#06C755;
-    color:#fff;
-    padding:16px;
-    text-decoration:none;
-    font-weight:bold;
-    border-radius:6px;
-    margin-top:20px;
-  }
-  .note{
-    font-size:12px;
-    color:#aaa;
-    margin-top:20px;
-  }
+}
 </style>
 </head>
 <body>
 
-<div class="container">
+<!-- ============================================================
+     ヘッダー
+     ============================================================ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">EX</span>
+      <span class="logo-text">
+        EXたくみ
+        <small>カーポート専門｜松山市</small>
+      </span>
+    </a>
+    <a href="tel:0890000000" class="tel-link">☎ 電話</a>
+  </div>
+</header>
 
-<h1>
-とりあえずホームページが欲しい方へ。<br>
-5万円で作ります。
-</h1>
+<!-- ============================================================
+     1. ファーストビュー
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="hero-image">
+    <!-- ↑ images/hero.jpg を入れ替えるだけでメイン写真変更可能 -->
+    <div class="hero-copy">
+      <span class="hero-tag">松山市・伊予市・東温市</span>
+      <h1 class="hero-title">
+        現場を知る職人が、<br>
+        <em>本当に合うカーポート</em>を提案します。
+      </h1>
+      <p class="hero-text">
+        カーポート専門店 EXたくみ。<br>
+        営業はしません。現場で1000台超を建ててきた職人が直接対応します。
+      </p>
+      <a href="#line" class="hero-cta">
+        まずはLINEで写真を送る →
+      </a>
+    </div>
+  </div>
+  <div class="hero-strip">
+    施工 <strong>1,000</strong> 台超え／松山の現場職人が直接対応
+  </div>
+</section>
 
-<p>
-ホームページは必要だけど、<br>
-いきなりしっかり作るのは不安…<br><br>
+<!-- ============================================================
+     2. カーポート施工事例
+     ============================================================ -->
+<section id="works">
+  <div class="container">
+    <p class="section-sub">WORKS</p>
+    <h2 class="section-title">カーポート施工事例</h2>
+  </div>
 
-そんな方向けに、<br>
-<strong>まずはシンプルな1ページサイト</strong>をご提案します。
-</p>
+  <!-- 横スクロールで気持ち良く見られるカード -->
+  <div class="works-scroll">
+    <article class="work-card reveal">
+      <div class="work-photo w1">[ 施工写真 1 ]</div>
+      <div class="work-info">
+        <div class="work-area">松山市 / 戸建て</div>
+        <h3 class="work-title">2台用カーポート（フラット型）</h3>
+        <p class="work-desc">奥行きに余裕を持たせ、雨の日の乗り降りもラクに。</p>
+      </div>
+    </article>
 
-<div class="price">
-¥50,000
-</div>
+    <article class="work-card reveal">
+      <div class="work-photo w2">[ 施工写真 2 ]</div>
+      <div class="work-info">
+        <div class="work-area">伊予市 / 戸建て</div>
+        <h3 class="work-title">1台用 + 自転車置き場</h3>
+        <p class="work-desc">通学用自転車もしっかり守れる延長プラン。</p>
+      </div>
+    </article>
 
-<div class="box">
-<strong>内容</strong><br><br>
-・1ページ構成<br>
-・スマホ対応<br>
-・LINE / 電話導線設置<br>
-・最短3日納品<br>
-・修正1回まで
-</div>
+    <article class="work-card reveal">
+      <div class="work-photo w3">[ 施工写真 3 ]</div>
+      <div class="work-info">
+        <div class="work-area">東温市 / 戸建て</div>
+        <h3 class="work-title">3台用 大型カーポート</h3>
+        <p class="work-desc">来客用も停められる広々設計。風対策の柱補強付き。</p>
+      </div>
+    </article>
 
-<div class="box">
-<strong>こんな方におすすめ</strong><br><br>
-・とりあえずホームページが欲しい<br>
-・名刺代わりのサイトが欲しい<br>
-・低コストで始めたい
-</div>
+    <article class="work-card reveal">
+      <div class="work-photo w4">[ 施工写真 4 ]</div>
+      <div class="work-info">
+        <div class="work-area">松山市 / 戸建て</div>
+        <h3 class="work-title">スタイリッシュ片流れ</h3>
+        <p class="work-desc">外壁に合わせたカラー選定で外観を損ねず。</p>
+      </div>
+    </article>
 
-<a href="https://line.me/R/ti/p/@yourlineaccount" class="btn">
-LINEで相談する
+    <article class="work-card reveal">
+      <div class="work-photo w5">[ 施工写真 5 ]</div>
+      <div class="work-info">
+        <div class="work-area">松山市 / 戸建て</div>
+        <h3 class="work-title">サイドパネル付き</h3>
+        <p class="work-desc">横なぐりの雨も防ぐサイドパネル仕様。</p>
+      </div>
+    </article>
+
+    <article class="work-card reveal">
+      <div class="work-photo w6">[ 施工写真 6 ]</div>
+      <div class="work-info">
+        <div class="work-area">伊予市 / 戸建て</div>
+        <h3 class="work-title">既存カーポート建て替え</h3>
+        <p class="work-desc">古くなった屋根を撤去〜新設まで1日で完了。</p>
+      </div>
+    </article>
+  </div>
+  <p class="works-hint">← 左右にスワイプできます →</p>
+</section>
+
+<!-- ============================================================
+     3. EXたくみが選ばれる理由
+     ============================================================ -->
+<section class="reasons" id="reasons">
+  <div class="container">
+    <p class="section-sub">REASON</p>
+    <h2 class="section-title">EXたくみが選ばれる理由</h2>
+
+    <div class="reason-list">
+      <article class="reason-item reveal">
+        <div class="reason-num">01</div>
+        <div class="reason-body">
+          <h3>施工1,000台超えの職人が直接対応</h3>
+          <p>営業マンが間に入りません。実際に建てる職人が、最初から最後まで担当します。だから話が早い、ズレない。</p>
+        </div>
+      </article>
+
+      <article class="reason-item reveal">
+        <div class="reason-num">02</div>
+        <div class="reason-body">
+          <h3>現場経験ベースで提案</h3>
+          <p>カタログだけでは見えない、雨の流れ・風向き・出入りのしやすさを現場目線で考えて提案します。</p>
+        </div>
+      </article>
+
+      <article class="reason-item reveal">
+        <div class="reason-num">03</div>
+        <div class="reason-body">
+          <h3>しつこい営業は一切なし</h3>
+          <p>「やっぱりやめます」も大歓迎です。比較検討のための情報集めだけでもどうぞ。</p>
+        </div>
+      </article>
+
+      <article class="reason-item reveal">
+        <div class="reason-num">04</div>
+        <div class="reason-body">
+          <h3>LINE相談OK・写真だけでも見積もり可能</h3>
+          <p>現場の写真と寸法を送るだけで、おおよその費用感が分かります。電話が苦手な方も気軽に。</p>
+        </div>
+      </article>
+
+      <article class="reason-item reveal">
+        <div class="reason-num">05</div>
+        <div class="reason-body">
+          <h3>松山市・伊予市・東温市に密着</h3>
+          <p>地元の気候・風土を熟知。台風時の風対策や、塩害が気になるエリアでの建材選びにも対応します。</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4. よくある悩み
+     ============================================================ -->
+<section class="troubles" id="troubles">
+  <div class="container">
+    <p class="section-sub">TROUBLES</p>
+    <h2 class="section-title">こんなお悩み、ありませんか？</h2>
+
+    <div class="trouble-list">
+      <div class="trouble reveal">どこに頼めばいいのか分からない…</div>
+      <div class="trouble reveal">相見積もりで営業電話が止まらないのが嫌</div>
+      <div class="trouble reveal">うちの駐車スペースに本当に収まるのか不安</div>
+      <div class="trouble reveal">台風や雪に耐えられる屋根を選びたい</div>
+      <div class="trouble reveal">古いカーポートが錆びてきた、建て替えたい</div>
+    </div>
+
+    <div class="trouble-answer reveal">
+      <strong>すべて、現場で1,000台建ててきた職人が答えます。</strong><br>
+      まずはLINEで写真を1枚送ってください。
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5. LINE相談導線
+     ============================================================ -->
+<section class="line-block" id="line">
+  <div class="container">
+    <span class="line-balloon">無料・1分でOK</span>
+    <h2 class="line-headline">
+      まずはLINEで<br>写真を送ってください
+    </h2>
+    <p class="line-text">
+      電話は苦手という方も大丈夫。<br>
+      お家の駐車スペースの写真と、<br>
+      気になっていることを送るだけ。
+    </p>
+    <a href="#" class="line-btn" id="lineBtnMain">
+      <!-- LINEっぽいアイコン -->
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 5.79 2 10.42c0 3.05 2.06 5.72 5.15 7.17-.16.59-.95 3.43-1 3.61 0 0 0 .15.09.21.08.06.18.04.18.04.27-.04 3.41-2.23 4-2.66.74.11 1.51.17 2.58.17 5.52 0 10-3.79 10-8.42S17.52 2 12 2zM7.78 12.32H6.05c-.16 0-.3-.13-.3-.3V8.4c0-.16.13-.3.3-.3.16 0 .3.13.3.3v3.32h1.43c.16 0 .3.13.3.3-.01.16-.14.3-.3.3zm1.27-.3c0 .16-.13.3-.3.3s-.3-.13-.3-.3V8.4c0-.16.13-.3.3-.3s.3.13.3.3v3.62zm4.06 0c0 .13-.08.24-.21.28-.03.01-.06.01-.09.01-.1 0-.19-.04-.24-.12L10.7 9.35v2.67c0 .16-.13.3-.3.3s-.3-.13-.3-.3V8.4c0-.13.08-.24.21-.28.03-.01.06-.02.09-.02.09 0 .19.05.24.12l1.86 2.83V8.4c0-.16.13-.3.3-.3.16 0 .3.13.3.3v3.62zm3.06-2.11c.16 0 .3.13.3.3s-.13.3-.3.3h-1.43v.91h1.43c.16 0 .3.13.3.3s-.13.3-.3.3h-1.73c-.16 0-.3-.13-.3-.3V8.4c0-.16.13-.3.3-.3h1.73c.16 0 .3.13.3.3s-.13.3-.3.3h-1.43v.91h1.43z"/>
+      </svg>
+      LINEで無料相談する
+    </a>
+    <p class="line-note">※ 友だち追加だけでもOKです</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     6. 対応エリア + Google Maps
+     ============================================================ -->
+<section class="area-block" id="area">
+  <div class="container">
+    <p class="section-sub">AREA</p>
+    <h2 class="section-title">対応エリア</h2>
+
+    <div class="area-cards">
+      <div class="area-card">松山市<small>MATSUYAMA</small></div>
+      <div class="area-card">伊予市<small>IYO</small></div>
+      <div class="area-card">東温市<small>TOON</small></div>
+    </div>
+
+    <p class="area-note">
+      上記エリアを中心に対応しています。<br>
+      近隣の地域もご相談ください（砥部町・松前町など）。
+    </p>
+
+    <!-- Google Maps埋め込み枠（埋め込みURLはあとから差し替え可） -->
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps?q=%E6%9D%BE%E5%B1%B1%E5%B8%82&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="松山市 地図">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     7. お客様の声
+     ============================================================ -->
+<section class="voices" id="voices">
+  <div class="container">
+    <p class="section-sub">VOICE</p>
+    <h2 class="section-title">お客様の声</h2>
+
+    <div class="voice-list">
+      <article class="voice reveal">
+        <div class="voice-meta">
+          <div class="voice-avatar">M</div>
+          <div class="voice-name">
+            松山市・M様（40代）
+            <small>2台用カーポート</small>
+          </div>
+        </div>
+        <p class="voice-text">
+          LINEで写真を送るだけで見積もりをくれて、本当に楽でした。職人さんが直接来てくれるので、話が早い。営業されない安心感は大きいです。
+        </p>
+      </article>
+
+      <article class="voice reveal">
+        <div class="voice-meta">
+          <div class="voice-avatar">I</div>
+          <div class="voice-name">
+            伊予市・I様（50代）
+            <small>建て替え工事</small>
+          </div>
+        </div>
+        <p class="voice-text">
+          古いカーポートの錆が気になっていて相談しました。風の通り道まで考えて提案してくれて、なるほどと納得。仕上がりも綺麗で大満足です。
+        </p>
+      </article>
+
+      <article class="voice reveal">
+        <div class="voice-meta">
+          <div class="voice-avatar">T</div>
+          <div class="voice-name">
+            東温市・T様（30代）
+            <small>1台用＋自転車置き場</small>
+          </div>
+        </div>
+        <p class="voice-text">
+          子どもが大きくなって自転車スペースも欲しくて。電話が苦手なのでLINEだけで全部完結したのは助かりました。
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     8. 施工の流れ
+     ============================================================ -->
+<section class="flow" id="flow">
+  <div class="container">
+    <p class="section-sub">FLOW</p>
+    <h2 class="section-title">施工の流れ</h2>
+
+    <div class="flow-list">
+      <div class="flow-step reveal">
+        <span class="flow-no">STEP 01</span>
+        <h4>LINE or 電話で相談</h4>
+        <p>写真と簡単な要望を送ってください。所要1分。</p>
+      </div>
+      <div class="flow-step reveal">
+        <span class="flow-no">STEP 02</span>
+        <h4>概算見積もり</h4>
+        <p>送っていただいた情報から、おおよその費用感をお伝えします。</p>
+      </div>
+      <div class="flow-step reveal">
+        <span class="flow-no">STEP 03</span>
+        <h4>現地確認（無料）</h4>
+        <p>職人が直接お伺いし、寸法・地盤・風向きを確認します。</p>
+      </div>
+      <div class="flow-step reveal">
+        <span class="flow-no">STEP 04</span>
+        <h4>正式お見積もり</h4>
+        <p>商品・サイズ・工事内容を明記したお見積書をお渡しします。</p>
+      </div>
+      <div class="flow-step reveal">
+        <span class="flow-no">STEP 05</span>
+        <h4>施工（最短半日〜）</h4>
+        <p>サイズによっては1日で完了。丁寧に、確実に建てます。</p>
+      </div>
+      <div class="flow-step reveal">
+        <span class="flow-no">STEP 06</span>
+        <h4>お引き渡し・アフター</h4>
+        <p>仕上がりを一緒に確認。気になることはいつでもご連絡を。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     9. 会社情報
+     ============================================================ -->
+<section class="company" id="company">
+  <div class="container">
+    <p class="section-sub">COMPANY</p>
+    <h2 class="section-title">会社情報</h2>
+
+    <table class="company-table">
+      <tbody>
+        <tr>
+          <th>店舗名</th>
+          <td>カーポート専門店 EXたくみ</td>
+        </tr>
+        <tr>
+          <th>所在地</th>
+          <td>愛媛県松山市（詳細はお問い合わせください）</td>
+        </tr>
+        <tr>
+          <th>対応エリア</th>
+          <td>松山市・伊予市・東温市 ほか近隣地域</td>
+        </tr>
+        <tr>
+          <th>事業内容</th>
+          <td>カーポート販売・施工／既存カーポートの建て替え・修繕</td>
+        </tr>
+        <tr>
+          <th>営業時間</th>
+          <td>8:00 〜 18:00（日曜・祝日休）</td>
+        </tr>
+        <tr>
+          <th>電話番号</th>
+          <td><a href="tel:0890000000">089-000-0000</a></td>
+        </tr>
+        <tr>
+          <th>LINE</th>
+          <td><a href="#line">LINE相談はこちら</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================
+     10. お問い合わせ
+     ============================================================ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <p class="section-sub">CONTACT</p>
+    <h2 class="section-title">お問い合わせ</h2>
+
+    <div class="contact-grid">
+      <div class="contact-card line">
+        <h4>LINEで相談（おすすめ）</h4>
+        <span class="big">1分で完了</span>
+        <a href="#" class="pill">LINE友だち追加</a>
+        <p class="sub" style="margin-top:8px;">写真送信OK／返信は営業時間内</p>
+      </div>
+
+      <div class="contact-card tel">
+        <h4>お電話でのお問い合わせ</h4>
+        <a href="tel:0890000000" class="big">089-000-0000</a>
+        <p class="sub">受付：8:00 〜 18:00（日祝休）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     フッター
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-brand">カーポート専門店 EXたくみ</p>
+    <p class="footer-text">
+      現場経験1,000台超の職人が、直接お話を聞きに伺います。<br>
+      営業はしません。あなたの暮らしに合うカーポートを一緒に考えます。
+    </p>
+    <p class="footer-areas">
+      対応エリア：<strong>松山市</strong> ／ <strong>伊予市</strong> ／ <strong>東温市</strong>
+      （その他：砥部町・松前町などもご相談ください）
+    </p>
+    <p class="footer-copy">© EXたくみ All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- ============================================================
+     下部固定LINEボタン（スマホ常時表示）
+     ============================================================ -->
+<a href="#line" class="fixed-line" aria-label="LINEで無料相談する">
+  <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+    <path d="M12 2C6.48 2 2 5.79 2 10.42c0 3.05 2.06 5.72 5.15 7.17-.16.59-.95 3.43-1 3.61 0 0 0 .15.09.21.08.06.18.04.18.04.27-.04 3.41-2.23 4-2.66.74.11 1.51.17 2.58.17 5.52 0 10-3.79 10-8.42S17.52 2 12 2z"/>
+  </svg>
+  LINEで無料相談する
 </a>
 
-<p class="note">
-※本プランは簡易的なホームページです<br>
-※本格的な集客用サイトは別プランをご案内します
-</p>
+<script>
+/* ============================================================
+   スクロール時のフェードイン（IntersectionObserver）
+   軽量・外部ライブラリ不要
+   ============================================================ */
+(function () {
+  const targets = document.querySelectorAll('.reveal');
 
-</div>
+  // IntersectionObserver未対応ブラウザの場合は即表示
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      // 画面下部より少し早めに発火
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0.05,
+    }
+  );
+
+  targets.forEach((el) => io.observe(el));
+})();
+
+/* ============================================================
+   下部固定LINEボタンの「読まれている時だけ大きく光る」演出
+   スクロール中はそのまま、止まったらほんのり強調
+   ============================================================ */
+(function () {
+  const btn = document.querySelector('.fixed-line');
+  if (!btn) return;
+
+  let timer;
+  window.addEventListener('scroll', () => {
+    btn.style.transform = 'translateY(0)';
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      // 一定時間スクロールがなかったらほんのりアニメ
+      btn.animate(
+        [
+          { transform: 'scale(1)' },
+          { transform: 'scale(1.04)' },
+          { transform: 'scale(1)' },
+        ],
+        { duration: 700, easing: 'ease-in-out' }
+      );
+    }, 1200);
+  }, { passive: true });
+})();
+
+/* ============================================================
+   アンカーリンクのスムーズスクロール
+   （CSSのscroll-behaviorと併用、ヘッダー分のオフセット調整）
+   ============================================================ */
+(function () {
+  const HEADER_OFFSET = 60; // sticky headerの高さ
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      const top = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
