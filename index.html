@@ -1604,7 +1604,7 @@ function renderWorkCard(work) {
   const photoHtml = work.photos.map((photo) => {
     const src = photo.file.download_url || photo.file.html_url || '';
     const label = photo.label ? `<span class="work-photo-tag">${escapeHtml(photo.label)}</span>` : '';
-    const alt = photo.label ? `${work.title} ${photo.label}` : work.title;
+    const alt = photo.label ? `${work.name} ${photo.label}` : work.name;
 
     return `
       <button class="work-photo" type="button" data-full="${escapeHtml(src)}" data-title="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大">
@@ -1615,7 +1615,8 @@ function renderWorkCard(work) {
   }).join('');
 
   const infoRows = [
-    ['施工内容', work.info.content || work.info.work || work.info.title],
+    ['案件名', work.info.name || work.info.title],
+    ['施工内容', work.info.content || work.info.work],
     ['工期', work.info.period],
     ['参考価格帯', work.info.price || work.info.priceRange],
   ].filter(([, value]) => value);
@@ -1658,7 +1659,7 @@ async function loadWorks() {
       const info = await fetchWorkInfo(files.find((file) => file.name.toLowerCase() === 'info.json'));
 
       return {
-        title: info.content || info.work || info.title || folder.name,
+        name: info.name || info.title || info.content || info.work || folder.name,
         info,
         photos,
       };
