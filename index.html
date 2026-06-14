@@ -947,6 +947,37 @@ button {
   opacity: 0.85;
 }
 
+.form-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.form-status {
+  display: none;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  font-size: 14px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.form-status.show {
+  display: block;
+}
+
+.form-status.success {
+  color: #1d6f42;
+  border-color: #b8dbc5;
+  background: #f1faf4;
+}
+
+.form-status.error {
+  color: #9d2d24;
+  border-color: #e4b5ad;
+  background: #fff5f3;
+}
+
 .form-note {
   font-size: 12px;
   color: var(--color-text-light);
@@ -1460,15 +1491,20 @@ button {
       内容を入力して送信してください。1〜2営業日以内にご返信します。
     </p>
 
-    <form class="contact-form" id="contactForm" onsubmit="return handleSubmit(event)">
+    <form class="contact-form" id="contactForm" action="https://formsubmit.co/ajax/xinjiaantian83@gmail.com" method="POST" onsubmit="return handleSubmit(event)">
+      <input type="hidden" name="_subject" value="EXたくみ HPからのお問い合わせ" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
+
       <div class="form-group">
         <label class="form-label" for="name">お名前<span class="form-required">必須</span></label>
-        <input type="text" id="name" name="name" class="form-input" required />
+        <input type="text" id="name" name="名前" class="form-input" required />
       </div>
 
       <div class="form-group">
         <label class="form-label" for="area-select">お住まいのエリア</label>
-        <select id="area-select" name="area" class="form-select">
+        <select id="area-select" name="エリア" class="form-select">
           <option value="">選択してください</option>
           <option>松山市</option>
           <option>伊予郡松前町</option>
@@ -1481,20 +1517,21 @@ button {
 
       <div class="form-group">
         <label class="form-label" for="phone">電話番号</label>
-        <input type="tel" id="phone" name="phone" class="form-input" placeholder="連絡が取りやすい番号" />
+        <input type="tel" id="phone" name="電話" class="form-input" placeholder="連絡が取りやすい番号" />
       </div>
 
       <div class="form-group">
         <label class="form-label" for="email">メールアドレス<span class="form-required">必須</span></label>
-        <input type="email" id="email" name="email" class="form-input" required />
+        <input type="email" id="email" name="メール" class="form-input" required />
       </div>
 
       <div class="form-group">
         <label class="form-label" for="message">ご相談内容<span class="form-required">必須</span></label>
-        <textarea id="message" name="message" class="form-textarea" required placeholder="現在の状況、ご希望のカーポートのイメージ、設置場所のサイズなど、わかる範囲でお書きください。"></textarea>
+        <textarea id="message" name="相談内容" class="form-textarea" required placeholder="現在の状況、ご希望のカーポートのイメージ、設置場所のサイズなど、わかる範囲でお書きください。"></textarea>
       </div>
 
       <button type="submit" class="form-submit">送信する</button>
+      <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
 
       <p class="form-note">
         ※ 写真添付で相談したい場合はLINEがスムーズです。<br />
@@ -1544,10 +1581,43 @@ button {
 // 年号自動表示
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// フォーム送信（仮：実装時はFormspreeやGoogle Formsなど外部サービスに連携）
-function handleSubmit(e) {
+// フォーム送信（GitHub Pages対応: FormSubmit経由）
+async function handleSubmit(e) {
   e.preventDefault();
-  alert('お問い合わせありがとうございます。\n※このフォームはサンプルです。送信先（メール・フォームサービス）の設定後にご利用ください。');
+  const form = e.target;
+  const submitButton = form.querySelector('.form-submit');
+  const status = document.getElementById('formStatus');
+  const defaultButtonText = submitButton.textContent;
+
+  status.className = 'form-status';
+  status.textContent = '';
+  submitButton.disabled = true;
+  submitButton.textContent = '送信中...';
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('form submit failed');
+    }
+
+    form.reset();
+    status.textContent = '送信完了しました';
+    status.className = 'form-status success show';
+  } catch (error) {
+    status.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+    status.className = 'form-status error show';
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = defaultButtonText;
+  }
+
   return false;
 }
 
