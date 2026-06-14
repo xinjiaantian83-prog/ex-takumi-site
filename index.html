@@ -429,6 +429,57 @@ button {
 }
 
 /* ============================================
+   無料アプリ
+============================================ */
+.apps {
+  background: var(--color-bg-soft);
+}
+
+.apps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.app-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  padding: 26px 22px;
+}
+
+.app-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+
+.app-card-text {
+  font-size: 14px;
+  color: var(--color-text-sub);
+  line-height: 1.9;
+  margin-bottom: 18px;
+}
+
+.store-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.store-badges a {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.store-badges img {
+  display: block;
+  width: auto;
+  height: 38px;
+}
+
+/* ============================================
    選ばれる理由
 ============================================ */
 .reasons {
@@ -835,6 +886,11 @@ button {
     gap: 28px;
   }
 
+  .apps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
   .reasons-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -980,6 +1036,70 @@ button {
           <div class="work-text">松山市 / カーポート施工</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     無料アプリ
+============================================ -->
+<section class="section apps" id="apps">
+  <div class="container">
+    <div class="section-label">APPS</div>
+    <h2 class="section-title">無料アプリ</h2>
+    <p class="section-lead">
+      現場や地域で役立つ無料アプリを公開しています。
+    </p>
+
+    <div class="apps-grid">
+      <article class="app-card">
+        <h3 class="app-card-title">現場電卓</h3>
+        <p class="app-card-text">
+          外構・土木現場で使える、勾配・土間・ブロック・鉄筋拾いなどの簡易計算アプリ。
+        </p>
+        <div class="store-badges">
+          <a href="https://apps.apple.com/jp/app/%E7%8F%BE%E5%A0%B4%E9%9B%BB%E5%8D%93/id6776547872" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をApp Storeで開く">
+            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.genbatoolbox.genbacalcnew" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をGoogle Playで開く">
+            <img src="assets/store-badges/google-play-badge.png" alt="Google Play で手に入れよう">
+          </a>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <h3 class="app-card-title">LIFE MAP</h3>
+        <p class="app-card-text">
+          古紙回収ボックス、避難所、AEDを地図で確認できる地域情報アプリ。
+        </p>
+        <div class="store-badges">
+          <!-- URL確定後にApp Store URLへ差し替え -->
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをApp Storeで開く">
+            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
+          </a>
+          <!-- URL確定後にGoogle Play URLへ差し替え -->
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをGoogle Playで開く">
+            <img src="assets/store-badges/google-play-badge.png" alt="Google Play で手に入れよう">
+          </a>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <h3 class="app-card-title">わんわんコイン</h3>
+        <p class="app-card-text">
+          松山市周辺のワンコイン自販機を探せる地域便利マップ。
+        </p>
+        <div class="store-badges">
+          <!-- URL確定後にApp Store URLへ差し替え -->
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをApp Storeで開く">
+            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
+          </a>
+          <!-- URL確定後にGoogle Play URLへ差し替え -->
+          <a href="#" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをGoogle Playで開く">
+            <img src="assets/store-badges/google-play-badge.png" alt="Google Play で手に入れよう">
+          </a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
