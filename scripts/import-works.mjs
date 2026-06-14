@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { existsSync, mkdtempSync } from 'node:fs';
 import {
   copyFile,
   mkdir,
@@ -10,61 +10,31 @@ import {
   unlink,
   writeFile,
 } from 'node:fs/promises';
-import { homedir } from 'node:os';
+import { homedir, tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const inboxDir = process.env.WORKS_INBOX_DIR || path.join(homedir(), 'Desktop', '施工写真投入');
 const worksDir = process.env.WORKS_TARGET_DIR || path.join(repoRoot, 'works');
-const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp']);
-const beforeWords = ['before', '施工前', 'ビフォー', 'まえ', '前'];
-const afterWords = ['after', '施工後', '完成', 'アフター', 'あと', '後'];
-
-function normalizeName(name) {
-  return name.toLowerCase().normalize('NFKC');
-}
+const year = process.env.WORKS_YEAR || String(new Date().getFullYear());
+const publish = process.argv.includes('--publish') || process.env.WORKS_PUBLISH === '1';
+const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif']);
+const convertExtensions = new Set(['.heic', '.heif', '.png', '.webp']);
+const tmpWorkDir = mkdtempSync(path.join(tmpdir(), 'ex-takumi-works-'));
 
 function isImage(name) {
   return imageExtensions.has(path.extname(name).toLowerCase());
 }
 
-function includesAny(name, words) {
-  const normalized = normalizeName(name);
-  return words.some((word) => normalized.includes(normalizeName(word)));
-}
+function assertCommand(command) {
+  const result = spawnSync('/bin/zsh', ['-lc', `command -v ${command}`], {
+    encoding: 'utf8',
+  });
 
-function formatTimestamp(date = new Date()) {
-  const pad = (value) => String(value).padStart(2, '0');
-  return [
-    date.getFullYear(),
-    pad(date.getMonth() + 1),
-    pad(date.getDate()),
-    '-',
-    pad(date.getHours()),
-    pad(date.getMinutes()),
-    pad(date.getSeconds()),
-  ].join('');
-}
-
-function safeFolderName(name) {
-  return normalizeName(name)
-    .replace(/\.[^.]+$/, '')
-    .replace(/[^\p{L}\p{N}-]+/gu, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 40);
-}
-
-async function uniqueWorkDir(baseName) {
-  let candidate = path.join(worksDir, baseName);
-  let count = 2;
-
-  while (existsSync(candidate)) {
-    candidate = path.join(worksDir, `${baseName}-${count}`);
-    count += 1;
+  if (result.status !== 0) {
+    throw new Error(`${command} が見つかりません。`);
   }
-
-  return candidate;
 }
 
 async function moveFile(source, destination) {
@@ -77,174 +47,173 @@ async function moveFile(source, destination) {
   }
 }
 
-async function readEntries(dir) {
-  const entries = await readdir(dir, { withFileTypes: true });
-  const result = [];
-
-  for (const entry of entries) {
-    if (entry.name.startsWith('.')) continue;
-    const fullPath = path.join(dir, entry.name);
-    const stats = await stat(fullPath);
-    result.push({ entry, fullPath, stats });
-  }
-
-  return result;
-}
-
-async function buildGroups() {
+async function readInboxImages() {
   await mkdir(inboxDir, { recursive: true });
   await mkdir(worksDir, { recursive: true });
 
-  const entries = await readEntries(inboxDir);
-  const rootImages = entries.filter((item) => item.entry.isFile() && isImage(item.entry.name));
-  const rootInfo = entries.find((item) => item.entry.isFile() && item.entry.name.toLowerCase() === 'info.json');
-  const folders = entries.filter((item) => item.entry.isDirectory());
-  const groups = [];
+  const entries = await readdir(inboxDir, { withFileTypes: true });
+  const images = [];
 
-  if (rootImages.length) {
-    groups.push({
-      name: formatTimestamp(),
-      sourceDir: inboxDir,
-      images: rootImages,
-      infoFile: rootInfo,
-      removeSourceDir: false,
-    });
+  for (const entry of entries) {
+    if (!entry.isFile() || entry.name.startsWith('.') || !isImage(entry.name)) continue;
+    const fullPath = path.join(inboxDir, entry.name);
+    const stats = await stat(fullPath);
+    images.push({ name: entry.name, fullPath, stats });
   }
 
-  for (const folder of folders) {
-    const children = await readEntries(folder.fullPath);
-    const images = children.filter((item) => item.entry.isFile() && isImage(item.entry.name));
-    if (!images.length) continue;
-
-    groups.push({
-      name: `${formatTimestamp()}-${safeFolderName(folder.entry.name) || 'work'}`,
-      sourceDir: folder.fullPath,
-      images,
-      infoFile: children.find((item) => item.entry.isFile() && item.entry.name.toLowerCase() === 'info.json'),
-      removeSourceDir: true,
-    });
-  }
-
-  return groups;
-}
-
-function decideDestinations(images) {
-  const sorted = [...images].sort((a, b) => {
+  return images.sort((a, b) => {
     const timeDiff = a.stats.mtimeMs - b.stats.mtimeMs;
-    return timeDiff || a.entry.name.localeCompare(b.entry.name, 'ja');
-  });
-  const assigned = new Map();
-  const used = new Set();
-
-  const before = sorted.find((item) => includesAny(item.entry.name, beforeWords));
-  const after = sorted.find((item) => includesAny(item.entry.name, afterWords));
-
-  if (before) {
-    assigned.set(before.fullPath, 'before');
-    used.add(before.fullPath);
-  }
-
-  if (after && !used.has(after.fullPath)) {
-    assigned.set(after.fullPath, 'after');
-    used.add(after.fullPath);
-  }
-
-  if (!before && !after && sorted.length === 1) {
-    assigned.set(sorted[0].fullPath, 'after');
-    used.add(sorted[0].fullPath);
-  }
-
-  if (!before && !after && sorted.length >= 2) {
-    assigned.set(sorted[0].fullPath, 'before');
-    used.add(sorted[0].fullPath);
-    assigned.set(sorted[sorted.length - 1].fullPath, 'after');
-    used.add(sorted[sorted.length - 1].fullPath);
-  }
-
-  let photoCount = 1;
-  return sorted.map((item) => {
-    const ext = path.extname(item.entry.name).toLowerCase();
-    const role = assigned.get(item.fullPath);
-    const basename = role || `photo-${String(photoCount++).padStart(2, '0')}`;
-    return {
-      source: item.fullPath,
-      destinationName: `${basename}${ext}`,
-      originalName: item.entry.name,
-    };
+    return timeDiff || a.name.localeCompare(b.name, 'ja');
   });
 }
 
-async function ensureInfoFile(group, targetDir) {
-  const targetInfo = path.join(targetDir, 'info.json');
+async function nextCaseName() {
+  const entries = await readdir(worksDir, { withFileTypes: true });
+  const pattern = new RegExp(`^${year}-(\\d{3})$`);
+  const numbers = entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name.match(pattern)?.[1])
+    .filter(Boolean)
+    .map(Number);
+  const next = numbers.length ? Math.max(...numbers) + 1 : 1;
+  return `${year}-${String(next).padStart(3, '0')}`;
+}
 
-  if (group.infoFile) {
-    await moveFile(group.infoFile.fullPath, targetInfo);
+function runSips(source, destination) {
+  const result = spawnSync('sips', ['-s', 'format', 'jpeg', source, '--out', destination], {
+    cwd: repoRoot,
+    encoding: 'utf8',
+  });
+
+  if (result.status !== 0) {
+    throw new Error(`画像変換に失敗しました: ${path.basename(source)}\n${result.stderr || result.stdout}`);
+  }
+}
+
+async function createJpegFromImage(image, destination) {
+  const extension = path.extname(image.name).toLowerCase();
+
+  if (convertExtensions.has(extension)) {
+    runSips(image.fullPath, destination);
+    await unlink(image.fullPath);
     return;
   }
 
-  const template = {
-    name: '',
+  await moveFile(image.fullPath, destination);
+}
+
+async function writeInfoJson(targetDir, caseName) {
+  const info = {
+    name: caseName,
     content: '',
     period: '',
     price: '',
   };
-  await writeFile(targetInfo, `${JSON.stringify(template, null, 2)}\n`, 'utf8');
+  await writeFile(path.join(targetDir, 'info.json'), `${JSON.stringify(info, null, 2)}\n`, 'utf8');
 }
 
-async function importGroup(group) {
-  const targetDir = await uniqueWorkDir(group.name);
-  await mkdir(targetDir, { recursive: true });
+function git(args, options = {}) {
+  const result = spawnSync('git', args, {
+    cwd: repoRoot,
+    encoding: 'utf8',
+    ...options,
+  });
 
-  const destinations = decideDestinations(group.images);
-  for (const item of destinations) {
-    await moveFile(item.source, path.join(targetDir, item.destinationName));
+  if (result.status !== 0) {
+    throw new Error(`git ${args.join(' ')} に失敗しました。\n${result.stderr || result.stdout}`);
   }
 
-  await ensureInfoFile(group, targetDir);
+  return result.stdout.trim();
+}
 
-  if (group.removeSourceDir) {
-    await rm(group.sourceDir, { recursive: true, force: true });
+function ensureCleanForPublish() {
+  const status = git(['status', '--short']);
+  const allowed = status
+    .split('\n')
+    .filter(Boolean)
+    .filter((line) => !line.includes('scripts/import-works.mjs') && !line.includes('scripts/施工写真をHPに追加.command'));
+
+  if (allowed.length) {
+    throw new Error(`未コミットの変更があります。先に確認してください。\n${allowed.join('\n')}`);
+  }
+}
+
+async function importImages() {
+  const images = await readInboxImages();
+
+  if (!images.length) {
+    console.log('投入フォルダに画像がありません。');
+    console.log(`写真をここに入れてください: ${inboxDir}`);
+    return [];
   }
 
-  const relativeTarget = path.relative(repoRoot, targetDir);
-  if (!process.env.WORKS_SKIP_GIT_ADD) {
-    spawnSync('git', ['add', relativeTarget], { cwd: repoRoot, stdio: 'ignore' });
+  assertCommand('sips');
+
+  const imported = [];
+  for (const image of images) {
+    const caseName = await nextCaseName();
+    const targetDir = path.join(worksDir, caseName);
+    await mkdir(targetDir, { recursive: true });
+
+    const targetImage = path.join(targetDir, 'after.jpg');
+    await createJpegFromImage(image, targetImage);
+    await writeInfoJson(targetDir, caseName);
+
+    imported.push({ caseName, sourceName: image.name, targetDir });
+    if (!process.env.WORKS_SKIP_GIT_ADD) {
+      git(['add', path.relative(repoRoot, targetDir)]);
+    }
   }
 
-  return { targetDir, destinations };
+  return imported;
+}
+
+async function publishChanges(imported) {
+  if (!imported.length) return;
+
+  git(['add', 'works']);
+  const message = `Add works photos ${imported.map((item) => item.caseName).join(', ')}`;
+  git(['commit', '-m', message], { stdio: 'inherit' });
+  git(['push', 'origin', 'main'], { stdio: 'inherit' });
 }
 
 async function main() {
-  const groups = await buildGroups();
-
-  if (!groups.length) {
-    console.log('投入フォルダに画像がありません。');
-    console.log(`写真をここに入れてください: ${inboxDir}`);
-    return;
+  if (publish && !process.env.WORKS_SKIP_CLEAN_CHECK) {
+    ensureCleanForPublish();
   }
 
-  console.log(`投入フォルダ: ${inboxDir}`);
-  console.log('');
+  const imported = await importImages();
 
-  for (const group of groups) {
-    const result = await importGroup(group);
-    console.log(`追加しました: ${path.relative(repoRoot, result.targetDir)}`);
-    for (const file of result.destinations) {
-      console.log(`  ${file.originalName} -> ${file.destinationName}`);
-    }
+  for (const item of imported) {
+    console.log(`追加しました: works/${item.caseName}/after.jpg`);
+    console.log(`  元画像: ${item.sourceName}`);
+  }
+
+  if (!imported.length) return;
+
+  if (publish) {
+    await publishChanges(imported);
     console.log('');
-  }
-
-  if (process.env.WORKS_SKIP_GIT_ADD) {
+    console.log('GitHub Pagesへ反映するための push まで完了しました。');
+  } else if (process.env.WORKS_SKIP_GIT_ADD) {
+    console.log('');
     console.log('テスト実行のため、Git追加はスキップしました。');
   } else {
+    console.log('');
     console.log('Git管理対象へ追加済みです。');
-    console.log('内容確認後、Codexに「コミットしてプッシュ」と依頼してください。');
+    console.log('公開まで行う場合は、次を実行してください:');
+    console.log('node scripts/import-works.mjs --publish');
   }
 }
 
-main().catch((error) => {
-  console.error('取り込みに失敗しました。');
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .catch((error) => {
+    console.error('取り込みに失敗しました。');
+    console.error(error.message || error);
+    process.exitCode = 1;
+  })
+  .finally(async () => {
+    if (existsSync(tmpWorkDir)) {
+      await rm(tmpWorkDir, { recursive: true, force: true });
+    }
+  });
