@@ -753,9 +753,26 @@ button {
   margin-bottom: 28px;
 }
 
+.maps-buttons .is-hidden {
+  display: none;
+}
+
+.maps-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 12px 18px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  font-size: 14px;
+  background: #fff;
+}
+
 .maps-embed {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  min-height: 300px;
+  height: clamp(300px, 55vw, 430px);
   background: var(--color-bg-gray);
   position: relative;
   overflow: hidden;
@@ -1315,19 +1332,18 @@ button {
     </p>
 
     <div class="maps-buttons">
-      <!-- ↓ Google口コミURLに差し替え -->
-      <a href="#" class="btn btn-outline" id="reviewsBtn">★ Google口コミを見る</a>
-      <!-- ↓ Googleマップ共有URLに差し替え -->
-      <a href="#" class="btn btn-outline" id="mapBtn">📍 Googleマップで見る</a>
+      <!-- URL差し替え箇所: 下部JSの GOOGLE_REVIEWS_URL にGoogle口コミURLを入れる -->
+      <a href="#" class="btn btn-outline is-hidden" id="reviewsBtn" target="_blank" rel="noopener noreferrer">★ Google口コミを見る</a>
+      <!-- URL差し替え箇所: 下部JSの GOOGLE_MAP_URL にGoogleマップ店舗ページURLを入れる -->
+      <a href="#" class="btn btn-outline is-hidden" id="mapBtn" target="_blank" rel="noopener noreferrer">📍 Googleマップで見る</a>
+      <div class="maps-status" id="mapsStatus">Google口コミ・地図は準備中です</div>
     </div>
 
-    <div class="maps-embed">
-      <!-- ↓ Googleマップの埋め込みコードをここに差し替え
-           例：<iframe src="https://www.google.com/maps/embed?pb=..." loading="lazy"></iframe>
-      -->
-      <div class="maps-embed-placeholder">
+    <div class="maps-embed" id="mapsEmbed">
+      <!-- iframe差し替え箇所: 下部JSの GOOGLE_MAP_EMBED_SRC にGoogle Maps iframeのsrcを入れる -->
+      <div class="maps-embed-placeholder" id="mapsEmbedPlaceholder">
         <div>📍</div>
-        <div>Googleマップ埋め込みエリア</div>
+        <div>Googleマップは準備中です</div>
       </div>
     </div>
   </div>
@@ -1494,32 +1510,49 @@ document.querySelectorAll('#lineBtnHero, #lineBtnConsult, #lineBtnFixed').forEac
 });
 
 // Googleマップ・口コミURL（差し替え用）
-const GOOGLE_MAP_URL = ''; // ← GoogleマップのURL
-const GOOGLE_REVIEWS_URL = ''; // ← Google口コミのURL
+// TODO: Googleマップ店舗ページURLを入れる
+const GOOGLE_MAP_URL = '';
+// TODO: Googleビジネスプロフィールの口コミページURLを入れる
+const GOOGLE_REVIEWS_URL = '';
+// TODO: Google Maps埋め込みiframeの src="..." の中身を入れる
+const GOOGLE_MAP_EMBED_SRC = '';
 
 const mapBtn = document.getElementById('mapBtn');
 const reviewsBtn = document.getElementById('reviewsBtn');
+const mapsStatus = document.getElementById('mapsStatus');
+const mapsEmbed = document.getElementById('mapsEmbed');
+const mapsEmbedPlaceholder = document.getElementById('mapsEmbedPlaceholder');
 
-if (mapBtn) {
-  mapBtn.addEventListener('click', (e) => {
-    if (!GOOGLE_MAP_URL) {
-      e.preventDefault();
-      alert('GoogleマップのURLは現在設定中です。');
-    } else {
-      mapBtn.href = GOOGLE_MAP_URL;
-    }
-  });
+function setupExternalLink(button, url) {
+  if (!button) return false;
+  if (!url) {
+    button.classList.add('is-hidden');
+    return false;
+  }
+
+  button.href = url;
+  button.classList.remove('is-hidden');
+  return true;
 }
 
-if (reviewsBtn) {
-  reviewsBtn.addEventListener('click', (e) => {
-    if (!GOOGLE_REVIEWS_URL) {
-      e.preventDefault();
-      alert('Google口コミページは現在設定中です。');
-    } else {
-      reviewsBtn.href = GOOGLE_REVIEWS_URL;
-    }
-  });
+const hasReviewsUrl = setupExternalLink(reviewsBtn, GOOGLE_REVIEWS_URL);
+const hasMapUrl = setupExternalLink(mapBtn, GOOGLE_MAP_URL);
+
+if (mapsStatus && (hasReviewsUrl || hasMapUrl)) {
+  mapsStatus.classList.add('is-hidden');
+}
+
+if (mapsEmbed && GOOGLE_MAP_EMBED_SRC) {
+  const iframe = document.createElement('iframe');
+  iframe.src = GOOGLE_MAP_EMBED_SRC;
+  iframe.loading = 'lazy';
+  iframe.referrerPolicy = 'no-referrer-when-downgrade';
+  iframe.allowFullscreen = true;
+  iframe.setAttribute('aria-label', 'Googleマップ');
+  mapsEmbed.innerHTML = '';
+  mapsEmbed.appendChild(iframe);
+} else if (mapsEmbedPlaceholder) {
+  mapsEmbedPlaceholder.classList.remove('is-hidden');
 }
 
 // スクロール時にヘッダーへ影
