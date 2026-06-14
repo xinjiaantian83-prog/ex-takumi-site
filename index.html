@@ -32,6 +32,11 @@
     "addressRegion": "愛媛県",
     "addressCountry": "JP"
   },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "12"
+  },
   "areaServed": ["松山市", "伊予郡松前町", "伊予郡砥部町", "伊予市", "東温市"]
 }
 </script>
@@ -772,6 +777,30 @@ button {
   background: #fff;
 }
 
+.maps-rating {
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text-sub);
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.maps-rating-stars {
+  display: block;
+  color: var(--color-accent-wood);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.maps-rating-score {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
 .maps-embed {
   width: 100%;
   min-height: 300px;
@@ -1348,6 +1377,11 @@ button {
       実際にご利用いただいたお客様のGoogle口コミです。地図からのご来店もどうぞ。
     </p>
 
+    <div class="maps-rating" aria-label="Google口コミ評価 4.7 12件">
+      <span class="maps-rating-stars">★★★★★</span>
+      <span class="maps-rating-score">4.7（12件）</span>
+    </div>
+
     <div class="maps-buttons">
       <!-- URL差し替え箇所: 下部JSの GOOGLE_REVIEWS_URL にGoogle口コミURLを入れる -->
       <a href="#" class="btn btn-outline is-hidden" id="reviewsBtn" target="_blank" rel="noopener noreferrer">★ Google口コミを見る</a>
@@ -1517,18 +1551,13 @@ function handleSubmit(e) {
   return false;
 }
 
-// LINE導線（URLが未設定なら案内を出す）
-const LINE_URL = ''; // ← LINE公式アカウントのURLを入れる
+// LINE導線
+const LINE_URL = 'https://line.me/R/ti/p/@953wnidc';
 
 document.querySelectorAll('#lineBtnHero, #lineBtnConsult, #lineBtnFixed').forEach((el) => {
-  el.addEventListener('click', (e) => {
-    if (!LINE_URL) {
-      e.preventDefault();
-      alert('LINEのURLは現在設定中です。お電話またはフォームからお問い合わせください。');
-    } else {
-      el.href = LINE_URL;
-    }
-  });
+  el.href = LINE_URL;
+  el.target = '_blank';
+  el.rel = 'noopener noreferrer';
 });
 
 // Googleマップ・口コミURL（差し替え用）
