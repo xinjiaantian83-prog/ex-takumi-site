@@ -1700,6 +1700,7 @@ window.addEventListener('scroll', () => {
 
 // 施工事例の自動読み込み・写真拡大表示
 const worksGrid = document.getElementById('worksGrid');
+const worksManifestUrl = 'works/manifest.json';
 const worksApiUrl = 'https://api.github.com/repos/xinjiaantian83-prog/ex-takumi-site/contents/works?ref=main';
 const imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 const photoModal = document.getElementById('photoModal');
@@ -1778,7 +1779,7 @@ function getWorkPhotos(files) {
 
 function renderWorkCard(work) {
   const photoHtml = work.photos.map((photo) => {
-    const src = photo.file.download_url || photo.file.html_url || '';
+    const src = photo.src || photo.file?.download_url || photo.file?.html_url || '';
     const label = photo.label ? `<span class="work-photo-tag">${escapeHtml(photo.label)}</span>` : '';
     const alt = photo.label ? `${work.name} ${photo.label}` : work.name;
 
@@ -1823,6 +1824,24 @@ function renderWorkCard(work) {
 async function loadWorks() {
   if (!worksGrid) return;
 
+  try {
+    const works = await fetchJson(worksManifestUrl);
+
+    const visibleWorks = works.filter((work) => work.photos.length > 0);
+
+    if (!visibleWorks.length) {
+      worksGrid.innerHTML = '<div class="works-loading">施工写真は準備中です。works/ に案件フォルダを追加すると自動表示されます。</div>';
+      return;
+    }
+
+    worksGrid.innerHTML = visibleWorks.map(renderWorkCard).join('');
+  } catch (error) {
+    console.warn('施工事例manifestを読み込めませんでした:', error);
+    await loadWorksFromGitHubApi();
+  }
+}
+
+async function loadWorksFromGitHubApi() {
   try {
     const rootItems = await fetchJson(worksApiUrl);
     const folders = rootItems

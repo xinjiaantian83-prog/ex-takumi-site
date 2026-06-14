@@ -4,6 +4,7 @@ import {
   copyFile,
   mkdir,
   readdir,
+  readFile,
   rename,
   rm,
   stat,
@@ -21,6 +22,7 @@ const year = process.env.WORKS_YEAR || String(new Date().getFullYear());
 const publish = process.argv.includes('--publish') || process.env.WORKS_PUBLISH === '1';
 const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif']);
 const convertExtensions = new Set(['.heic', '.heif', '.png', '.webp']);
+const displayImageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 const tmpWorkDir = mkdtempSync(path.join(tmpdir(), 'ex-takumi-works-'));
 
 function isImage(name) {
@@ -112,6 +114,62 @@ async function writeInfoJson(targetDir, caseName) {
   await writeFile(path.join(targetDir, 'info.json'), `${JSON.stringify(info, null, 2)}\n`, 'utf8');
 }
 
+async function readWorkInfo(folderPath, folderName) {
+  try {
+    const raw = await readFile(path.join(folderPath, 'info.json'), 'utf8');
+    return JSON.parse(raw);
+  } catch {
+    return {
+      name: folderName,
+      content: '',
+      period: '',
+      price: '',
+    };
+  }
+}
+
+async function buildWorkManifest() {
+  await mkdir(worksDir, { recursive: true });
+  const entries = await readdir(worksDir, { withFileTypes: true });
+  const folders = entries
+    .filter((entry) => entry.isDirectory())
+    .sort((a, b) => b.name.localeCompare(a.name, 'ja'));
+  const manifest = [];
+
+  for (const folder of folders) {
+    const folderPath = path.join(worksDir, folder.name);
+    const files = await readdir(folderPath, { withFileTypes: true });
+    const images = files
+      .filter((file) => file.isFile() && displayImageExtensions.has(path.extname(file.name).toLowerCase()))
+      .map((file) => file.name)
+      .sort((a, b) => a.localeCompare(b, 'ja'));
+    const before = images.find((name) => /^before\./i.test(name));
+    const after = images.find((name) => /^after\./i.test(name));
+    const orderedImages = [
+      before ? { label: '施工前', name: before } : null,
+      after ? { label: '施工後', name: after } : null,
+      ...images
+        .filter((name) => name !== before && name !== after)
+        .map((name) => ({ label: '', name })),
+    ].filter(Boolean);
+
+    if (!orderedImages.length) continue;
+
+    const info = await readWorkInfo(folderPath, folder.name);
+    manifest.push({
+      name: info.name || info.title || info.content || info.work || folder.name,
+      info,
+      photos: orderedImages.map((image) => ({
+        label: image.label,
+        src: `works/${folder.name}/${image.name}`,
+      })),
+    });
+  }
+
+  await writeFile(path.join(worksDir, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+  return manifest;
+}
+
 function git(args, options = {}) {
   const result = spawnSync('git', args, {
     cwd: repoRoot,
@@ -183,13 +241,22 @@ async function main() {
   }
 
   const imported = await importImages();
+  const manifest = await buildWorkManifest();
+  if (!process.env.WORKS_SKIP_GIT_ADD) {
+    git(['add', path.relative(repoRoot, path.join(worksDir, 'manifest.json'))]);
+  }
 
   for (const item of imported) {
     console.log(`追加しました: works/${item.caseName}/after.jpg`);
     console.log(`  元画像: ${item.sourceName}`);
   }
 
-  if (!imported.length) return;
+  console.log(`施工事例manifestを更新しました: ${manifest.length}件`);
+
+  if (!imported.length) {
+    console.log('追加写真はありませんでした。');
+    return;
+  }
 
   if (publish) {
     await publishChanges(imported);
