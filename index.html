@@ -1588,10 +1588,20 @@ function getWorkPhotos(files) {
   const after = findImage(files, 'after');
 
   if (before || after) {
-    return [
+    const beforeAfterPhotos = [
       before ? { label: '施工前', file: before } : null,
       after ? { label: '施工後', file: after } : null,
     ].filter(Boolean);
+
+    const otherPhotos = files
+      .filter((file) => {
+        const name = file.name.toLowerCase();
+        return file.type === 'file' && isImageFile(file.name) && !name.startsWith('before.') && !name.startsWith('after.');
+      })
+      .sort((a, b) => a.name.localeCompare(b.name, 'ja'))
+      .map((file) => ({ label: '', file }));
+
+    return [...beforeAfterPhotos, ...otherPhotos];
   }
 
   return files
