@@ -371,12 +371,13 @@ button {
 .works-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 28px;
 }
 
 .work-card {
   background: #fff;
   overflow: hidden;
+  border: 1px solid var(--color-border);
   transition: transform 0.2s;
 }
 
@@ -384,18 +385,35 @@ button {
   transform: translateY(-2px);
 }
 
-.work-image {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background-color: var(--color-bg-gray);
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  overflow: hidden;
+.work-photo-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--color-border);
 }
 
-/* 画像未設定でも崩れない用のダミー */
-.work-image::after {
+.work-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: none;
+  background: var(--color-bg-gray);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.work-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-photo[data-empty="true"] {
+  cursor: default;
+}
+
+.work-photo[data-empty="true"]::before {
   content: "PHOTO";
   position: absolute;
   inset: 0;
@@ -404,14 +422,25 @@ button {
   justify-content: center;
   color: #b8b1a4;
   font-family: var(--font-en);
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.3em;
   background: linear-gradient(135deg, #ecebe7 0%, #d8d5ce 100%);
-  z-index: -1;
+}
+
+.work-photo-label {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background: rgba(26, 26, 26, 0.82);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
 }
 
 .work-info {
-  padding: 16px 4px;
+  padding: 22px 20px 20px;
 }
 
 .work-area {
@@ -423,9 +452,80 @@ button {
 }
 
 .work-text {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--color-text);
-  font-weight: 500;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.work-detail-list {
+  display: grid;
+  gap: 10px;
+}
+
+.work-detail {
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+  font-size: 13px;
+}
+
+.work-detail dt {
+  color: var(--color-accent-wood);
+  font-weight: 700;
+}
+
+.work-detail dd {
+  color: var(--color-text-sub);
+}
+
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: rgba(26, 26, 26, 0.86);
+}
+
+.photo-modal.show {
+  display: flex;
+}
+
+.photo-modal-inner {
+  width: min(100%, 980px);
+}
+
+.photo-modal img {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  background: #fff;
+}
+
+.photo-modal-caption {
+  margin-top: 12px;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+}
+
+.photo-modal-close {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
 }
 
 /* ============================================
@@ -893,8 +993,12 @@ button {
   }
 
   .works-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 28px;
+  }
+
+  .work-photo-pair {
+    grid-template-columns: 1fr 1fr;
   }
 
   .apps-grid {
@@ -999,54 +1103,104 @@ button {
     </p>
 
     <div class="works-grid">
-      <!-- カード1 -->
-      <div class="work-card">
-        <div class="work-image" style="background-image: url('');"></div>
+      <!--
+        施工事例を追加する場合:
+        1. article.work-card をコピー
+        2. data-full と img src に写真パスを入れる
+        3. 地域・工事内容・工期・参考価格帯を変更
+      -->
+      <article class="work-card">
+        <div class="work-photo-pair">
+          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工前写真を拡大">
+            <span class="work-photo-label">施工前</span>
+          </button>
+          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工後写真を拡大">
+            <span class="work-photo-label">施工後</span>
+          </button>
+        </div>
         <div class="work-info">
           <div class="work-area">MATSUYAMA</div>
-          <div class="work-text">松山市 / カーポート施工</div>
+          <div class="work-text">松山市 / 2台用カーポート施工</div>
+          <dl class="work-detail-list">
+            <div class="work-detail">
+              <dt>工事内容</dt>
+              <dd>既存土間に合わせた2台用カーポート新設</dd>
+            </div>
+            <div class="work-detail">
+              <dt>工期</dt>
+              <dd>約1日</dd>
+            </div>
+            <div class="work-detail">
+              <dt>参考価格帯</dt>
+              <dd>40万〜70万円台</dd>
+            </div>
+          </dl>
         </div>
-      </div>
-      <!-- カード2 -->
-      <div class="work-card">
-        <div class="work-image" style="background-image: url('');"></div>
+      </article>
+
+      <article class="work-card">
+        <div class="work-photo-pair">
+          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工前写真を拡大">
+            <span class="work-photo-label">施工前</span>
+          </button>
+          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工後写真を拡大">
+            <span class="work-photo-label">施工後</span>
+          </button>
+        </div>
         <div class="work-info">
           <div class="work-area">MASAKI</div>
-          <div class="work-text">伊予郡松前町 / カーポート施工</div>
+          <div class="work-text">伊予郡松前町 / 片側支持カーポート施工</div>
+          <dl class="work-detail-list">
+            <div class="work-detail">
+              <dt>工事内容</dt>
+              <dd>駐車スペースに合わせた片側支持タイプの新設</dd>
+            </div>
+            <div class="work-detail">
+              <dt>工期</dt>
+              <dd>約1日</dd>
+            </div>
+            <div class="work-detail">
+              <dt>参考価格帯</dt>
+              <dd>25万〜50万円台</dd>
+            </div>
+          </dl>
         </div>
-      </div>
-      <!-- カード3 -->
-      <div class="work-card">
-        <div class="work-image" style="background-image: url('');"></div>
+      </article>
+
+      <article class="work-card">
+        <div class="work-photo-pair">
+          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工前写真を拡大">
+            <span class="work-photo-label">施工前</span>
+          </button>
+          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工後写真を拡大">
+            <span class="work-photo-label">施工後</span>
+          </button>
+        </div>
         <div class="work-info">
           <div class="work-area">TOBE</div>
-          <div class="work-text">伊予郡砥部町 / カーポート施工</div>
+          <div class="work-text">伊予郡砥部町 / 土間まわり調整を含む施工</div>
+          <dl class="work-detail-list">
+            <div class="work-detail">
+              <dt>工事内容</dt>
+              <dd>勾配・柱位置を確認しながらカーポートを新設</dd>
+            </div>
+            <div class="work-detail">
+              <dt>工期</dt>
+              <dd>約1〜2日</dd>
+            </div>
+            <div class="work-detail">
+              <dt>参考価格帯</dt>
+              <dd>35万〜80万円台</dd>
+            </div>
+          </dl>
         </div>
-      </div>
-      <!-- カード4 -->
-      <div class="work-card">
-        <div class="work-image" style="background-image: url('');"></div>
-        <div class="work-info">
-          <div class="work-area">IYO</div>
-          <div class="work-text">伊予市 / カーポート施工</div>
-        </div>
-      </div>
-      <!-- カード5 -->
-      <div class="work-card">
-        <div class="work-image" style="background-image: url('');"></div>
-        <div class="work-info">
-          <div class="work-area">TOON</div>
-          <div class="work-text">東温市 / カーポート施工</div>
-        </div>
-      </div>
-      <!-- カード6 -->
-      <div class="work-card">
-        <div class="work-image" style="background-image: url('');"></div>
-        <div class="work-info">
-          <div class="work-area">MATSUYAMA</div>
-          <div class="work-text">松山市 / カーポート施工</div>
-        </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
@@ -1397,6 +1551,14 @@ button {
   <a href="#" class="cta-line icon-line" id="lineBtnFixed">LINE相談</a>
 </div>
 
+<div class="photo-modal" id="photoModal" aria-hidden="true">
+  <button class="photo-modal-close" type="button" id="photoModalClose" aria-label="閉じる">×</button>
+  <div class="photo-modal-inner">
+    <img id="photoModalImg" src="" alt="">
+    <div class="photo-modal-caption" id="photoModalCaption"></div>
+  </div>
+</div>
+
 <script>
 /* ============================================
    JavaScript
@@ -1463,6 +1625,43 @@ window.addEventListener('scroll', () => {
   } else {
     header.style.boxShadow = 'none';
   }
+});
+
+// 施工事例写真の拡大表示
+const photoModal = document.getElementById('photoModal');
+const photoModalImg = document.getElementById('photoModalImg');
+const photoModalCaption = document.getElementById('photoModalCaption');
+const photoModalClose = document.getElementById('photoModalClose');
+
+function closePhotoModal() {
+  photoModal.classList.remove('show');
+  photoModal.setAttribute('aria-hidden', 'true');
+  photoModalImg.src = '';
+  photoModalImg.alt = '';
+  photoModalCaption.textContent = '';
+}
+
+document.querySelectorAll('.work-photo').forEach((button) => {
+  button.addEventListener('click', () => {
+    if (button.dataset.empty === 'true') return;
+    const src = button.dataset.full || button.querySelector('img')?.getAttribute('src');
+    if (!src) return;
+    const label = button.querySelector('.work-photo-label')?.textContent || '施工写真';
+    const title = button.closest('.work-card')?.querySelector('.work-text')?.textContent || '';
+    photoModalImg.src = src;
+    photoModalImg.alt = `${title} ${label}`;
+    photoModalCaption.textContent = `${title} / ${label}`;
+    photoModal.classList.add('show');
+    photoModal.setAttribute('aria-hidden', 'false');
+  });
+});
+
+photoModalClose.addEventListener('click', closePhotoModal);
+photoModal.addEventListener('click', (e) => {
+  if (e.target === photoModal) closePhotoModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closePhotoModal();
 });
 </script>
 
