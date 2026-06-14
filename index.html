@@ -409,6 +409,18 @@ button {
   object-fit: cover;
 }
 
+.work-photo-tag {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 5px 10px;
+  background: rgba(26, 25, 22, 0.72);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 .work-photo[data-empty="true"] {
   cursor: default;
 }
@@ -430,6 +442,16 @@ button {
 .work-info {
   padding: 12px 16px 14px;
   background: #fff;
+}
+
+.works-loading {
+  padding: 32px 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-gray);
+  color: var(--color-text-light);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.8;
 }
 
 .work-detail-list {
@@ -1071,7 +1093,7 @@ button {
 
 <!-- ============================================
      施工事例
-     ※画像は .work-image の background-image を差し替え
+     ※ works/ 配下の案件フォルダを読み込んで自動表示
 ============================================ -->
 <section class="section works" id="works">
   <div class="container">
@@ -1082,89 +1104,8 @@ button {
       随時更新していきます。
     </p>
 
-    <div class="works-grid">
-      <!--
-        施工事例を追加する場合:
-        1. article.work-card をコピー
-        2. .work-photo を必要な枚数だけ追加
-        3. data-empty を外し、data-full と img src に写真パスを入れる
-        4. 施工内容・工期・参考価格帯を変更
-        ※ 写真だけ掲載したい場合は .work-info を削除してもOK
-      -->
-      <article class="work-card">
-        <div class="work-photo-grid">
-          <!-- 写真確定後に data-empty を外し、data-full / img src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
-          <!-- 写真を増やす場合はこの button をコピー -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
-        </div>
-        <div class="work-info">
-          <dl class="work-detail-list">
-            <div class="work-detail">
-              <dt>施工内容</dt>
-              <dd>2台用カーポート新設</dd>
-            </div>
-            <div class="work-detail">
-              <dt>工期</dt>
-              <dd>約1日</dd>
-            </div>
-            <div class="work-detail">
-              <dt>参考価格帯</dt>
-              <dd>40万〜70万円台</dd>
-            </div>
-          </dl>
-        </div>
-      </article>
-
-      <article class="work-card">
-        <div class="work-photo-grid">
-          <!-- 写真確定後に data-empty を外し、data-full / img src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
-          <!-- 写真を増やす場合はこの button をコピー -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
-        </div>
-        <div class="work-info">
-          <dl class="work-detail-list">
-            <div class="work-detail">
-              <dt>施工内容</dt>
-              <dd>片側支持カーポート新設</dd>
-            </div>
-            <div class="work-detail">
-              <dt>工期</dt>
-              <dd>約1日</dd>
-            </div>
-            <div class="work-detail">
-              <dt>参考価格帯</dt>
-              <dd>25万〜50万円台</dd>
-            </div>
-          </dl>
-        </div>
-      </article>
-
-      <article class="work-card">
-        <div class="work-photo-grid">
-          <!-- 写真確定後に data-empty を外し、data-full / img src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
-          <!-- 写真を増やす場合はこの button をコピー -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
-        </div>
-        <div class="work-info">
-          <dl class="work-detail-list">
-            <div class="work-detail">
-              <dt>施工内容</dt>
-              <dd>土間まわり調整を含むカーポート新設</dd>
-            </div>
-            <div class="work-detail">
-              <dt>工期</dt>
-              <dd>約1〜2日</dd>
-            </div>
-            <div class="work-detail">
-              <dt>参考価格帯</dt>
-              <dd>35万〜80万円台</dd>
-            </div>
-          </dl>
-        </div>
-      </article>
+    <div class="works-grid" id="worksGrid" aria-live="polite">
+      <div class="works-loading">施工写真を読み込み中です。</div>
     </div>
   </div>
 </section>
@@ -1591,11 +1532,155 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// 施工事例写真の拡大表示
+// 施工事例の自動読み込み・写真拡大表示
+const worksGrid = document.getElementById('worksGrid');
+const worksApiUrl = 'https://api.github.com/repos/xinjiaantian83-prog/ex-takumi-site/contents/works?ref=main';
+const imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 const photoModal = document.getElementById('photoModal');
 const photoModalImg = document.getElementById('photoModalImg');
 const photoModalCaption = document.getElementById('photoModalCaption');
 const photoModalClose = document.getElementById('photoModalClose');
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function isImageFile(name) {
+  const extension = name.split('.').pop()?.toLowerCase();
+  return imageExtensions.includes(extension);
+}
+
+function findImage(files, baseName) {
+  return files.find((file) => {
+    const name = file.name.toLowerCase();
+    return imageExtensions.some((extension) => name === `${baseName}.${extension}`);
+  });
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url, { headers: { Accept: 'application/vnd.github+json' } });
+  if (!response.ok) {
+    const error = new Error(`Request failed: ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+  return response.json();
+}
+
+async function fetchWorkInfo(infoFile) {
+  if (!infoFile?.download_url) return {};
+
+  try {
+    return await fetchJson(infoFile.download_url);
+  } catch (error) {
+    console.warn('施工事例情報を読み込めませんでした:', infoFile.path, error);
+    return {};
+  }
+}
+
+function getWorkPhotos(files) {
+  const before = findImage(files, 'before');
+  const after = findImage(files, 'after');
+
+  if (before || after) {
+    return [
+      before ? { label: '施工前', file: before } : null,
+      after ? { label: '施工後', file: after } : null,
+    ].filter(Boolean);
+  }
+
+  return files
+    .filter((file) => file.type === 'file' && isImageFile(file.name))
+    .sort((a, b) => a.name.localeCompare(b.name, 'ja'))
+    .map((file) => ({ label: '', file }));
+}
+
+function renderWorkCard(work) {
+  const photoHtml = work.photos.map((photo) => {
+    const src = photo.file.download_url || photo.file.html_url || '';
+    const label = photo.label ? `<span class="work-photo-tag">${escapeHtml(photo.label)}</span>` : '';
+    const alt = photo.label ? `${work.title} ${photo.label}` : work.title;
+
+    return `
+      <button class="work-photo" type="button" data-full="${escapeHtml(src)}" data-title="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大">
+        <img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy">
+        ${label}
+      </button>
+    `;
+  }).join('');
+
+  const infoRows = [
+    ['施工内容', work.info.content || work.info.work || work.info.title],
+    ['工期', work.info.period],
+    ['参考価格帯', work.info.price || work.info.priceRange],
+  ].filter(([, value]) => value);
+
+  const infoHtml = infoRows.length ? `
+    <div class="work-info">
+      <dl class="work-detail-list">
+        ${infoRows.map(([label, value]) => `
+          <div class="work-detail">
+            <dt>${escapeHtml(label)}</dt>
+            <dd>${escapeHtml(value)}</dd>
+          </div>
+        `).join('')}
+      </dl>
+    </div>
+  ` : '';
+
+  return `
+    <article class="work-card">
+      <div class="work-photo-grid">
+        ${photoHtml}
+      </div>
+      ${infoHtml}
+    </article>
+  `;
+}
+
+async function loadWorks() {
+  if (!worksGrid) return;
+
+  try {
+    const rootItems = await fetchJson(worksApiUrl);
+    const folders = rootItems
+      .filter((item) => item.type === 'dir')
+      .sort((a, b) => b.name.localeCompare(a.name, 'ja'));
+
+    const works = await Promise.all(folders.map(async (folder) => {
+      const files = await fetchJson(folder.url);
+      const photos = getWorkPhotos(files);
+      const info = await fetchWorkInfo(files.find((file) => file.name.toLowerCase() === 'info.json'));
+
+      return {
+        title: info.content || info.work || info.title || folder.name,
+        info,
+        photos,
+      };
+    }));
+
+    const visibleWorks = works.filter((work) => work.photos.length > 0);
+
+    if (!visibleWorks.length) {
+      worksGrid.innerHTML = '<div class="works-loading">施工写真は準備中です。works/ に案件フォルダを追加すると自動表示されます。</div>';
+      return;
+    }
+
+    worksGrid.innerHTML = visibleWorks.map(renderWorkCard).join('');
+  } catch (error) {
+    console.warn('施工事例を読み込めませんでした:', error);
+    if (error.status === 404) {
+      worksGrid.innerHTML = '<div class="works-loading">施工写真は準備中です。works/ に案件フォルダを追加すると自動表示されます。</div>';
+      return;
+    }
+    worksGrid.innerHTML = '<div class="works-loading">施工写真を読み込めませんでした。時間をおいて再度ご確認ください。</div>';
+  }
+}
 
 function closePhotoModal() {
   photoModal.classList.remove('show');
@@ -1605,18 +1690,17 @@ function closePhotoModal() {
   photoModalCaption.textContent = '';
 }
 
-document.querySelectorAll('.work-photo').forEach((button) => {
-  button.addEventListener('click', () => {
-    if (button.dataset.empty === 'true') return;
-    const src = button.dataset.full || button.querySelector('img')?.getAttribute('src');
-    if (!src) return;
-    const title = button.closest('.work-card')?.querySelector('.work-detail dd')?.textContent || '施工写真';
-    photoModalImg.src = src;
-    photoModalImg.alt = title;
-    photoModalCaption.textContent = title;
-    photoModal.classList.add('show');
-    photoModal.setAttribute('aria-hidden', 'false');
-  });
+document.addEventListener('click', (e) => {
+  const button = e.target.closest('.work-photo');
+  if (!button) return;
+  const src = button.dataset.full || button.querySelector('img')?.getAttribute('src');
+  if (!src) return;
+  const title = button.dataset.title || button.closest('.work-card')?.querySelector('.work-detail dd')?.textContent || '施工写真';
+  photoModalImg.src = src;
+  photoModalImg.alt = title;
+  photoModalCaption.textContent = title;
+  photoModal.classList.add('show');
+  photoModal.setAttribute('aria-hidden', 'false');
 });
 
 photoModalClose.addEventListener('click', closePhotoModal);
@@ -1626,6 +1710,8 @@ photoModal.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closePhotoModal();
 });
+
+loadWorks();
 </script>
 
 </body>
