@@ -123,7 +123,7 @@ function git(args, options = {}) {
     throw new Error(`git ${args.join(' ')} に失敗しました。\n${result.stderr || result.stdout}`);
   }
 
-  return result.stdout.trim();
+  return (result.stdout || '').trim();
 }
 
 function ensureCleanForPublish() {
