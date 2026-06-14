@@ -385,7 +385,7 @@ button {
   transform: translateY(-2px);
 }
 
-.work-photo-pair {
+.work-photo-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1px;
@@ -427,35 +427,8 @@ button {
   background: linear-gradient(135deg, #ecebe7 0%, #d8d5ce 100%);
 }
 
-.work-photo-label {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  background: rgba(26, 26, 26, 0.82);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 5px 10px;
-}
-
 .work-info {
   padding: 22px 20px 20px;
-}
-
-.work-area {
-  font-family: var(--font-en);
-  font-size: 11px;
-  color: var(--color-accent-wood);
-  letter-spacing: 0.15em;
-  margin-bottom: 4px;
-}
-
-.work-text {
-  font-size: 17px;
-  color: var(--color-text);
-  font-weight: 700;
-  margin-bottom: 14px;
 }
 
 .work-detail-list {
@@ -997,7 +970,7 @@ button {
     gap: 28px;
   }
 
-  .work-photo-pair {
+  .work-photo-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -1106,27 +1079,23 @@ button {
       <!--
         施工事例を追加する場合:
         1. article.work-card をコピー
-        2. data-full と img src に写真パスを入れる
-        3. 地域・工事内容・工期・参考価格帯を変更
+        2. .work-photo を必要な枚数だけ追加
+        3. data-empty を外し、data-full と img src に写真パスを入れる
+        4. 施工内容・工期・参考価格帯を変更
+        ※ 写真だけ掲載したい場合は .work-info を削除してもOK
       -->
       <article class="work-card">
-        <div class="work-photo-pair">
-          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工前写真を拡大">
-            <span class="work-photo-label">施工前</span>
-          </button>
-          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工後写真を拡大">
-            <span class="work-photo-label">施工後</span>
-          </button>
+        <div class="work-photo-grid">
+          <!-- 写真確定後に data-empty を外し、data-full / img src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
+          <!-- 写真を増やす場合はこの button をコピー -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
         </div>
         <div class="work-info">
-          <div class="work-area">MATSUYAMA</div>
-          <div class="work-text">松山市 / 2台用カーポート施工</div>
           <dl class="work-detail-list">
             <div class="work-detail">
-              <dt>工事内容</dt>
-              <dd>既存土間に合わせた2台用カーポート新設</dd>
+              <dt>施工内容</dt>
+              <dd>2台用カーポート新設</dd>
             </div>
             <div class="work-detail">
               <dt>工期</dt>
@@ -1141,23 +1110,17 @@ button {
       </article>
 
       <article class="work-card">
-        <div class="work-photo-pair">
-          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工前写真を拡大">
-            <span class="work-photo-label">施工前</span>
-          </button>
-          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工後写真を拡大">
-            <span class="work-photo-label">施工後</span>
-          </button>
+        <div class="work-photo-grid">
+          <!-- 写真確定後に data-empty を外し、data-full / img src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
+          <!-- 写真を増やす場合はこの button をコピー -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
         </div>
         <div class="work-info">
-          <div class="work-area">MASAKI</div>
-          <div class="work-text">伊予郡松前町 / 片側支持カーポート施工</div>
           <dl class="work-detail-list">
             <div class="work-detail">
-              <dt>工事内容</dt>
-              <dd>駐車スペースに合わせた片側支持タイプの新設</dd>
+              <dt>施工内容</dt>
+              <dd>片側支持カーポート新設</dd>
             </div>
             <div class="work-detail">
               <dt>工期</dt>
@@ -1172,23 +1135,17 @@ button {
       </article>
 
       <article class="work-card">
-        <div class="work-photo-pair">
-          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工前写真を拡大">
-            <span class="work-photo-label">施工前</span>
-          </button>
-          <!-- 写真確定後に data-empty を外し、data-full / src を差し替え -->
-          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工後写真を拡大">
-            <span class="work-photo-label">施工後</span>
-          </button>
+        <div class="work-photo-grid">
+          <!-- 写真確定後に data-empty を外し、data-full / img src を差し替え -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
+          <!-- 写真を増やす場合はこの button をコピー -->
+          <button class="work-photo" type="button" data-empty="true" data-full="" aria-label="施工写真を拡大"></button>
         </div>
         <div class="work-info">
-          <div class="work-area">TOBE</div>
-          <div class="work-text">伊予郡砥部町 / 土間まわり調整を含む施工</div>
           <dl class="work-detail-list">
             <div class="work-detail">
-              <dt>工事内容</dt>
-              <dd>勾配・柱位置を確認しながらカーポートを新設</dd>
+              <dt>施工内容</dt>
+              <dd>土間まわり調整を含むカーポート新設</dd>
             </div>
             <div class="work-detail">
               <dt>工期</dt>
@@ -1646,11 +1603,10 @@ document.querySelectorAll('.work-photo').forEach((button) => {
     if (button.dataset.empty === 'true') return;
     const src = button.dataset.full || button.querySelector('img')?.getAttribute('src');
     if (!src) return;
-    const label = button.querySelector('.work-photo-label')?.textContent || '施工写真';
-    const title = button.closest('.work-card')?.querySelector('.work-text')?.textContent || '';
+    const title = button.closest('.work-card')?.querySelector('.work-detail dd')?.textContent || '施工写真';
     photoModalImg.src = src;
-    photoModalImg.alt = `${title} ${label}`;
-    photoModalCaption.textContent = `${title} / ${label}`;
+    photoModalImg.alt = title;
+    photoModalCaption.textContent = title;
     photoModal.classList.add('show');
     photoModal.setAttribute('aria-hidden', 'false');
   });
