@@ -218,32 +218,29 @@ button {
 .hero {
   margin-top: 60px;
   position: relative;
-  min-height: 88vh;
+  min-height: 92vh;
   display: flex;
   align-items: center;
-  background: var(--color-bg-soft);
+  background: #1a1714;
   overflow: hidden;
 }
 
-/* ヒーロー背景画像（差し替え用） */
+/* ヒーロー背景画像 */
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url(""); /* ← ここに大判のカーポート写真を入れる */
+  background-image: url("assets/hero/carport-hero.jpg");
   background-size: cover;
-  background-position: center;
-  background-color: #d8d3cb;
-  opacity: 0.85;
+  background-position: 56% center;
+  background-color: #1a1714;
+  opacity: 1;
 }
 
-/* 画像未設定でも崩れないよう、ダミーパターン */
 .hero-bg::before {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(135deg, #d8d3cb 0%, #b8b1a4 100%);
-  z-index: -1;
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .hero-overlay {
@@ -251,9 +248,9 @@ button {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.0) 0%,
-    rgba(255, 255, 255, 0.85) 60%,
-    rgba(255, 255, 255, 0.95) 100%
+    rgba(22, 18, 15, 0.58) 0%,
+    rgba(22, 18, 15, 0.48) 42%,
+    rgba(22, 18, 15, 0.82) 100%
   );
 }
 
@@ -270,32 +267,36 @@ button {
   display: inline-block;
   font-size: 12px;
   letter-spacing: 0.18em;
-  color: var(--color-accent-wood);
-  border: 1px solid var(--color-accent-wood);
+  color: #fff5e7;
+  border: 1px solid rgba(255, 245, 231, 0.72);
+  background: rgba(20, 17, 14, 0.32);
   padding: 6px 14px;
   margin-bottom: 24px;
   font-weight: 500;
 }
 
 .hero-title {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1.4;
   letter-spacing: 0.02em;
   margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.42);
 }
 
 .hero-title .accent {
-  color: var(--color-accent-wood);
-  border-bottom: 3px solid var(--color-accent-wood);
+  color: #f0c58b;
+  border-bottom: 3px solid #f0c58b;
   padding-bottom: 2px;
 }
 
 .hero-sub {
   font-size: 16px;
-  color: var(--color-text-sub);
+  color: rgba(255, 255, 255, 0.92);
   margin-bottom: 32px;
   line-height: 1.9;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.42);
 }
 
 .hero-badges {
@@ -306,12 +307,13 @@ button {
 }
 
 .hero-badge {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.32);
   font-size: 12px;
   padding: 8px 14px;
-  color: var(--color-accent-dark);
+  color: #fff;
   font-weight: 500;
+  backdrop-filter: blur(4px);
 }
 
 .hero-cta {
