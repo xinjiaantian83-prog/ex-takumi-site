@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>施工事例一覧｜カーポート専門店 EXたくみ</title>
+<meta name="description" content="EXた組のカーポート施工事例一覧。愛媛県中予・東予エリアの施工写真を掲載しています。" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;color:#1a1a1a;line-height:1.8;background:#fff}a{text-decoration:none;color:inherit}img{display:block;max-width:100%;height:auto}.header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid #e5e5e5}.header-inner{max-width:1100px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}.logo{font-weight:700}.nav{display:flex;gap:14px;font-size:13px;color:#555}.section{padding:58px 20px}.container{max-width:1100px;margin:0 auto}.label{font-size:12px;letter-spacing:.18em;color:#6b4f3a;margin-bottom:10px}.title{font-size:30px;line-height:1.35;margin-bottom:14px}.lead{color:#555;max-width:720px;margin-bottom:34px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 18px;font-weight:700;border:1px solid #1a1a1a}.btn-line{background:#06c755;color:#fff;border-color:#06c755}.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.works-grid{display:grid;grid-template-columns:1fr;gap:28px}.work-card{border:1px solid #e5e5e5;background:#fff;overflow:hidden}.work-photo-grid{display:grid;gap:2px;background:#e5e5e5}.work-photo{position:relative;width:100%;aspect-ratio:1/1;border:0;background:#f0efed;cursor:zoom-in}.work-photo img{width:100%;height:100%;object-fit:cover}.work-photo-tag{position:absolute;left:12px;bottom:12px;padding:5px 10px;background:rgba(26,25,22,.72);color:#fff;font-size:12px;font-weight:700}.work-info{padding:12px 16px 14px}.work-detail{display:grid;grid-template-columns:74px 1fr;gap:10px;padding:7px 0;border-top:1px solid #eee;font-size:12px}.work-detail:first-child{border-top:0}.work-detail dt{color:#6b4f3a;font-weight:700}.work-detail dd{color:#555}.loading{padding:32px 20px;background:#f0efed;color:#888;text-align:center}.photo-modal{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(26,26,26,.86)}.photo-modal.show{display:flex}.photo-modal-inner{width:min(100%,980px)}.photo-modal img{width:100%;max-height:78vh;object-fit:contain;background:#fff}.photo-modal-caption{margin-top:12px;color:#fff;text-align:center}.photo-modal-close{position:fixed;top:14px;right:14px;width:44px;height:44px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.4);color:#fff;font-size:28px}@media(min-width:768px){.works-grid{grid-template-columns:repeat(2,1fr)}.section{padding:78px 32px}.title{font-size:38px}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="index.html">EXたくみ</a>
+    <nav class="nav">
+      <a href="index.html">トップ</a>
+      <a href="diy.html">DIY応援</a>
+      <a href="materials.html">資材販売</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container">
+    <div class="label">WORKS</div>
+    <h1 class="title">施工事例一覧</h1>
+    <p class="lead">カーポート単体、土間まわり、ビフォーアフターなど、EXた組で施工した写真をまとめています。気になる事例があれば、LINEで写真を送ってご相談ください。</p>
+    <div class="btn-row">
+      <a href="https://line.me/R/ti/p/@953wnidc" class="btn btn-line" target="_blank" rel="noopener noreferrer">LINEで相談する</a>
+      <a href="index.html#contact" class="btn">フォームで相談する</a>
+    </div>
+    <div class="works-grid" id="worksGrid" aria-live="polite" style="margin-top:34px">
+      <div class="loading">施工写真を読み込み中です。</div>
+    </div>
+  </div>
+</main>
+
+<div class="photo-modal" id="photoModal" aria-hidden="true">
+  <button class="photo-modal-close" type="button" id="photoModalClose" aria-label="閉じる">×</button>
+  <div class="photo-modal-inner">
+    <img id="photoModalImg" src="" alt="">
+    <div class="photo-modal-caption" id="photoModalCaption"></div>
+  </div>
+</div>
+
+<script>
+const worksGrid=document.getElementById('worksGrid');const photoModal=document.getElementById('photoModal');const photoModalImg=document.getElementById('photoModalImg');const photoModalCaption=document.getElementById('photoModalCaption');const photoModalClose=document.getElementById('photoModalClose');function escapeHtml(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}function renderWorkCard(work){const photos=work.photos.map(photo=>{const label=photo.label?`<span class="work-photo-tag">${escapeHtml(photo.label)}</span>`:'';const alt=photo.label?`${work.name} ${photo.label}`:work.name;return`<button class="work-photo" type="button" data-full="${escapeHtml(photo.src)}" data-title="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大"><img src="${escapeHtml(photo.src)}" alt="${escapeHtml(alt)}" loading="lazy">${label}</button>`}).join('');const rows=[['案件名',work.info?.name||work.name],['施工内容',work.info?.content||work.info?.work],['工期',work.info?.period],['参考価格帯',work.info?.price||work.info?.priceRange]].filter(([,v])=>v);const info=rows.length?`<div class="work-info"><dl>${rows.map(([l,v])=>`<div class="work-detail"><dt>${escapeHtml(l)}</dt><dd>${escapeHtml(v)}</dd></div>`).join('')}</dl></div>`:'';return`<article class="work-card"><div class="work-photo-grid">${photos}</div>${info}</article>`}async function loadWorks(){try{const res=await fetch('works/manifest.json');if(!res.ok)throw new Error('manifest');const works=await res.json();const visible=works.filter(w=>w.photos&&w.photos.length);worksGrid.innerHTML=visible.length?visible.map(renderWorkCard).join(''):'<div class="loading">施工写真は準備中です。</div>'}catch(e){worksGrid.innerHTML='<div class="loading">施工写真を読み込めませんでした。</div>'}}function closePhotoModal(){photoModal.classList.remove('show');photoModal.setAttribute('aria-hidden','true');photoModalImg.src='';photoModalCaption.textContent=''}document.addEventListener('click',e=>{const button=e.target.closest('.work-photo');if(!button)return;const src=button.dataset.full;if(!src)return;photoModalImg.src=src;photoModalImg.alt=button.dataset.title||'施工写真';photoModalCaption.textContent=button.dataset.title||'施工写真';photoModal.classList.add('show');photoModal.setAttribute('aria-hidden','false')});photoModalClose.addEventListener('click',closePhotoModal);photoModal.addEventListener('click',e=>{if(e.target===photoModal)closePhotoModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closePhotoModal()});loadWorks();
+</script>
+</body>
+</html>

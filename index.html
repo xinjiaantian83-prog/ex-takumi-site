@@ -347,6 +347,17 @@ button {
   color: #fff;
 }
 
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-row .btn {
+  flex: 1 1 220px;
+}
+
 .btn-outline {
   background: transparent;
   color: var(--color-text);
@@ -492,6 +503,11 @@ button {
   color: var(--color-text-sub);
 }
 
+.works-action {
+  margin-top: 30px;
+  text-align: center;
+}
+
 .photo-modal {
   position: fixed;
   inset: 0;
@@ -598,6 +614,51 @@ button {
   font-weight: 600;
   letter-spacing: 0.08em;
   padding: 10px 16px;
+}
+
+/* ============================================
+   総合サイト導線
+============================================ */
+.hub {
+  background: #fff;
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.hub-card {
+  border: 1px solid var(--color-border);
+  background: #fff;
+  padding: 26px 22px;
+}
+
+.hub-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.hub-card-text {
+  color: var(--color-text-sub);
+  font-size: 14px;
+  line-height: 1.9;
+  margin-bottom: 18px;
+}
+
+.hub-card .btn {
+  width: 100%;
+}
+
+.app-feature-list {
+  display: grid;
+  gap: 7px;
+  margin: -4px 0 18px;
+  color: var(--color-text-sub);
+  font-size: 13px;
+  line-height: 1.7;
 }
 
 /* ============================================
@@ -1102,6 +1163,11 @@ button {
     gap: 20px;
   }
 
+  .hub-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
   .reasons-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -1146,11 +1212,12 @@ button {
     </a>
     <nav class="nav-pc">
       <a href="#works">施工事例</a>
+      <a href="diy.html">DIY応援</a>
+      <a href="materials.html">資材販売</a>
+      <a href="#apps">無料アプリ</a>
       <a href="#reasons">選ばれる理由</a>
       <a href="#contact-style">相談について</a>
-      <a href="#area">対応エリア</a>
-      <a href="#company">会社情報</a>
-      <a href="#contact" class="btn btn-outline btn-small">お問い合わせ</a>
+      <a href="#" class="btn btn-line btn-small" id="lineBtnNav">LINE相談</a>
     </nav>
   </div>
 </header>
@@ -1168,9 +1235,8 @@ button {
       <span class="accent">カーポート専門店</span>です。
     </h1>
     <p class="hero-sub">
-      施工1000台超えの職人が、現場目線で提案します。<br />
-      営業マンではなく、実際に施工する人間が直接対応。<br />
-      無理な営業はしません。
+      施工1000台超えの職人が、カーポート施工・DIY相談・資材選びまで現場目線で対応します。<br />
+      営業マンではなく、実際に施工する人間が直接対応。まずはLINEで気軽に相談できます。
     </p>
     <div class="hero-badges">
       <span class="hero-badge">施工1000台超</span>
@@ -1179,8 +1245,8 @@ button {
       <span class="hero-badge">地域密着</span>
     </div>
     <div class="hero-cta">
-      <a href="tel:09028235513" class="btn btn-phone icon-phone">電話で相談する</a>
       <a href="#" class="btn btn-line icon-line" id="lineBtnHero">LINEで気軽に相談</a>
+      <a href="tel:09028235513" class="btn btn-phone icon-phone">電話で相談する</a>
     </div>
   </div>
 </section>
@@ -1192,14 +1258,62 @@ button {
 <section class="section works" id="works">
   <div class="container">
     <div class="section-label">WORKS</div>
-    <h2 class="section-title">カーポート施工事例</h2>
+    <h2 class="section-title">厳選カーポート施工事例</h2>
     <p class="section-lead">
-      対応エリア内で実際に施工させていただいたカーポートです。<br />
-      随時更新していきます。
+      対応エリア内で実際に施工させていただいた代表的なカーポート事例です。<br />
+      全ての施工写真は専用ページでまとめて確認できます。
     </p>
 
-    <div class="works-grid" id="worksGrid" aria-live="polite">
+    <div class="works-grid" id="worksGrid" data-limit="6" aria-live="polite">
       <div class="works-loading">施工写真を読み込み中です。</div>
+    </div>
+
+    <div class="works-action">
+      <a href="works.html" class="btn btn-outline">施工事例をもっと見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     総合サイト導線
+============================================ -->
+<section class="section hub" id="hub">
+  <div class="container">
+    <div class="section-label">LIVING SUPPORT</div>
+    <h2 class="section-title">住まい・DIY・地域情報の総合サポート</h2>
+    <p class="section-lead">
+      EXた組は施工だけでなく、DIY相談、施主支給、資材選び、現場アプリ、地域マップまで広げていくサイトです。迷ったら、まずはLINEで聞いてください。
+    </p>
+
+    <div class="hub-grid">
+      <article class="hub-card">
+        <h3 class="hub-card-title">カーポート専門施工</h3>
+        <p class="hub-card-text">現場職人が直接対応。写真相談から現地確認、施工後の相談まで一貫して対応します。</p>
+        <a href="#contact-style" class="btn btn-outline">相談方法を見る</a>
+      </article>
+
+      <article class="hub-card">
+        <h3 class="hub-card-title">DIY応援</h3>
+        <p class="hub-card-text">自分でできる工事、プロに任せるべき工事を切り分けて、費用を抑える方法を提案します。</p>
+        <a href="diy.html" class="btn btn-outline">DIY応援を見る</a>
+      </article>
+
+      <article class="hub-card">
+        <h3 class="hub-card-title">資材販売</h3>
+        <p class="hub-card-text">防草シート、人工芝、フェンス、宅配ボックスなど、現場目線で使いやすい資材を案内します。</p>
+        <a href="materials.html" class="btn btn-outline">資材販売を見る</a>
+      </article>
+
+      <article class="hub-card">
+        <h3 class="hub-card-title">無料アプリ</h3>
+        <p class="hub-card-text">現場電卓やLIFE MAPなど、現場や地域で役立つアプリも開発・運営しています。</p>
+        <a href="#apps" class="btn btn-outline">アプリを見る</a>
+      </article>
+    </div>
+
+    <div class="btn-row">
+      <a href="#" class="btn btn-line icon-line" id="lineBtnHub">LINEで相談する</a>
+      <a href="tel:09028235513" class="btn btn-phone icon-phone">電話で相談する</a>
     </div>
   </div>
 </section>
@@ -1210,9 +1324,9 @@ button {
 <section class="section apps" id="apps">
   <div class="container">
     <div class="section-label">APPS</div>
-    <h2 class="section-title">無料アプリ</h2>
+    <h2 class="section-title">EXた組が開発・運営する無料アプリ</h2>
     <p class="section-lead">
-      現場や地域で役立つ無料アプリを公開しています。
+      EXた組では施工だけでなく、現場や地域で役立つ無料アプリの開発・運営も行っています。
     </p>
 
     <div class="apps-grid">
@@ -1234,8 +1348,13 @@ button {
       <article class="app-card">
         <h3 class="app-card-title">LIFE MAP</h3>
         <p class="app-card-text">
-          古紙回収ボックス、避難所、AEDを地図で確認できる地域情報アプリ。
+          平時から使える地域マップとして、古紙回収ボックス、避難所、AEDを地図で確認できます。
         </p>
+        <div class="app-feature-list">
+          <span>・古紙回収ボックス検索</span>
+          <span>・避難所検索 / AED検索</span>
+          <span>・家族で共有できる避難所登録機能</span>
+        </div>
         <span class="coming-soon">近日公開</span>
       </article>
 
@@ -1636,7 +1755,7 @@ async function handleSubmit(e) {
 // LINE導線
 const LINE_URL = 'https://line.me/R/ti/p/@953wnidc';
 
-document.querySelectorAll('#lineBtnHero, #lineBtnConsult, #lineBtnFixed').forEach((el) => {
+document.querySelectorAll('#lineBtnNav, #lineBtnHero, #lineBtnHub, #lineBtnConsult, #lineBtnMaterials, #lineBtnFixed').forEach((el) => {
   el.href = LINE_URL;
   el.target = '_blank';
   el.rel = 'noopener noreferrer';
@@ -1834,7 +1953,9 @@ async function loadWorks() {
       return;
     }
 
-    worksGrid.innerHTML = visibleWorks.map(renderWorkCard).join('');
+    const limit = Number(worksGrid.dataset.limit || 0);
+    const displayWorks = limit > 0 ? visibleWorks.slice(0, limit) : visibleWorks;
+    worksGrid.innerHTML = displayWorks.map(renderWorkCard).join('');
   } catch (error) {
     console.warn('施工事例manifestを読み込めませんでした:', error);
     await loadWorksFromGitHubApi();
@@ -1867,7 +1988,9 @@ async function loadWorksFromGitHubApi() {
       return;
     }
 
-    worksGrid.innerHTML = visibleWorks.map(renderWorkCard).join('');
+    const limit = Number(worksGrid.dataset.limit || 0);
+    const displayWorks = limit > 0 ? visibleWorks.slice(0, limit) : visibleWorks;
+    worksGrid.innerHTML = displayWorks.map(renderWorkCard).join('');
   } catch (error) {
     console.warn('施工事例を読み込めませんでした:', error);
     if (error.status === 404) {
