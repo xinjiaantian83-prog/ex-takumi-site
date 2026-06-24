@@ -488,8 +488,21 @@ button {
 }
 
 .work-info {
-  padding: 12px 16px 14px;
+  padding: 14px 16px 16px;
   background: #fff;
+}
+
+.work-summary-title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.55;
+  margin-bottom: 4px;
+}
+
+.work-summary-area {
+  color: var(--color-text-sub);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .works-loading {
@@ -1952,6 +1965,37 @@ async function fetchWorkInfo(infoFile) {
   }
 }
 
+const workDisplayInfo = {
+  '2026-002': { productName: 'LIXIL フーゴF 3台用', area: '西条市' },
+  '2026-003': { productName: 'LIXIL 折板カーポートSW', area: '松山市' },
+  '2026-004': { productName: 'LIXIL フーゴF 3台用', area: '西条市' },
+  '2026-005': { productName: 'YKK AP ジーポート', area: '大洲市' },
+  '2026-006': { productName: 'LIXIL ネスカR 奥行延長タイプ', area: '東温市' },
+  '2026-007': { productName: 'LIXIL ネスカR 奥行延長タイプ', area: '東温市' },
+  '2026-008': { productName: 'LIXIL ネスカF ワイド', area: '今治市' },
+  '2026-009': { productName: '三協アルミ カーポートFⅡ', area: '松山市' },
+  '2026-010': { productName: 'YKK AP アリュース ワイド 3台用', area: '今治市' },
+  '2026-011': { productName: 'LIXIL カーポートSC ワイド', area: '松山市' },
+  '2026-012': { productName: 'LIXIL カーポートSC ワイド', area: '松山市' },
+  '2026-013': { productName: 'LIXIL ネスカF 奥行延長タイプ', area: '伊予市' },
+  '2026-014': { productName: 'LIXIL ネスカF 奥行延長タイプ', area: '伊予市' },
+  '2026-015': { productName: 'YKK AP プレーンルーフ', area: '松前町' },
+  '2026-016': { productName: 'YKK AP プレーンルーフ', area: '松前町' },
+  '2026-017': { productName: 'YKK AP プレーンルーフ', area: '松前町' },
+  '2026-018': { productName: 'YKK AP プレーンルーフ', area: '松前町' },
+  '2026-019': { productName: 'YKK AP プレーンルーフ', area: '松前町' },
+};
+
+function getWorkCaseId(work) {
+  const candidates = [
+    work.info?.name,
+    work.name,
+    ...(work.photos || []).map((photo) => photo.src || photo.file?.path || ''),
+  ];
+  const match = candidates.join(' ').match(/2026-\d{3}/);
+  return match ? match[0] : '';
+}
+
 function getWorkPhotos(files) {
   const before = findImage(files, 'before');
   const after = findImage(files, 'after');
@@ -1980,10 +2024,14 @@ function getWorkPhotos(files) {
 }
 
 function renderWorkCard(work) {
+  const fixedInfo = workDisplayInfo[getWorkCaseId(work)] || {};
+  const productName = work.info.productName || work.info.product || fixedInfo.productName || work.info.title || work.info.content || work.info.work || '';
+  const area = work.info.area || work.info.location || fixedInfo.area || '';
+  const displayTitle = productName || work.name || '施工事例';
   const photoHtml = work.photos.map((photo) => {
     const src = photo.src || photo.file?.download_url || photo.file?.html_url || '';
     const label = photo.label ? `<span class="work-photo-tag">${escapeHtml(photo.label)}</span>` : '';
-    const alt = photo.label ? `${work.name} ${photo.label}` : work.name;
+    const alt = photo.label ? `${displayTitle} ${photo.label}` : displayTitle;
 
     return `
       <button class="work-photo" type="button" data-full="${escapeHtml(src)}" data-title="${escapeHtml(alt)}" aria-label="${escapeHtml(alt)}を拡大">
@@ -1993,23 +2041,10 @@ function renderWorkCard(work) {
     `;
   }).join('');
 
-  const infoRows = [
-    ['案件名', work.info.name || work.info.title],
-    ['施工内容', work.info.content || work.info.work],
-    ['工期', work.info.period],
-    ['参考価格帯', work.info.price || work.info.priceRange],
-  ].filter(([, value]) => value);
-
-  const infoHtml = infoRows.length ? `
+  const infoHtml = (productName || area) ? `
     <div class="work-info">
-      <dl class="work-detail-list">
-        ${infoRows.map(([label, value]) => `
-          <div class="work-detail">
-            <dt>${escapeHtml(label)}</dt>
-            <dd>${escapeHtml(value)}</dd>
-          </div>
-        `).join('')}
-      </dl>
+      ${productName ? `<h3 class="work-summary-title">${escapeHtml(productName)}</h3>` : ''}
+      ${area ? `<p class="work-summary-area">${escapeHtml(area)}</p>` : ''}
     </div>
   ` : '';
 

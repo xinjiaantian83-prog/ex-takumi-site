@@ -107,6 +107,8 @@ async function createJpegFromImage(image, destination) {
 async function writeInfoJson(targetDir, caseName) {
   const info = {
     name: caseName,
+    productName: '',
+    area: '',
     content: '',
     period: '',
     price: '',
@@ -121,6 +123,8 @@ async function readWorkInfo(folderPath, folderName) {
   } catch {
     return {
       name: folderName,
+      productName: '',
+      area: '',
       content: '',
       period: '',
       price: '',
