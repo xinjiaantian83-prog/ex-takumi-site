@@ -469,6 +469,10 @@ button {
   letter-spacing: 0.04em;
 }
 
+.work-photo-tag[data-label="施工後"] {
+  display: none;
+}
+
 .work-photo[data-empty="true"] {
   cursor: default;
 }
@@ -1986,6 +1990,8 @@ const workDisplayInfo = {
   '2026-019': { productName: 'YKK AP プレーンルーフ', area: '松前町' },
 };
 
+const featuredWorkCaseIds = ['2026-019', '2026-011', '2026-014', '2026-005', '2026-009', '2026-002'];
+
 function getWorkCaseId(work) {
   const candidates = [
     work.info?.name,
@@ -1994,6 +2000,38 @@ function getWorkCaseId(work) {
   ];
   const match = candidates.join(' ').match(/2026-\d{3}/);
   return match ? match[0] : '';
+}
+
+function getWorkProductName(work) {
+  const fixedInfo = workDisplayInfo[getWorkCaseId(work)] || {};
+  return work.info.productName || work.info.product || fixedInfo.productName || work.info.title || work.info.content || work.info.work || '';
+}
+
+function getFeaturedWorks(works, limit) {
+  if (limit <= 0) return works;
+
+  const byCaseId = new Map(works.map((work) => [getWorkCaseId(work), work]));
+  const featured = featuredWorkCaseIds.map((caseId) => byCaseId.get(caseId)).filter(Boolean);
+  const usedCaseIds = new Set(featured.map(getWorkCaseId));
+  const usedProducts = new Set(featured.map(getWorkProductName).filter(Boolean));
+
+  for (const work of works) {
+    if (featured.length >= limit) break;
+    const caseId = getWorkCaseId(work);
+    const productName = getWorkProductName(work);
+    if (usedCaseIds.has(caseId) || usedProducts.has(productName)) continue;
+    featured.push(work);
+    usedCaseIds.add(caseId);
+    if (productName) usedProducts.add(productName);
+  }
+
+  for (const work of works) {
+    if (featured.length >= limit) break;
+    if (usedCaseIds.has(getWorkCaseId(work))) continue;
+    featured.push(work);
+  }
+
+  return featured.slice(0, limit);
 }
 
 function getWorkPhotos(files) {
@@ -2030,7 +2068,7 @@ function renderWorkCard(work) {
   const displayTitle = productName || work.name || '施工事例';
   const photoHtml = work.photos.map((photo) => {
     const src = photo.src || photo.file?.download_url || photo.file?.html_url || '';
-    const label = photo.label ? `<span class="work-photo-tag">${escapeHtml(photo.label)}</span>` : '';
+    const label = photo.label ? `<span class="work-photo-tag" data-label="${escapeHtml(photo.label)}">${escapeHtml(photo.label)}</span>` : '';
     const alt = photo.label ? `${displayTitle} ${photo.label}` : displayTitle;
 
     return `
@@ -2072,7 +2110,7 @@ async function loadWorks() {
     }
 
     const limit = Number(worksGrid.dataset.limit || 0);
-    const displayWorks = limit > 0 ? visibleWorks.slice(0, limit) : visibleWorks;
+    const displayWorks = getFeaturedWorks(visibleWorks, limit);
     worksGrid.innerHTML = displayWorks.map(renderWorkCard).join('');
   } catch (error) {
     console.warn('施工事例manifestを読み込めませんでした:', error);
@@ -2107,7 +2145,7 @@ async function loadWorksFromGitHubApi() {
     }
 
     const limit = Number(worksGrid.dataset.limit || 0);
-    const displayWorks = limit > 0 ? visibleWorks.slice(0, limit) : visibleWorks;
+    const displayWorks = getFeaturedWorks(visibleWorks, limit);
     worksGrid.innerHTML = displayWorks.map(renderWorkCard).join('');
   } catch (error) {
     console.warn('施工事例を読み込めませんでした:', error);
