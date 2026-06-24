@@ -1656,11 +1656,10 @@ button {
       内容を入力して送信してください。1〜2営業日以内にご返信します。
     </p>
 
-    <form class="contact-form" id="contactForm" action="https://formsubmit.co/29c56aacee6d1ce3f33904cd3f75b056" method="POST" onsubmit="return handleSubmit(event)">
+    <form class="contact-form" id="contactForm" action="https://formsubmit.co/29c56aacee6d1ce3f33904cd3f75b056" method="POST">
       <input type="hidden" name="_subject" value="EXたくみ HPからのお問い合わせ" />
-      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_next" value="https://ex-takumi.net/thanks.html" />
       <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_replyto" id="formReplyTo" value="" />
       <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
 
       <div class="form-group">
@@ -1748,52 +1747,6 @@ button {
 
 // 年号自動表示
 document.getElementById('year').textContent = new Date().getFullYear();
-
-// フォーム送信（GitHub Pages対応: FormSubmit経由）
-async function handleSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  const submitButton = form.querySelector('.form-submit');
-  const status = document.getElementById('formStatus');
-  const defaultButtonText = submitButton.textContent;
-
-  status.className = 'form-status';
-  status.textContent = '';
-  submitButton.disabled = true;
-  submitButton.textContent = '送信中...';
-
-  try {
-    const replyTo = document.getElementById('formReplyTo');
-    const email = document.getElementById('email');
-    if (replyTo && email) replyTo.value = email.value;
-
-    const endpoint = form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    const result = await response.json().catch(() => null);
-
-    if (!response.ok || result?.success === false || result?.success === 'false') {
-      throw new Error('form submit failed');
-    }
-
-    form.reset();
-    status.textContent = '送信完了しました';
-    status.className = 'form-status success show';
-  } catch (error) {
-    status.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
-    status.className = 'form-status error show';
-  } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = defaultButtonText;
-  }
-
-  return false;
-}
 
 // LINE導線
 const LINE_URL = 'https://line.me/R/ti/p/@953wnidc';
