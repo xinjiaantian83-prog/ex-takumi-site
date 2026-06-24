@@ -1657,6 +1657,7 @@ button {
     </p>
 
     <form class="contact-form" id="contactForm" action="https://usebasin.com/f/13a5335914bd" method="POST">
+      <input type="hidden" name="_redirect" value="https://ex-takumi.net/thanks.html" />
 
       <div class="form-group">
         <label class="form-label" for="name">お名前<span class="form-required">必須</span></label>
@@ -1752,6 +1753,43 @@ document.querySelectorAll('#lineBtnNav, #lineBtnHero, #lineBtnHub, #lineBtnConsu
   el.target = '_blank';
   el.rel = 'noopener noreferrer';
 });
+
+// お問い合わせフォーム送信後はBasinの完了画面ではなく自サイトの完了ページへ遷移
+const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+
+if (contactForm && formStatus) {
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const submitButton = contactForm.querySelector('.form-submit');
+    const redirectUrl = contactForm.querySelector('input[name="_redirect"]')?.value || '/thanks.html';
+
+    formStatus.textContent = '送信中です...';
+    formStatus.className = 'form-status show';
+    if (submitButton) submitButton.disabled = true;
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: contactForm.method,
+        body: new FormData(contactForm),
+        headers: { Accept: 'application/json' },
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || result.success === false) {
+        throw new Error(result.error || `Basin submission failed: ${response.status}`);
+      }
+
+      window.location.assign(redirectUrl);
+    } catch (error) {
+      console.error('お問い合わせ送信に失敗しました:', error);
+      formStatus.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+      formStatus.className = 'form-status show error';
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
+}
 
 // Googleマップ・口コミURL（差し替え用）
 // TODO: Googleマップ店舗ページURLを入れる
