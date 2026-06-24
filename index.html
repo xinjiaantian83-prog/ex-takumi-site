@@ -656,6 +656,8 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  margin-left: -24px;
+  margin-right: -24px;
 }
 
 .hub-card {
@@ -672,17 +674,18 @@ button {
 }
 
 .hub-card.is-materials {
-  min-height: 360px;
+  min-height: 520px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   background-image:
     linear-gradient(rgba(12, 12, 12, 0.22), rgba(12, 12, 12, 0.22)),
     url("assets/materials/delivery-box-gatepost/product-front.webp");
-  background-size: auto 108%;
+  background-size: cover;
   background-position: center 36%;
   color: #fff;
   border-color: rgba(26, 26, 26, 0.18);
+  padding: 32px 24px;
 }
 
 .hub-card.is-materials::before {
@@ -708,6 +711,11 @@ button {
   color: var(--color-accent-dark);
   border-color: rgba(255, 255, 255, 0.86);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.hub-card.is-materials .btn {
+  width: 100%;
+  max-width: 360px;
 }
 
 .hub-card-title {
@@ -1239,14 +1247,25 @@ button {
   }
 
   .hub-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .hub-card.is-materials {
-    min-height: 360px;
-    background-size: auto 104%;
-    background-position: center 38%;
+    min-height: 430px;
+    padding: 44px;
+    background-size: cover;
+    background-position: center 42%;
+  }
+
+  .hub-card.is-materials .hub-card-title {
+    font-size: 30px;
+  }
+
+  .hub-card.is-materials .hub-card-text {
+    max-width: 560px;
+    font-size: 16px;
   }
 
   .reasons-grid {
@@ -1356,39 +1375,21 @@ button {
 </section>
 
 <!-- ============================================
-     総合サイト導線
+     資材販売導線
 ============================================ -->
 <section class="section hub" id="hub">
   <div class="container">
-    <div class="section-label">LIVING SUPPORT</div>
-    <h2 class="section-title">住まい・DIY・地域情報の総合サポート</h2>
+    <div class="section-label">MATERIAL SALE</div>
+    <h2 class="section-title">資材販売・施主支給応援</h2>
     <p class="section-lead">
-      EXた組は施工だけでなく、DIY相談、施主支給、資材選び、現場アプリ、地域マップまで広げていくサイトです。迷ったら、まずはLINEで聞いてください。
+      宅配ボックス付き機能門柱、防草シートなど、施主支給やDIYで使いやすい資材を現場目線で案内しています。
     </p>
 
     <div class="hub-grid">
-      <article class="hub-card">
-        <h3 class="hub-card-title">カーポート専門施工</h3>
-        <p class="hub-card-text">現場職人が直接対応。写真相談から現地確認、施工後の相談まで一貫して対応します。</p>
-        <a href="#contact-style" class="btn btn-outline">相談方法を見る</a>
-      </article>
-
-      <article class="hub-card">
-        <h3 class="hub-card-title">DIY応援</h3>
-        <p class="hub-card-text">自分でできる工事、プロに任せるべき工事を切り分けて、費用を抑える方法を提案します。</p>
-        <a href="diy.html" class="btn btn-outline">DIY応援を見る</a>
-      </article>
-
       <article class="hub-card is-materials">
         <h3 class="hub-card-title">資材販売・施主支給応援</h3>
-        <p class="hub-card-text">防草シート、人工芝、フェンス、宅配ボックスなど、施主支給やDIYで活用しやすい資材を案内しています。「できるだけ費用を抑えたい」という方もお気軽にご相談ください。</p>
-        <a href="materials.html" class="btn btn-outline">資材販売・施主支給を見る</a>
-      </article>
-
-      <article class="hub-card">
-        <h3 class="hub-card-title">無料アプリ</h3>
-        <p class="hub-card-text">現場電卓やLIFE MAPなど、現場や地域で役立つアプリも開発・運営しています。</p>
-        <a href="#apps" class="btn btn-outline">アプリを見る</a>
+        <p class="hub-card-text">宅配ボックス付き機能門柱を中心に、防草シート、人工芝、フェンスなどを掲載中です。近場手渡し、商品販売のみ、施工込みの相談まで対応します。</p>
+        <a href="materials.html" class="btn btn-outline">資材販売ページを見る</a>
       </article>
     </div>
 
