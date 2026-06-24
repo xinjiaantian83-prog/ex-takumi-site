@@ -659,9 +659,55 @@ button {
 }
 
 .hub-card {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--color-border);
   background: #fff;
   padding: 26px 22px;
+}
+
+.hub-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hub-card.is-materials {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image:
+    linear-gradient(rgba(12, 12, 12, 0.22), rgba(12, 12, 12, 0.22)),
+    url("assets/materials/delivery-box-gatepost/product-front.webp");
+  background-size: auto 108%;
+  background-position: center 36%;
+  color: #fff;
+  border-color: rgba(26, 26, 26, 0.18);
+}
+
+.hub-card.is-materials::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.16) 48%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+}
+
+.hub-card.is-materials .hub-card-title,
+.hub-card.is-materials .hub-card-text {
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.46);
+}
+
+.hub-card.is-materials .btn-outline {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-accent-dark);
+  border-color: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .hub-card-title {
@@ -1197,6 +1243,12 @@ button {
     gap: 20px;
   }
 
+  .hub-card.is-materials {
+    min-height: 360px;
+    background-size: auto 104%;
+    background-position: center 38%;
+  }
+
   .reasons-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -1327,7 +1379,7 @@ button {
         <a href="diy.html" class="btn btn-outline">DIY応援を見る</a>
       </article>
 
-      <article class="hub-card">
+      <article class="hub-card is-materials">
         <h3 class="hub-card-title">資材販売・施主支給応援</h3>
         <p class="hub-card-text">防草シート、人工芝、フェンス、宅配ボックスなど、施主支給やDIYで活用しやすい資材を案内しています。「できるだけ費用を抑えたい」という方もお気軽にご相談ください。</p>
         <a href="materials.html" class="btn btn-outline">資材販売・施主支給を見る</a>
