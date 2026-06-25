@@ -38,8 +38,8 @@ window.DIY_TOOLS = [
   {
     slug: 'hammer',
     name: 'ハンマー',
-    image: '',
-    imageAlt: 'ハンマー',
+    image: 'assets/diy-tools/hammer.jpg',
+    imageAlt: '防草シートピン打ちや杭打ちに使うハンマー',
     uses: ['防草シートピン打ち', '杭打ち', '軽作業'],
     scenes: ['防草シートの固定ピンを打ち込みたい時', '木杭や仮設杭を打ちたい時', 'DIY中のちょっとした打ち込み作業をしたい時'],
     category: '購入者限定特典',
@@ -47,8 +47,8 @@ window.DIY_TOOLS = [
   {
     slug: 'pin-puller',
     name: 'ピン抜き',
-    image: '',
-    imageAlt: 'ピン抜き',
+    image: 'assets/diy-tools/pin-puller.png',
+    imageAlt: '防草シートピンや仮設杭を抜くピン抜き',
     uses: ['防草シートピン抜き', '仮設杭抜き'],
     scenes: ['打ち直したい防草シートピンを抜きたい時', '仮固定した杭を外したい時', '施工後の位置調整をしたい時'],
     category: '購入者限定特典',
@@ -65,8 +65,8 @@ window.DIY_TOOLS = [
   {
     slug: 'weight',
     name: '重し',
-    image: '',
-    imageAlt: '重し',
+    image: 'assets/diy-tools/weight-block.jpg',
+    imageAlt: '防草シートの仮固定に使う重し',
     uses: ['防草シート施工時の仮固定', '風対策'],
     scenes: ['防草シートを広げた状態で仮固定したい時', '風でシートがめくれるのを抑えたい時', '位置を確認しながら少しずつ施工したい時'],
     category: '購入者限定特典',
