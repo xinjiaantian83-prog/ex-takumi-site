@@ -303,7 +303,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 36px;
+  margin-bottom: 14px;
 }
 
 .hero-badge {
@@ -314,6 +314,48 @@ button {
   color: #fff;
   font-weight: 500;
   backdrop-filter: blur(4px);
+}
+
+.hero-benefit-card {
+  display: block;
+  max-width: 360px;
+  margin-bottom: 28px;
+  padding: 14px 16px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(6px);
+  transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.hero-benefit-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(240, 197, 139, 0.72);
+}
+
+.hero-benefit-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #f0c58b;
+  margin-bottom: 2px;
+}
+
+.hero-benefit-main {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.hero-benefit-link {
+  display: block;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .hero-cta {
@@ -1350,6 +1392,11 @@ button {
       <span class="hero-badge">松前町拠点</span>
       <span class="hero-badge">地域密着</span>
     </div>
+    <a class="hero-benefit-card" href="materials.html" aria-label="購入者限定特典 DIY応援サービスの詳細を見る">
+      <span class="hero-benefit-label">🎁 購入者限定特典</span>
+      <span class="hero-benefit-main">DIY応援サービス実施中</span>
+      <span class="hero-benefit-link">▶ 詳しく見る</span>
+    </a>
     <div class="hero-cta">
       <a href="#" class="btn btn-line icon-line" id="lineBtnHero">LINEで気軽に相談</a>
       <a href="tel:09028235513" class="btn btn-phone icon-phone">電話で相談する</a>
