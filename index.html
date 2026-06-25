@@ -768,15 +768,22 @@ button {
   background: var(--color-bg-soft);
 }
 
+.reasons,
+.contact-style,
+.area {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
 .reasons-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 12px;
 }
 
 .reason-card {
   background: #fff;
-  padding: 32px 24px;
+  padding: 18px 18px;
   border: 1px solid var(--color-border);
 }
 
@@ -785,21 +792,21 @@ button {
   font-size: 12px;
   letter-spacing: 0.2em;
   color: var(--color-accent-wood);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   font-weight: 600;
 }
 
 .reason-title {
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   line-height: 1.5;
 }
 
 .reason-text {
   font-size: 14px;
   color: var(--color-text-sub);
-  line-height: 1.9;
+  line-height: 1.75;
 }
 
 /* ============================================
@@ -811,24 +818,26 @@ button {
 
 .contact-style-intro {
   background: var(--color-bg-soft);
-  padding: 28px 24px;
-  margin-bottom: 32px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
   border-left: 3px solid var(--color-accent-wood);
   font-size: 14px;
   color: var(--color-text-sub);
-  line-height: 1.9;
+  line-height: 1.75;
 }
 
 .contact-options {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 8px;
 }
 
 .contact-option {
   border: 1px solid var(--color-border);
-  padding: 28px 24px;
+  padding: 13px 15px;
   background: #fff;
+  display: grid;
+  gap: 6px;
 }
 
 .contact-option-label {
@@ -836,33 +845,36 @@ button {
   font-size: 11px;
   color: var(--color-accent-wood);
   letter-spacing: 0.2em;
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 
 .contact-option-title {
   font-size: 17px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 
 .contact-option-desc {
   font-size: 13px;
   color: var(--color-text-sub);
-  margin-bottom: 16px;
-  line-height: 1.8;
+  margin-bottom: 0;
+  line-height: 1.65;
 }
 
 .contact-option .btn {
   width: 100%;
+  min-height: 42px;
+  padding: 9px 12px;
+  font-size: 13px;
 }
 
 .contact-note {
-  margin-top: 24px;
-  padding: 20px;
+  margin-top: 12px;
+  padding: 13px 15px;
   background: var(--color-bg-gray);
   font-size: 13px;
   color: var(--color-text-sub);
-  line-height: 1.9;
+  line-height: 1.7;
 }
 
 .contact-note strong {
@@ -877,35 +889,26 @@ button {
   background: var(--color-bg-soft);
 }
 
-.area-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.area-item {
+.area-summary {
   background: #fff;
-  padding: 18px 16px;
-  text-align: center;
+  border-left: 3px solid var(--color-accent-wood);
+  padding: 22px 24px;
   border: 1px solid var(--color-border);
-}
-
-.area-item-name {
+  color: var(--color-text-sub);
   font-size: 15px;
+  line-height: 1.9;
+}
+
+.area-summary strong {
+  display: block;
+  color: var(--color-text);
+  font-size: 17px;
   font-weight: 700;
+  margin-bottom: 6px;
 }
 
-.area-item-sub {
-  font-size: 11px;
-  color: var(--color-text-light);
-  margin-top: 4px;
-}
-
-.area-note {
-  font-size: 12px;
-  color: var(--color-text-light);
-  text-align: center;
+.area-summary p + p {
+  margin-top: 6px;
 }
 
 /* ============================================
@@ -1295,10 +1298,6 @@ button {
     gap: 20px;
   }
 
-  .area-list {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
   .maps-buttons {
     grid-template-columns: 1fr 1fr;
   }
@@ -1484,7 +1483,7 @@ button {
     <div class="section-label">REASONS</div>
     <h2 class="section-title">EXたくみが選ばれる理由</h2>
     <p class="section-lead">
-      営業会社ではなく、現場の人間がやっているカーポート専門店です。
+      現場経験をもとに、相談から施工まで職人目線で対応します。
     </p>
 
     <div class="reasons-grid">
@@ -1492,37 +1491,23 @@ button {
         <div class="reason-num">01</div>
         <h3 class="reason-title">施工1000台超えの現場経験</h3>
         <p class="reason-text">
-          カーポートだけで1000台以上の施工実績がある職人が在籍しています。
-          現場で積み上げた経験があるからこそ、写真や現地の状況からすぐに最適な納まりを判断できます。
+          カーポート施工を数多く経験した職人が、現地条件に合わせて納まりを判断します。
         </p>
       </div>
 
       <div class="reason-card">
         <div class="reason-num">02</div>
-        <h3 class="reason-title">対応するのは"現場の人間"</h3>
+        <h3 class="reason-title">現場職人が直接対応</h3>
         <p class="reason-text">
-          いわゆる営業マンは在籍していません。
-          現場をやっている人間が直接話を聞いて、直接提案します。
-          だから、できる・できないがその場で分かります。
+          営業会社ではありません。施工する側の目線で、できること・注意点をそのまま伝えます。
         </p>
       </div>
 
       <div class="reason-card">
         <div class="reason-num">03</div>
-        <h3 class="reason-title">無理な営業はしません</h3>
+        <h3 class="reason-title">写真だけでも概算相談可能</h3>
         <p class="reason-text">
-          見積もりを取ったから契約してください、という会話はしません。
-          「他社と比べて検討したい」も大歓迎です。
-          相談だけ、写真だけ、もOKです。
-        </p>
-      </div>
-
-      <div class="reason-card">
-        <div class="reason-num">04</div>
-        <h3 class="reason-title">松前町拠点・地域密着</h3>
-        <p class="reason-text">
-          伊予郡松前町を拠点に、松山市・伊予郡・伊予市・東温市・今治市・西条市を中心に対応しています。
-          地元なので、現地確認も施工後のメンテも動きやすい距離感です。
+          設置場所の写真や寸法があれば、まずは概算や進め方をLINEで相談できます。
         </p>
       </div>
     </div>
@@ -1535,58 +1520,38 @@ button {
 <section class="section contact-style" id="contact-style">
   <div class="container">
     <div class="section-label">CONSULTATION</div>
-    <h2 class="section-title">相談の仕方は、なんでもOKです</h2>
+    <h2 class="section-title">相談方法</h2>
     <p class="section-lead">
-      カーポートのことは、わからない方がほとんどです。<br />
-      気になっている段階で、お気軽にどうぞ。
+      写真だけの相談もOKです。急ぎでなければ、まずはLINEがスムーズです。
     </p>
 
-    <div class="contact-style-intro">
-      まずは電話でしっかり話したい方、文章で残したい方、<br />
-      「電話するほどでもないけど聞きたい」という方、いろんな方がいらっしゃいます。<br />
-      下の3つから、ご自身に合った方法を選んでください。
-    </div>
-
     <div class="contact-options">
-      <!-- 電話 -->
       <div class="contact-option">
-        <div class="contact-option-label">OPTION 01</div>
-        <h3 class="contact-option-title">電話で相談</h3>
+        <div class="contact-option-label">RECOMMENDED</div>
+        <h3 class="contact-option-title">LINE相談</h3>
         <p class="contact-option-desc">
-          ちゃんと話して進めたい方へ。<br />
-          現場の人間が直接お話します。
+          写真を送りやすく、概算相談に向いています。
         </p>
-        <a href="tel:09028235513" class="btn btn-phone icon-phone">電話する</a>
+        <a href="#" class="btn btn-line icon-line" id="lineBtnConsult">LINEを開く</a>
       </div>
 
-      <!-- フォーム -->
       <div class="contact-option">
         <div class="contact-option-label">OPTION 02</div>
-        <h3 class="contact-option-title">フォームから相談</h3>
+        <h3 class="contact-option-title">フォーム</h3>
         <p class="contact-option-desc">
-          要件をまとめて送りたい方へ。<br />
-          返信は1〜2営業日以内を目安に。
+          内容をまとめて送りたい方向けです。
         </p>
         <a href="#contact" class="btn btn-outline">フォームへ</a>
       </div>
 
-      <!-- LINE -->
       <div class="contact-option">
         <div class="contact-option-label">OPTION 03</div>
-        <h3 class="contact-option-title">LINEで気軽に</h3>
+        <h3 class="contact-option-title">電話</h3>
         <p class="contact-option-desc">
-          電話やフォームは少し面倒…という方へ。<br />
-          公式LINEアカウントで、ご相談・お見積り専用なので安心してご利用ください。
+          直接話して確認したい方はこちら。
         </p>
-        <a href="#" class="btn btn-line icon-line" id="lineBtnConsult">LINEを開く</a>
+        <a href="tel:09028235513" class="btn btn-phone icon-phone">電話する</a>
       </div>
-    </div>
-
-    <div class="contact-note">
-      <strong>※ LINEは「気軽な相談手段」としてご用意している公式アカウントです。</strong><br />
-      ご相談・お見積り専用なので、初めての方も安心してご利用ください。<br />
-      しっかり打ち合わせをしたい場合は、電話またはフォームの方がスムーズです。<br />
-      「写真だけ送るので雰囲気だけ教えてほしい」のような使い方で、気軽にどうぞ。
     </div>
   </div>
 </section>
@@ -1598,37 +1563,10 @@ button {
   <div class="container">
     <div class="section-label">AREA</div>
     <h2 class="section-title">対応エリア</h2>
-    <p class="section-lead">
-      松前町拠点で、松山市から今治市・西条市方面まで対応しています。
-    </p>
-
-    <div class="area-list">
-      <div class="area-item">
-        <div class="area-item-name">松山市</div>
-        <div class="area-item-sub">MATSUYAMA</div>
-      </div>
-      <div class="area-item">
-        <div class="area-item-name">伊予郡</div>
-        <div class="area-item-sub">松前町・砥部町</div>
-      </div>
-      <div class="area-item">
-        <div class="area-item-name">伊予市</div>
-        <div class="area-item-sub">IYO</div>
-      </div>
-      <div class="area-item">
-        <div class="area-item-name">東温市</div>
-        <div class="area-item-sub">TOON</div>
-      </div>
-      <div class="area-item">
-        <div class="area-item-name">今治市</div>
-        <div class="area-item-sub">IMABARI</div>
-      </div>
-      <div class="area-item">
-        <div class="area-item-name">西条市</div>
-        <div class="area-item-sub">SAIJO</div>
-      </div>
+    <div class="area-summary">
+      <strong>松山市・松前町・伊予市・砥部町・東温市・今治市・西条市を中心に施工しています。</strong>
+      <p>その他地域もお気軽にご相談ください。</p>
     </div>
-    <p class="area-note">※ 上記エリア外もまずはご相談ください。</p>
   </div>
 </section>
 
