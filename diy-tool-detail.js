@@ -24,14 +24,14 @@
   root.innerHTML = `
     <div class="label">DIY TOOL DETAIL</div>
     <h1 class="title">${escapeHtml(tool.name)}</h1>
-    <p class="lead">資材購入者限定でご利用いただけるDIY応援サービスの貸出道具です。用途を確認して、必要な道具をご相談ください。</p>
+    <p class="lead">ご購入者様限定特典としてご利用いただけるDIY応援道具です。用途を確認して、必要な道具をご相談ください。</p>
 
     <div class="detail-hero">
       <div class="tool-photo">${image}</div>
       <div class="detail-panel">
         <span class="badge">${escapeHtml(tool.category)}</span>
         <h2>この道具について</h2>
-        <p>EXた組で資材をご購入いただいた方に向けた、DIYを進めやすくするためのサポート道具です。</p>
+        <p>EXた組で資材をご購入いただいたお客様に向けた、DIYを進めやすくするためのサポート道具です。</p>
         <p>使い方や必要かどうか迷う場合も、写真や作業内容を送っていただければ現場目線で確認します。</p>
       </div>
     </div>
@@ -49,7 +49,7 @@
 
     <section class="conditions">
       <h2>貸出条件</h2>
-      <p>資材購入者限定サービスです。</p>
+      <p>ご購入者様限定特典です。</p>
       <p>詳しい貸出内容・ご利用条件はお問い合わせください。</p>
       <div class="btn-row">
         <a href="diy.html" class="btn">DIY応援トップへ戻る</a>
