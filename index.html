@@ -816,20 +816,11 @@ button {
   background: #fff;
 }
 
-.contact-style-intro {
-  background: var(--color-bg-soft);
-  padding: 16px 18px;
-  margin-bottom: 14px;
-  border-left: 3px solid var(--color-accent-wood);
-  font-size: 14px;
-  color: var(--color-text-sub);
-  line-height: 1.75;
-}
-
 .contact-options {
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
+  max-width: 520px;
 }
 
 .contact-option {
@@ -1294,8 +1285,7 @@ button {
   }
 
   .contact-options {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr;
   }
 
   .maps-buttons {
@@ -1522,35 +1512,17 @@ button {
     <div class="section-label">CONSULTATION</div>
     <h2 class="section-title">相談方法</h2>
     <p class="section-lead">
-      写真だけの相談もOKです。急ぎでなければ、まずはLINEがスムーズです。
+      写真だけならLINE、内容をまとめるならフォーム。お急ぎの場合は画面下の電話ボタンからどうぞ。
     </p>
 
     <div class="contact-options">
       <div class="contact-option">
-        <div class="contact-option-label">RECOMMENDED</div>
-        <h3 class="contact-option-title">LINE相談</h3>
-        <p class="contact-option-desc">
-          写真を送りやすく、概算相談に向いています。
-        </p>
-        <a href="#" class="btn btn-line icon-line" id="lineBtnConsult">LINEを開く</a>
-      </div>
-
-      <div class="contact-option">
-        <div class="contact-option-label">OPTION 02</div>
+        <div class="contact-option-label">FORM</div>
         <h3 class="contact-option-title">フォーム</h3>
         <p class="contact-option-desc">
-          内容をまとめて送りたい方向けです。
+          内容を整理して送る場合はこちら。
         </p>
         <a href="#contact" class="btn btn-outline">フォームへ</a>
-      </div>
-
-      <div class="contact-option">
-        <div class="contact-option-label">OPTION 03</div>
-        <h3 class="contact-option-title">電話</h3>
-        <p class="contact-option-desc">
-          直接話して確認したい方はこちら。
-        </p>
-        <a href="tel:09028235513" class="btn btn-phone icon-phone">電話する</a>
       </div>
     </div>
   </div>
@@ -1756,7 +1728,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // LINE導線
 const LINE_URL = 'https://line.me/R/ti/p/@953wnidc';
 
-document.querySelectorAll('#lineBtnNav, #lineBtnHero, #lineBtnHub, #lineBtnConsult, #lineBtnMaterials, #lineBtnFixed').forEach((el) => {
+document.querySelectorAll('#lineBtnNav, #lineBtnHero, #lineBtnHub, #lineBtnMaterials, #lineBtnFixed').forEach((el) => {
   el.href = LINE_URL;
   el.target = '_blank';
   el.rel = 'noopener noreferrer';
