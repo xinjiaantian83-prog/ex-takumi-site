@@ -777,6 +777,16 @@ button {
   max-width: 360px;
 }
 
+.hub-card-actions {
+  display: grid;
+  gap: 10px;
+  max-width: 360px;
+}
+
+.hub-card-actions .btn {
+  max-width: none;
+}
+
 .hub-card-title {
   font-size: 18px;
   font-weight: 700;
@@ -1392,7 +1402,7 @@ button {
       <span class="hero-badge">松前町拠点</span>
       <span class="hero-badge">地域密着</span>
     </div>
-    <a class="hero-benefit-card" href="materials.html" aria-label="購入者限定特典 DIY応援サービスの詳細を見る">
+    <a class="hero-benefit-card" href="materials.html#diy-support" aria-label="購入者限定特典 DIY応援サービスの詳細を見る">
       <span class="hero-benefit-label">🎁 購入者限定特典</span>
       <span class="hero-benefit-main">DIY応援サービス実施中</span>
       <span class="hero-benefit-link">▶ 詳しく見る</span>
@@ -1443,7 +1453,10 @@ button {
       <article class="hub-card is-materials">
         <h3 class="hub-card-title">資材販売・施主支給応援</h3>
         <p class="hub-card-text">プロが現場で使いやすい資材を掲載中です。商品販売のみ、近郊配送、DIY道具貸出、施工まで相談できます。一度しか使わない道具で困る方も、気軽に声をかけてください。</p>
-        <a href="materials.html" class="btn btn-outline">資材販売ページを見る</a>
+        <div class="hub-card-actions">
+          <a href="materials.html" class="btn btn-outline">資材販売ページを見る</a>
+          <a href="diy-tools.html" class="btn btn-outline">貸出道具一覧を見る</a>
+        </div>
       </article>
     </div>
 
