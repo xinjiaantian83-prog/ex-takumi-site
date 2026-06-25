@@ -24,7 +24,7 @@
   root.innerHTML = `
     <div class="label">DIY TOOL DETAIL</div>
     <h1 class="title">${escapeHtml(tool.name)}</h1>
-    <p class="lead">資材購入者限定でご利用いただけるDIY応援サービスの貸出道具です。何に使う道具か、初心者の方にも分かりやすいように用途をまとめています。</p>
+    <p class="lead">資材購入者限定でご利用いただけるDIY応援サービスの貸出道具です。用途を確認して、必要な道具をご相談ください。</p>
 
     <div class="detail-hero">
       <div class="tool-photo">${image}</div>
@@ -54,6 +54,8 @@
       <div class="btn-row">
         <a href="diy.html" class="btn">DIY応援トップへ戻る</a>
         <a href="diy-tools.html" class="btn">貸出道具一覧へ戻る</a>
+        <a href="materials.html" class="btn">資材販売ページへ戻る</a>
+        <a href="https://line.me/R/ti/p/@953wnidc" class="btn btn-line" target="_blank" rel="noopener noreferrer">LINEで相談する</a>
       </div>
     </section>
   `;
