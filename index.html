@@ -402,60 +402,9 @@ button {
   font-size: 16px;
 }
 
-/* ============================================
-   ヒーロー直下の案内
-============================================ */
-.hero-support {
-  background: #fbfaf8;
-  padding: 34px 20px;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.hero-support-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-.hero-support-card {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  padding: 20px 18px;
-}
-
-.hero-support-label {
-  display: inline-block;
-  margin-bottom: 8px;
-  color: var(--color-accent-dark);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-.hero-support-title {
-  font-size: 18px;
-  line-height: 1.45;
-  margin-bottom: 8px;
-  color: var(--color-text);
-}
-
-.hero-support-text {
-  font-size: 14px;
-  color: var(--color-text-sub);
-  line-height: 1.8;
-}
-
-.hero-support-link {
-  display: inline-flex;
-  margin-top: 12px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-accent-dark);
-}
-
 .purchase-benefit {
   background: #fff;
-  padding: 0 20px 48px;
+  padding: 44px 20px 48px;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -989,6 +938,47 @@ button {
 }
 
 /* ============================================
+   施工の流れ
+============================================ */
+.flow {
+  background: #fff;
+}
+
+.flow-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.flow-card {
+  border: 1px solid var(--color-border);
+  background: #fff;
+  padding: 22px 20px;
+}
+
+.flow-step {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-family: var(--font-en);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--color-accent-dark);
+  font-weight: 700;
+}
+
+.flow-title {
+  font-size: 18px;
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.flow-text {
+  font-size: 14px;
+  color: var(--color-text-sub);
+  line-height: 1.75;
+}
+
+/* ============================================
    相談について
 ============================================ */
 .contact-style {
@@ -1422,20 +1412,8 @@ button {
     font-size: 18px;
   }
 
-  .hero-support {
-    padding: 42px 32px;
-  }
-
-  .hero-support-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero-support-card {
-    padding: 24px 22px;
-  }
-
   .purchase-benefit {
-    padding: 0 32px 70px;
+    padding: 64px 32px 70px;
   }
 
   .purchase-benefit-band {
@@ -1500,6 +1478,11 @@ button {
   .reasons-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+  }
+
+  .flow-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
   }
 
   .contact-options {
@@ -1572,27 +1555,6 @@ button {
 </section>
 
 <!-- ============================================
-     ヒーロー直下の案内
-============================================ -->
-<section class="hero-support" aria-label="EXたくみのサポート案内">
-  <div class="container">
-    <div class="hero-support-grid">
-      <article class="hero-support-card">
-        <span class="hero-support-label">LOCAL</span>
-        <h2 class="hero-support-title">松前町拠点の地域密着対応</h2>
-        <p class="hero-support-text">松山市・松前町・伊予市・砥部町・東温市・今治市・西条市を中心に、現場職人が直接相談をお受けします。</p>
-      </article>
-      <article class="hero-support-card">
-        <span class="hero-support-label">MATERIAL</span>
-        <h2 class="hero-support-title">資材販売・施主支給も相談OK</h2>
-        <p class="hero-support-text">宅配ボックス付き機能門柱や防草シートなど、商品販売のみ・近郊配送・施工までまとめて相談できます。</p>
-        <a class="hero-support-link" href="materials.html">資材販売を見る →</a>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
      EXたくみで購入するメリット
 ============================================ -->
 <section class="purchase-benefit" aria-labelledby="purchase-benefit-title">
@@ -1654,95 +1616,6 @@ button {
 </section>
 
 <!-- ============================================
-     資材販売導線
-============================================ -->
-<section class="section hub" id="hub">
-  <div class="container">
-    <div class="section-label">MATERIAL SALE</div>
-    <h2 class="section-title">資材販売・施主支給応援</h2>
-    <p class="section-lead">
-      宅配ボックス付き機能門柱、防草シートなど、施主支給やDIYで使いやすい資材を現場目線で案内しています。
-      資材を販売して終わりではなく、DIYに使う道具や施工のことまで気軽に相談できます。
-    </p>
-
-    <div class="hub-grid">
-      <article class="hub-card is-materials">
-        <h3 class="hub-card-title">資材販売・施主支給応援</h3>
-        <p class="hub-card-text">プロが現場で使いやすい資材を掲載中です。商品販売のみ、近郊配送、DIY道具貸出、施工まで相談できます。一度しか使わない道具で困る方も、気軽に声をかけてください。</p>
-        <div class="hub-card-actions">
-          <a href="materials.html" class="btn btn-outline">資材販売ページを見る</a>
-          <a href="diy-tools.html" class="btn btn-outline">貸出道具一覧を見る</a>
-        </div>
-      </article>
-    </div>
-
-    <div class="btn-row">
-      <a href="#" class="btn btn-line icon-line" id="lineBtnHub">LINEで相談する</a>
-      <a href="tel:09028235513" class="btn btn-phone icon-phone">電話で相談する</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     無料アプリ
-============================================ -->
-<section class="section apps" id="apps">
-  <div class="container">
-    <div class="section-label">APPS</div>
-    <h2 class="section-title">EXた組が開発・運営する無料アプリ</h2>
-    <p class="section-lead">
-      EXた組では施工だけでなく、現場や地域で役立つ無料アプリの開発・運営も行っています。
-    </p>
-
-    <div class="apps-grid">
-      <article class="app-card">
-        <h3 class="app-card-title">現場電卓</h3>
-        <p class="app-card-text">
-          外構・土木現場で使える、勾配・土間・ブロック・鉄筋拾いなどの簡易計算アプリ。
-        </p>
-        <div class="store-badges">
-          <a href="https://apps.apple.com/jp/app/%E7%8F%BE%E5%A0%B4%E9%9B%BB%E5%8D%93/id6776547872" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をApp Storeで開く">
-            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.genbatoolbox.genbacalcnew" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をGoogle Playで開く">
-            <img src="assets/store-badges/google-play-badge.png" alt="Google Play で手に入れよう">
-          </a>
-        </div>
-      </article>
-
-      <article class="app-card">
-        <h3 class="app-card-title">LIFE MAP</h3>
-        <p class="app-card-text">
-          平時から使える地域マップとして、古紙回収ボックス、避難所、AEDを地図で確認できます。
-        </p>
-        <div class="app-feature-list">
-          <span>・古紙回収ボックス検索</span>
-          <span>・避難所検索 / AED検索</span>
-          <span>・家族で共有できる避難所登録機能</span>
-        </div>
-        <span class="coming-soon">近日公開</span>
-      </article>
-
-      <article class="app-card">
-        <h3 class="app-card-title">わんわんコイン</h3>
-        <p class="app-card-text">
-          松山市周辺のワンコイン自販機を探せる地域便利マップ。
-        </p>
-        <span class="coming-soon">iPhone版 公開中</span>
-        <p class="app-card-text">
-          公式ストアバッジからダウンロードできます。
-        </p>
-        <div class="store-badges">
-          <a href="https://apps.apple.com/app/%E3%82%8F%E3%82%93%E3%82%8F%E3%82%93%E3%82%B3%E3%82%A4%E3%83%B3/id6780428018" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをApp Storeで開く">
-            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
-          </a>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
      選ばれる理由
 ============================================ -->
 <section class="section reasons" id="reasons">
@@ -1782,25 +1655,67 @@ button {
 </section>
 
 <!-- ============================================
-     相談について
+     施工の流れ
 ============================================ -->
-<section class="section contact-style" id="contact-style">
+<section class="section flow" id="flow">
   <div class="container">
-    <div class="section-label">CONSULTATION</div>
-    <h2 class="section-title">相談方法</h2>
+    <div class="section-label">FLOW</div>
+    <h2 class="section-title">相談から施工までの流れ</h2>
     <p class="section-lead">
-      写真だけならLINE、内容をまとめるならフォーム。お急ぎの場合は画面下の電話ボタンからどうぞ。
+      写真相談から現地確認、施工まで、現場職人が無理のない進め方で対応します。
     </p>
 
-    <div class="contact-options">
-      <div class="contact-option">
-        <div class="contact-option-label">FORM</div>
-        <h3 class="contact-option-title">フォーム</h3>
-        <p class="contact-option-desc">
-          内容を整理して送る場合はこちら。
-        </p>
-        <a href="#contact" class="btn btn-outline">フォームへ</a>
-      </div>
+    <div class="flow-grid">
+      <article class="flow-card">
+        <span class="flow-step">STEP 01</span>
+        <h3 class="flow-title">LINE・フォームで相談</h3>
+        <p class="flow-text">設置場所の写真や寸法、気になる商品があれば送ってください。</p>
+      </article>
+      <article class="flow-card">
+        <span class="flow-step">STEP 02</span>
+        <h3 class="flow-title">概算・進め方の確認</h3>
+        <p class="flow-text">写真だけで分かる範囲の概算や、現地確認が必要な点を整理します。</p>
+      </article>
+      <article class="flow-card">
+        <span class="flow-step">STEP 03</span>
+        <h3 class="flow-title">現地確認・お見積り</h3>
+        <p class="flow-text">高さ、勾配、排水、柱位置などを確認し、施工内容を決めます。</p>
+      </article>
+      <article class="flow-card">
+        <span class="flow-step">STEP 04</span>
+        <h3 class="flow-title">施工・引き渡し</h3>
+        <p class="flow-text">現場状況に合わせて安全に施工し、完了後の相談にも対応します。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     資材販売導線
+============================================ -->
+<section class="section hub" id="hub">
+  <div class="container">
+    <div class="section-label">MATERIAL SALE</div>
+    <h2 class="section-title">資材販売・施主支給応援</h2>
+    <p class="section-lead">
+      宅配ボックス付き機能門柱、防草シートなど、施主支給やDIYで使いやすい資材を現場目線で案内しています。
+      資材を販売して終わりではなく、DIYに使う道具や施工のことまで気軽に相談できます。
+    </p>
+
+    <div class="hub-grid">
+      <article class="hub-card is-materials">
+        <h3 class="hub-card-title">資材販売・施主支給応援</h3>
+        <p class="hub-card-text">プロが現場で使いやすい資材を掲載中です。商品販売のみ、近郊配送、DIY道具貸出、施工まで相談できます。一度しか使わない道具で困る方も、気軽に声をかけてください。</p>
+        <div class="hub-card-actions">
+          <a href="materials.html" class="btn btn-outline">資材販売ページを見る</a>
+          <a href="diy-tools.html" class="btn btn-outline">貸出道具一覧を見る</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="btn-row">
+      <a href="#" class="btn btn-line icon-line" id="lineBtnHub">LINEで相談する</a>
+      <a href="tel:09028235513" class="btn btn-phone icon-phone">電話で相談する</a>
     </div>
   </div>
 </section>
@@ -1898,6 +1813,89 @@ button {
         </tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<!-- ============================================
+     相談について
+============================================ -->
+<section class="section contact-style" id="contact-style">
+  <div class="container">
+    <div class="section-label">CONSULTATION</div>
+    <h2 class="section-title">相談方法</h2>
+    <p class="section-lead">
+      写真だけならLINE、内容をまとめるならフォーム。お急ぎの場合は画面下の電話ボタンからどうぞ。
+    </p>
+
+    <div class="contact-options">
+      <div class="contact-option">
+        <div class="contact-option-label">FORM</div>
+        <h3 class="contact-option-title">フォーム</h3>
+        <p class="contact-option-desc">
+          内容を整理して送る場合はこちら。
+        </p>
+        <a href="#contact" class="btn btn-outline">フォームへ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     無料アプリ
+============================================ -->
+<section class="section apps" id="apps">
+  <div class="container">
+    <div class="section-label">APPS</div>
+    <h2 class="section-title">EXた組が開発・運営する無料アプリ</h2>
+    <p class="section-lead">
+      EXた組では施工だけでなく、現場や地域で役立つ無料アプリの開発・運営も行っています。
+    </p>
+
+    <div class="apps-grid">
+      <article class="app-card">
+        <h3 class="app-card-title">現場電卓</h3>
+        <p class="app-card-text">
+          外構・土木現場で使える、勾配・土間・ブロック・鉄筋拾いなどの簡易計算アプリ。
+        </p>
+        <div class="store-badges">
+          <a href="https://apps.apple.com/jp/app/%E7%8F%BE%E5%A0%B4%E9%9B%BB%E5%8D%93/id6776547872" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をApp Storeで開く">
+            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.genbatoolbox.genbacalcnew" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をGoogle Playで開く">
+            <img src="assets/store-badges/google-play-badge.png" alt="Google Play で手に入れよう">
+          </a>
+        </div>
+      </article>
+
+      <article class="app-card">
+        <h3 class="app-card-title">LIFE MAP</h3>
+        <p class="app-card-text">
+          平時から使える地域マップとして、古紙回収ボックス、避難所、AEDを地図で確認できます。
+        </p>
+        <div class="app-feature-list">
+          <span>・古紙回収ボックス検索</span>
+          <span>・避難所検索 / AED検索</span>
+          <span>・家族で共有できる避難所登録機能</span>
+        </div>
+        <span class="coming-soon">近日公開</span>
+      </article>
+
+      <article class="app-card">
+        <h3 class="app-card-title">わんわんコイン</h3>
+        <p class="app-card-text">
+          松山市周辺のワンコイン自販機を探せる地域便利マップ。
+        </p>
+        <span class="coming-soon">iPhone版 公開中</span>
+        <p class="app-card-text">
+          公式ストアバッジからダウンロードできます。
+        </p>
+        <div class="store-badges">
+          <a href="https://apps.apple.com/app/%E3%82%8F%E3%82%93%E3%82%8F%E3%82%93%E3%82%B3%E3%82%A4%E3%83%B3/id6780428018" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをApp Storeで開く">
+            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
+          </a>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
