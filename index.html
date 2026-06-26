@@ -275,6 +275,16 @@ button {
   font-weight: 500;
 }
 
+.hero-company {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.42);
+}
+
 .hero-title {
   font-size: 30px;
   font-weight: 700;
@@ -294,68 +304,9 @@ button {
 .hero-sub {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.92);
-  margin-bottom: 32px;
+  margin-bottom: 30px;
   line-height: 1.9;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.42);
-}
-
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.hero-badge {
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  font-size: 12px;
-  padding: 8px 14px;
-  color: #fff;
-  font-weight: 500;
-  backdrop-filter: blur(4px);
-}
-
-.hero-benefit-card {
-  display: block;
-  max-width: 360px;
-  margin-bottom: 28px;
-  padding: 14px 16px;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.13);
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(6px);
-  transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
-}
-
-.hero-benefit-card:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(240, 197, 139, 0.72);
-}
-
-.hero-benefit-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #f0c58b;
-  margin-bottom: 2px;
-}
-
-.hero-benefit-main {
-  display: block;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin-bottom: 4px;
-}
-
-.hero-benefit-link {
-  display: block;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.88);
 }
 
 .hero-cta {
@@ -449,6 +400,57 @@ button {
 .icon-line::before {
   content: "💬";
   font-size: 16px;
+}
+
+/* ============================================
+   ヒーロー直下の案内
+============================================ */
+.hero-support {
+  background: #fbfaf8;
+  padding: 34px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.hero-support-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.hero-support-card {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  padding: 20px 18px;
+}
+
+.hero-support-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--color-accent-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.hero-support-title {
+  font-size: 18px;
+  line-height: 1.45;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.hero-support-text {
+  font-size: 14px;
+  color: var(--color-text-sub);
+  line-height: 1.8;
+}
+
+.hero-support-link {
+  display: inline-flex;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
 }
 
 /* ============================================
@@ -1295,6 +1297,18 @@ button {
     font-size: 18px;
   }
 
+  .hero-support {
+    padding: 42px 32px;
+  }
+
+  .hero-support-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero-support-card {
+    padding: 24px 22px;
+  }
+
   .works-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 28px;
@@ -1388,28 +1402,46 @@ button {
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <span class="hero-tag">松山市・伊予郡・伊予市・東温市・今治市・西条市</span>
+    <span class="hero-company">EXたくみ</span>
     <h1 class="hero-title">
       愛媛県中予・東予の<br />
-      <span class="accent">カーポート専門店</span>です。
+      <span class="accent">カーポート専門店</span>
     </h1>
     <p class="hero-sub">
-      施工1000台超えの職人が、カーポート施工・DIY相談・資材選びまで現場目線で対応します。<br />
-      営業マンではなく、実際に施工する人間が直接対応。まずはLINEで気軽に相談できます。
+      施工1000台超の現場職人が直接対応。<br />
+      写真だけの概算相談もLINEで気軽に送れます。
     </p>
-    <div class="hero-badges">
-      <span class="hero-badge">施工1000台超</span>
-      <span class="hero-badge">現場職人が対応</span>
-      <span class="hero-badge">松前町拠点</span>
-      <span class="hero-badge">地域密着</span>
-    </div>
-    <a class="hero-benefit-card" href="materials.html#diy-support" aria-label="ご購入者様限定特典 DIY応援サービスの詳細を見る">
-      <span class="hero-benefit-label">🎁 ご購入者様限定特典</span>
-      <span class="hero-benefit-main">ご購入後のDIYもサポート</span>
-      <span class="hero-benefit-link">▶ 詳しく見る</span>
-    </a>
     <div class="hero-cta">
       <a href="#" class="btn btn-line icon-line" id="lineBtnHero">LINEで気軽に相談</a>
       <a href="tel:09028235513" class="btn btn-phone icon-phone">電話で相談する</a>
+      <a href="#works" class="btn btn-outline">施工事例を見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ヒーロー直下の案内
+============================================ -->
+<section class="hero-support" aria-label="EXたくみのサポート案内">
+  <div class="container">
+    <div class="hero-support-grid">
+      <article class="hero-support-card">
+        <span class="hero-support-label">LOCAL</span>
+        <h2 class="hero-support-title">松前町拠点の地域密着対応</h2>
+        <p class="hero-support-text">松山市・松前町・伊予市・砥部町・東温市・今治市・西条市を中心に、現場職人が直接相談をお受けします。</p>
+      </article>
+      <article class="hero-support-card">
+        <span class="hero-support-label">MATERIAL</span>
+        <h2 class="hero-support-title">資材販売・施主支給も相談OK</h2>
+        <p class="hero-support-text">宅配ボックス付き機能門柱や防草シートなど、商品販売のみ・近郊配送・施工までまとめて相談できます。</p>
+        <a class="hero-support-link" href="materials.html">資材販売を見る →</a>
+      </article>
+      <article class="hero-support-card">
+        <span class="hero-support-label">BENEFIT</span>
+        <h2 class="hero-support-title">ご購入者様限定特典</h2>
+        <p class="hero-support-text">ご購入後のDIYまで支えられるよう、現場で使う道具サポートをご用意しています。</p>
+        <a class="hero-support-link" href="materials.html#diy-support">DIYサポートを見る →</a>
+      </article>
     </div>
   </div>
 </section>
