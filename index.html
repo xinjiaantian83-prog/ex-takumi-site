@@ -453,6 +453,131 @@ button {
   color: var(--color-accent-dark);
 }
 
+.purchase-benefit {
+  background: #fff;
+  padding: 0 20px 48px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.purchase-benefit-band {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(251, 250, 248, 0.92) 58%, rgba(245, 239, 230, 0.88) 100%);
+  border: 1px solid #dfd7ce;
+  border-left: 4px solid var(--color-accent);
+  box-shadow: 0 18px 44px rgba(72, 55, 38, 0.12);
+  padding: 28px 22px;
+}
+
+.purchase-benefit-content {
+  position: relative;
+  z-index: 2;
+}
+
+.purchase-benefit-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--color-accent-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.purchase-benefit-title {
+  font-size: 25px;
+  line-height: 1.42;
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+.purchase-benefit-lead {
+  color: var(--color-text-sub);
+  font-size: 15px;
+  line-height: 1.9;
+  max-width: 680px;
+}
+
+.purchase-benefit-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 22px;
+  list-style: none;
+}
+
+.purchase-benefit-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(223, 215, 206, 0.9);
+  padding: 12px 13px;
+  color: #3f3328;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.benefit-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #f5efe6;
+  color: var(--color-accent-dark);
+  font-size: 14px;
+}
+
+.purchase-benefit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.purchase-benefit-visual {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: end;
+}
+
+.purchase-benefit-photo {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(223, 215, 206, 0.82);
+  padding: 10px;
+  min-height: 150px;
+  display: grid;
+  place-items: center;
+}
+
+.purchase-benefit-photo img {
+  width: 100%;
+  max-height: 210px;
+  object-fit: contain;
+  opacity: 0.86;
+  filter: saturate(0.9);
+}
+
+.purchase-benefit-note {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  color: rgba(107, 79, 58, 0.16);
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  pointer-events: none;
+}
+
 /* ============================================
    施工事例
 ============================================ */
@@ -1302,11 +1427,38 @@ button {
   }
 
   .hero-support-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .hero-support-card {
     padding: 24px 22px;
+  }
+
+  .purchase-benefit {
+    padding: 0 32px 70px;
+  }
+
+  .purchase-benefit-band {
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+    align-items: center;
+    padding: 40px 42px;
+  }
+
+  .purchase-benefit-title {
+    font-size: 32px;
+  }
+
+  .purchase-benefit-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 720px;
+  }
+
+  .purchase-benefit-visual {
+    align-self: stretch;
+  }
+
+  .purchase-benefit-photo {
+    min-height: 240px;
   }
 
   .works-grid {
@@ -1436,12 +1588,44 @@ button {
         <p class="hero-support-text">宅配ボックス付き機能門柱や防草シートなど、商品販売のみ・近郊配送・施工までまとめて相談できます。</p>
         <a class="hero-support-link" href="materials.html">資材販売を見る →</a>
       </article>
-      <article class="hero-support-card">
-        <span class="hero-support-label">BENEFIT</span>
-        <h2 class="hero-support-title">ご購入者様限定特典</h2>
-        <p class="hero-support-text">ご購入後のDIYまで支えられるよう、現場で使う道具サポートをご用意しています。</p>
-        <a class="hero-support-link" href="materials.html#diy-support">DIYサポートを見る →</a>
-      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     EXたくみで購入するメリット
+============================================ -->
+<section class="purchase-benefit" aria-labelledby="purchase-benefit-title">
+  <div class="container">
+    <div class="purchase-benefit-band">
+      <div class="purchase-benefit-content">
+        <span class="purchase-benefit-label">AFTER SUPPORT</span>
+        <h2 class="purchase-benefit-title" id="purchase-benefit-title">EXたくみで購入するメリット</h2>
+        <p class="purchase-benefit-lead">
+          商品を販売して終わりではなく、ご購入後のDIYまで現場職人目線でサポートします。
+          道具の準備や使い方に迷う時も、LINEで気軽に相談できます。
+        </p>
+        <ul class="purchase-benefit-list">
+          <li><span class="benefit-icon">🛠</span><span>DIY工具無料貸出</span></li>
+          <li><span class="benefit-icon">🚜</span><span>プレートコンパクター貸出（有料）</span></li>
+          <li><span class="benefit-icon">⛽</span><span>貸出時は燃料満タン。返却時の給油不要。</span></li>
+          <li><span class="benefit-icon">💦</span><span>高圧洗浄機貸出</span></li>
+          <li><span class="benefit-icon">📱</span><span>LINEで施工相談</span></li>
+        </ul>
+        <div class="purchase-benefit-actions">
+          <a href="diy-tools.html" class="btn btn-outline">貸出道具一覧を見る</a>
+          <a href="materials.html#diy-support" class="btn btn-outline">詳しく見る</a>
+        </div>
+      </div>
+      <div class="purchase-benefit-visual" aria-hidden="true">
+        <div class="purchase-benefit-photo">
+          <img src="assets/diy-tools/plate-compactor.png" alt="" loading="lazy" />
+        </div>
+        <div class="purchase-benefit-photo">
+          <img src="assets/diy-tools/pressure-washer-k3.jpg" alt="" loading="lazy" />
+        </div>
+      </div>
+      <div class="purchase-benefit-note">SUPPORT</div>
     </div>
   </div>
 </section>
