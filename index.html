@@ -643,30 +643,26 @@ button {
 }
 
 .app-store-links {
-  display: grid;
-  gap: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .app-store-link {
-  min-height: 44px;
+  width: 100%;
+  max-width: 118px;
+  min-height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  background: var(--color-bg-gray);
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
+  padding: 3px 0;
 }
 
-.app-store-link:hover {
-  border-color: var(--color-accent-wood);
-}
-
-.app-store-link.is-disabled {
-  color: var(--color-text-light);
-  background: #f3f2ef;
+.app-store-link img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ============================================
@@ -1285,10 +1281,6 @@ button {
     font-size: 13px;
   }
 
-  .app-store-links {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .hub-grid {
     grid-template-columns: 1fr;
     margin-left: 0;
@@ -1625,8 +1617,12 @@ button {
         <h3 class="app-card-title">現場電卓</h3>
         <p class="app-card-text">外構・土木向け簡易計算ツール</p>
         <div class="app-store-links">
-          <a class="app-store-link" href="https://apps.apple.com/jp/app/%E7%8F%BE%E5%A0%B4%E9%9B%BB%E5%8D%93/id6776547872" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をApp Storeで開く">iOS</a>
-          <a class="app-store-link" href="https://play.google.com/store/apps/details?id=com.genbatoolbox.genbacalcnew" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をGoogle Playで開く">Android</a>
+          <a class="app-store-link" href="https://apps.apple.com/jp/app/%E7%8F%BE%E5%A0%B4%E9%9B%BB%E5%8D%93/id6776547872" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をApp Storeで開く">
+            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
+          </a>
+          <a class="app-store-link" href="https://play.google.com/store/apps/details?id=com.genbatoolbox.genbacalcnew" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をGoogle Playで開く">
+            <img src="assets/store-badges/google-play-badge-tight.png" alt="Google Play で手に入れよう">
+          </a>
         </div>
       </article>
 
@@ -1634,8 +1630,12 @@ button {
         <h3 class="app-card-title">LIFE MAP</h3>
         <p class="app-card-text">古紙回収・避難所・AEDを地図で確認</p>
         <div class="app-store-links">
-          <a class="app-store-link" href="https://apps.apple.com/jp/app/life-map/id6776938203" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをApp Storeで開く">iOS</a>
-          <a class="app-store-link" href="https://play.google.com/store/apps/details?id=jp.lifemap.ehime" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをGoogle Playで開く">Android</a>
+          <a class="app-store-link" href="https://apps.apple.com/jp/app/life-map/id6776938203" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをApp Storeで開く">
+            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
+          </a>
+          <a class="app-store-link" href="https://play.google.com/store/apps/details?id=jp.lifemap.ehime" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをGoogle Playで開く">
+            <img src="assets/store-badges/google-play-badge-tight.png" alt="Google Play で手に入れよう">
+          </a>
         </div>
       </article>
 
@@ -1643,8 +1643,9 @@ button {
         <h3 class="app-card-title">わんわんコイン</h3>
         <p class="app-card-text">給水所・自販機を地図で探せる</p>
         <div class="app-store-links">
-          <a class="app-store-link" href="https://apps.apple.com/app/%E3%82%8F%E3%82%93%E3%82%8F%E3%82%93%E3%82%B3%E3%82%A4%E3%83%B3/id6780428018" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをApp Storeで開く">iOS</a>
-          <span class="app-store-link is-disabled" aria-label="わんわんコイン Android版は未公開">Android</span>
+          <a class="app-store-link" href="https://apps.apple.com/app/%E3%82%8F%E3%82%93%E3%82%8F%E3%82%93%E3%82%B3%E3%82%A4%E3%83%B3/id6780428018" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをApp Storeで開く">
+            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
+          </a>
         </div>
       </article>
     </div>
