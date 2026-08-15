@@ -402,97 +402,6 @@ button {
   font-size: 16px;
 }
 
-.purchase-benefit {
-  background: #fff;
-  padding: 44px 20px 48px;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.purchase-benefit-band {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(251, 250, 248, 0.94) 100%);
-  border: 1px solid #dfd7ce;
-  box-shadow: 0 18px 44px rgba(72, 55, 38, 0.12);
-  padding: 34px 22px;
-}
-
-.purchase-benefit-content {
-  position: relative;
-  z-index: 2;
-}
-
-.purchase-benefit-label {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: var(--color-accent-dark);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-}
-
-.purchase-benefit-title {
-  font-size: 27px;
-  line-height: 1.38;
-  color: var(--color-text);
-  margin-bottom: 14px;
-}
-
-.purchase-benefit-lead {
-  color: var(--color-text-sub);
-  font-size: 16px;
-  line-height: 2;
-  max-width: 620px;
-}
-
-.purchase-benefit-actions {
-  display: flex;
-  margin-top: 28px;
-}
-
-.purchase-benefit-visual {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  align-items: end;
-}
-
-.purchase-benefit-photo {
-  background: rgba(255, 255, 255, 0.62);
-  border: 1px solid rgba(223, 215, 206, 0.82);
-  padding: 16px;
-  min-height: 170px;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 12px 32px rgba(72, 55, 38, 0.08);
-}
-
-.purchase-benefit-photo img {
-  width: 100%;
-  max-height: 230px;
-  object-fit: contain;
-  opacity: 0.9;
-  filter: saturate(0.92);
-}
-
-.purchase-benefit-note {
-  position: absolute;
-  right: 18px;
-  bottom: 14px;
-  color: rgba(107, 79, 58, 0.16);
-  font-size: 72px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  pointer-events: none;
-}
-
 /* ============================================
    施工事例
 ============================================ */
@@ -1379,28 +1288,6 @@ button {
     font-size: 18px;
   }
 
-  .purchase-benefit {
-    padding: 64px 32px 70px;
-  }
-
-  .purchase-benefit-band {
-    grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
-    align-items: center;
-    padding: 40px 42px;
-  }
-
-  .purchase-benefit-title {
-    font-size: 36px;
-  }
-
-  .purchase-benefit-visual {
-    align-self: stretch;
-  }
-
-  .purchase-benefit-photo {
-    min-height: 280px;
-  }
-
   .works-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 28px;
@@ -1517,36 +1404,6 @@ button {
 </section>
 
 <!-- ============================================
-     アフターサポート
-============================================ -->
-<section class="purchase-benefit" aria-labelledby="purchase-benefit-title">
-  <div class="container">
-    <div class="purchase-benefit-band">
-      <div class="purchase-benefit-content">
-        <span class="purchase-benefit-label">AFTER SUPPORT</span>
-        <h2 class="purchase-benefit-title" id="purchase-benefit-title">施工後も、資材購入後も。</h2>
-        <p class="purchase-benefit-lead">
-          DIYやメンテナンスで迷った時も、現場職人が最後までサポートします。
-          困った時にすぐ相談できる外構店でありたいと考えています。
-        </p>
-        <div class="purchase-benefit-actions">
-          <a href="materials.html#diy-support" class="btn btn-outline">アフターサポートを見る</a>
-        </div>
-      </div>
-      <div class="purchase-benefit-visual" aria-hidden="true">
-        <div class="purchase-benefit-photo">
-          <img src="assets/diy-tools/plate-compactor.png" alt="" loading="lazy" />
-        </div>
-        <div class="purchase-benefit-photo">
-          <img src="assets/diy-tools/pressure-washer-k3.jpg" alt="" loading="lazy" />
-        </div>
-      </div>
-      <div class="purchase-benefit-note">SUPPORT</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
      施工事例
      ※ works/ 配下の案件フォルダを読み込んで自動表示
 ============================================ -->
@@ -1653,13 +1510,13 @@ button {
     <h2 class="section-title">資材販売・施主支給応援</h2>
     <p class="section-lead">
       宅配ボックス付き機能門柱、防草シートなど、施主支給やDIYで使いやすい資材を現場目線で案内しています。
-      資材を販売して終わりではなく、DIYに使う道具や施工のことまで気軽に相談できます。
+      資材購入から近郊配送、購入者向けのDIY工具貸出まで対応し、難しい作業は施工も相談できます。
     </p>
 
     <div class="hub-grid">
       <article class="hub-card is-materials">
         <h3 class="hub-card-title">資材販売・施主支給応援</h3>
-        <p class="hub-card-text">プロが現場で使いやすい資材を掲載中です。商品販売のみ、近郊配送、DIY道具貸出、施工まで相談できます。一度しか使わない道具で困る方も、気軽に声をかけてください。</p>
+        <p class="hub-card-text">地元向けの商品販売・近郊配送に対応しています。資材購入後はDIY工具を借りられ、DIYでは難しい部分は施工まで相談できます。一度しか使わない道具で困る方も、気軽に声をかけてください。</p>
         <div class="hub-card-actions">
           <a href="materials.html" class="btn btn-outline">資材販売ページを見る</a>
           <a href="diy-tools.html" class="btn btn-outline">貸出道具一覧を見る</a>
