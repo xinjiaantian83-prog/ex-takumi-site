@@ -773,8 +773,7 @@ button {
 }
 
 .reasons,
-.contact-style,
-.area {
+.contact-style {
   padding-top: 50px;
   padding-bottom: 50px;
 }
@@ -880,30 +879,34 @@ button {
 /* ============================================
    対応エリア
 ============================================ */
-.area {
+.area-compact {
   background: var(--color-bg-soft);
+  padding: 22px 20px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.area-summary {
-  background: #fff;
-  border-left: 3px solid var(--color-accent-wood);
-  padding: 22px 24px;
-  border: 1px solid var(--color-border);
-  color: var(--color-text-sub);
-  font-size: 15px;
-  line-height: 1.9;
+.area-compact-inner {
+  display: grid;
+  gap: 4px;
 }
 
-.area-summary strong {
-  display: block;
+.area-compact-title {
   color: var(--color-text);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
-  margin-bottom: 6px;
+  line-height: 1.5;
 }
 
-.area-summary p + p {
-  margin-top: 6px;
+.area-compact-text {
+  color: var(--color-text-sub);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.area-compact-note {
+  color: var(--color-text-light);
+  font-size: 12px;
 }
 
 /* ============================================
@@ -1296,6 +1299,20 @@ button {
     grid-template-columns: 1fr 1fr;
   }
 
+  .area-compact {
+    padding: 24px 32px;
+  }
+
+  .area-compact-inner {
+    grid-template-columns: auto 1fr;
+    column-gap: 22px;
+    align-items: baseline;
+  }
+
+  .area-compact-note {
+    grid-column: 2;
+  }
+
   /* PCでは下固定ボタンを非表示 */
   .fixed-cta {
     display: none;
@@ -1453,14 +1470,11 @@ button {
 <!-- ============================================
      対応エリア
 ============================================ -->
-<section class="section area" id="area">
-  <div class="container">
-    <div class="section-label">AREA</div>
-    <h2 class="section-title">対応エリア</h2>
-    <div class="area-summary">
-      <strong>松山市・松前町・伊予市・砥部町・東温市・今治市・西条市を中心に施工しています。</strong>
-      <p>その他地域もお気軽にご相談ください。</p>
-    </div>
+<section class="area-compact" id="area" aria-labelledby="area-title">
+  <div class="container area-compact-inner">
+    <h2 class="area-compact-title" id="area-title">対応エリア</h2>
+    <p class="area-compact-text">松山市・松前町・伊予市・砥部町・東温市・今治市・西条市ほか</p>
+    <p class="area-compact-note">※その他地域もご相談ください</p>
   </div>
 </section>
 
