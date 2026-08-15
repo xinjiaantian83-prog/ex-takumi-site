@@ -598,62 +598,75 @@ button {
 ============================================ */
 .apps {
   background: var(--color-bg-soft);
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.apps .section-title {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.apps .section-lead {
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 20px;
 }
 
 .apps-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .app-card {
   background: #fff;
   border: 1px solid var(--color-border);
-  padding: 26px 22px;
+  padding: 14px 10px 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-card-title {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
-  margin-bottom: 10px;
-  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  line-height: 1.4;
 }
 
 .app-card-text {
-  font-size: 14px;
+  flex: 1;
+  font-size: 12px;
   color: var(--color-text-sub);
-  line-height: 1.9;
-  margin-bottom: 18px;
+  line-height: 1.6;
+  margin-bottom: 10px;
 }
 
-.store-badges {
+.app-store-links {
+  display: grid;
+  gap: 6px;
+}
+
+.app-store-link {
+  min-height: 44px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-}
-
-.store-badges a {
-  display: inline-flex;
-  line-height: 0;
-}
-
-.store-badges img {
-  display: block;
-  width: auto;
-  height: 60px;
-}
-
-.coming-soon {
-  display: inline-block;
   border: 1px solid var(--color-border);
-  background: var(--color-bg-soft);
-  color: var(--color-text-sub);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 10px 16px;
+  color: var(--color-text);
+  background: var(--color-bg-gray);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.app-store-link:hover {
+  border-color: var(--color-accent-wood);
+}
+
+.app-store-link.is-disabled {
+  color: var(--color-text-light);
+  background: #f3f2ef;
 }
 
 /* ============================================
@@ -754,15 +767,6 @@ button {
 
 .hub-card .btn {
   width: 100%;
-}
-
-.app-feature-list {
-  display: grid;
-  gap: 7px;
-  margin: -4px 0 18px;
-  color: var(--color-text-sub);
-  font-size: 13px;
-  line-height: 1.7;
 }
 
 /* ============================================
@@ -1261,7 +1265,28 @@ button {
 
   .apps-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 16px;
+  }
+
+  .apps {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .app-card {
+    padding: 18px;
+  }
+
+  .app-card-title {
+    font-size: 17px;
+  }
+
+  .app-card-text {
+    font-size: 13px;
+  }
+
+  .app-store-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .hub-grid {
@@ -1598,52 +1623,28 @@ button {
     <div class="apps-grid">
       <article class="app-card">
         <h3 class="app-card-title">現場電卓</h3>
-        <p class="app-card-text">
-          外構・土木現場で使える、勾配・土間・ブロック・鉄筋拾いなどの簡易計算アプリ。
-        </p>
-        <div class="store-badges">
-          <a href="https://apps.apple.com/jp/app/%E7%8F%BE%E5%A0%B4%E9%9B%BB%E5%8D%93/id6776547872" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をApp Storeで開く">
-            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=com.genbatoolbox.genbacalcnew" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をGoogle Playで開く">
-            <img src="assets/store-badges/google-play-badge-tight.png" alt="Google Play で手に入れよう">
-          </a>
+        <p class="app-card-text">外構・土木向け簡易計算ツール</p>
+        <div class="app-store-links">
+          <a class="app-store-link" href="https://apps.apple.com/jp/app/%E7%8F%BE%E5%A0%B4%E9%9B%BB%E5%8D%93/id6776547872" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をApp Storeで開く">iOS</a>
+          <a class="app-store-link" href="https://play.google.com/store/apps/details?id=com.genbatoolbox.genbacalcnew" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をGoogle Playで開く">Android</a>
         </div>
       </article>
 
       <article class="app-card">
         <h3 class="app-card-title">LIFE MAP</h3>
-        <p class="app-card-text">
-          平時から使える地域マップとして、古紙回収ボックス、避難所、AEDを地図で確認できます。
-        </p>
-        <div class="app-feature-list">
-          <span>・古紙回収ボックス検索</span>
-          <span>・避難所検索 / AED検索</span>
-          <span>・家族で共有できる避難所登録機能</span>
-        </div>
-        <div class="store-badges">
-          <a href="https://apps.apple.com/jp/app/life-map/id6776938203" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをApp Storeで開く">
-            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=jp.lifemap.ehime" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをGoogle Playで開く">
-            <img src="assets/store-badges/google-play-badge-tight.png" alt="Google Play で手に入れよう">
-          </a>
+        <p class="app-card-text">古紙回収・避難所・AEDを地図で確認</p>
+        <div class="app-store-links">
+          <a class="app-store-link" href="https://apps.apple.com/jp/app/life-map/id6776938203" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをApp Storeで開く">iOS</a>
+          <a class="app-store-link" href="https://play.google.com/store/apps/details?id=jp.lifemap.ehime" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをGoogle Playで開く">Android</a>
         </div>
       </article>
 
       <article class="app-card">
         <h3 class="app-card-title">わんわんコイン</h3>
-        <p class="app-card-text">
-          松山市周辺のワンコイン自販機を探せる地域便利マップ。
-        </p>
-        <span class="coming-soon">iPhone版 公開中</span>
-        <p class="app-card-text">
-          公式ストアバッジからダウンロードできます。
-        </p>
-        <div class="store-badges">
-          <a href="https://apps.apple.com/app/%E3%82%8F%E3%82%93%E3%82%8F%E3%82%93%E3%82%B3%E3%82%A4%E3%83%B3/id6780428018" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをApp Storeで開く">
-            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
-          </a>
+        <p class="app-card-text">給水所・自販機を地図で探せる</p>
+        <div class="app-store-links">
+          <a class="app-store-link" href="https://apps.apple.com/app/%E3%82%8F%E3%82%93%E3%82%8F%E3%82%93%E3%82%B3%E3%82%A4%E3%83%B3/id6780428018" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをApp Storeで開く">iOS</a>
+          <span class="app-store-link is-disabled" aria-label="わんわんコイン Android版は未公開">Android</span>
         </div>
       </article>
     </div>
