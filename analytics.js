@@ -95,6 +95,12 @@
       destination: cleanDestination(absoluteHref)
     };
 
+    const phoneEvent = link.dataset.gaEvent;
+    if (phoneEvent === 'customer_phone_click' || phoneEvent === 'sales_phone_click') {
+      track(phoneEvent, common);
+      return;
+    }
+
     if (absoluteHref.includes('line.me/')) {
       track('line_inquiry_click', common);
       return;

@@ -1241,7 +1241,8 @@ button {
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.fixed-cta a {
+.fixed-cta a,
+.fixed-cta button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1251,6 +1252,10 @@ button {
   font-weight: 600;
   color: #fff;
   letter-spacing: 0.04em;
+  border: 0;
+  border-radius: 0;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .fixed-cta .cta-phone {
@@ -1259,6 +1264,76 @@ button {
 
 .fixed-cta .cta-line {
   background: var(--color-line);
+}
+
+.phone-choice-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
+  background: rgba(20, 20, 20, 0.5);
+}
+
+.phone-choice-modal.show {
+  display: flex;
+}
+
+.phone-choice-dialog {
+  width: min(100%, 420px);
+  padding: 22px 18px 16px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+}
+
+.phone-choice-title {
+  margin-bottom: 8px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.phone-choice-note {
+  margin-bottom: 16px;
+  color: var(--color-text-sub);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.phone-choice-link {
+  display: block;
+  width: 100%;
+  padding: 14px 12px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.phone-choice-link.customer {
+  color: #fff;
+  background: var(--color-phone);
+}
+
+.phone-choice-link.sales {
+  margin-top: 9px;
+  color: var(--color-text);
+  background: #fff;
+  border: 1px solid var(--color-border);
+}
+
+.phone-choice-close {
+  display: block;
+  margin: 12px auto 0;
+  padding: 7px 18px;
+  color: var(--color-text-sub);
+  background: transparent;
+  border: 0;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 /* ============================================
@@ -1781,9 +1856,22 @@ button {
      下固定 電話 / LINE ボタン（スマホ）
 ============================================ -->
 <div class="fixed-cta">
-  <a href="tel:09028235513" class="cta-phone icon-phone">電話する</a>
+  <button type="button" class="cta-phone icon-phone" id="phoneChoiceOpen" aria-haspopup="dialog" aria-controls="phoneChoiceModal">電話する</button>
   <!-- ↓ LINE公式アカウントのURLに差し替え -->
   <a href="#" class="cta-line icon-line" id="lineBtnFixed">LINE相談</a>
+</div>
+
+<div class="phone-choice-modal" id="phoneChoiceModal" aria-hidden="true">
+  <div class="phone-choice-dialog" role="dialog" aria-modal="true" aria-labelledby="phoneChoiceTitle">
+    <h2 class="phone-choice-title" id="phoneChoiceTitle">電話の内容をお選びください</h2>
+    <p class="phone-choice-note">
+      代表直通電話は、現場対応・お客様対応を優先しております。<br />
+      営業・広告・SEO等のご提案は営業専用番号をご利用ください。
+    </p>
+    <a href="tel:09028235513" class="phone-choice-link customer" data-ga-event="customer_phone_click">お客様・工事のご相談</a>
+    <a href="tel:08076404526" class="phone-choice-link sales" data-ga-event="sales_phone_click">営業・広告・SEO等のご提案</a>
+    <button type="button" class="phone-choice-close" id="phoneChoiceClose">閉じる</button>
+  </div>
 </div>
 
 <div class="photo-modal" id="photoModal" aria-hidden="true">
@@ -1809,6 +1897,33 @@ document.querySelectorAll('#lineBtnNav, #lineBtnHero, #lineBtnHub, #lineBtnMater
   el.href = LINE_URL;
   el.target = '_blank';
   el.rel = 'noopener noreferrer';
+});
+
+// スマホ固定電話ボタン：お客様用と営業専用を選択
+const phoneChoiceOpen = document.getElementById('phoneChoiceOpen');
+const phoneChoiceModal = document.getElementById('phoneChoiceModal');
+const phoneChoiceClose = document.getElementById('phoneChoiceClose');
+
+function openPhoneChoice() {
+  phoneChoiceModal.classList.add('show');
+  phoneChoiceModal.setAttribute('aria-hidden', 'false');
+  phoneChoiceModal.querySelector('.phone-choice-link.customer')?.focus();
+}
+
+function closePhoneChoice() {
+  phoneChoiceModal.classList.remove('show');
+  phoneChoiceModal.setAttribute('aria-hidden', 'true');
+  phoneChoiceOpen?.focus();
+}
+
+phoneChoiceOpen?.addEventListener('click', openPhoneChoice);
+phoneChoiceClose?.addEventListener('click', closePhoneChoice);
+phoneChoiceModal?.addEventListener('click', (event) => {
+  if (event.target === phoneChoiceModal) closePhoneChoice();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && phoneChoiceModal?.classList.contains('show')) closePhoneChoice();
 });
 
 // お問い合わせフォーム送信後はBasinの完了画面ではなく自サイトの完了ページへ遷移
