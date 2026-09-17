@@ -66,9 +66,9 @@
     text-decoration: none;
   }
 </style>
-  <script src="analytics.js"></script>
+  <script src="analytics.js" defer></script>
 </head>
-<body>
+<body data-page-name="form_thanks">
   <main class="thanks-card">
     <div class="label">CONTACT</div>
     <h1>送信完了しました</h1>
@@ -78,5 +78,6 @@
     </p>
     <a href="/">トップページへ戻る</a>
   </main>
+  <script>if(new URLSearchParams(location.search).get('source')==='matsuyama-carport'){window.addEventListener('load',()=>window.exTakumiAnalytics?.track('form_submit_complete',{source:'matsuyama_carport_lp'}),{once:true})}</script>
 </body>
 </html>

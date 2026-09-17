@@ -20,6 +20,7 @@
   }
 
   const pageName = (() => {
+    if (document.body?.dataset.pageName) return document.body.dataset.pageName;
     const file = window.location.pathname.split('/').pop() || 'index.html';
     if (file === 'index.html') return 'home';
     return file.replace(/\.html$/, '').replace(/[^a-z0-9-]/gi, '_');
@@ -56,6 +57,34 @@
       const productName = document.querySelector('#toolDetail h1, h1.title')?.textContent?.trim();
       track('diy_tool_view', productName ? { product_name: productName } : {});
     }
+    if (document.body?.dataset.pageName === 'matsuyama_carport_lp') {
+      const search = new URLSearchParams(window.location.search);
+      track('carport_lp_view', {
+        campaign: search.get('utm_campaign') || undefined,
+        keyword: search.get('utm_term') || undefined,
+        has_gclid: search.has('gclid')
+      });
+    }
+  }
+
+  const priceTarget = document.querySelector('[data-ga-view-event]');
+  if (priceTarget && 'IntersectionObserver' in window) {
+    let viewed = false;
+    new IntersectionObserver((entries, observer) => {
+      if (!viewed && entries.some(entry => entry.isIntersecting)) {
+        viewed = true;
+        track(priceTarget.dataset.gaViewEvent, { section_id: priceTarget.id || 'price' });
+        observer.disconnect();
+      }
+    }, { threshold: 0.25 }).observe(priceTarget);
+  }
+
+  const trackedForm = document.querySelector('#contactForm');
+  if (trackedForm) {
+    let started = false;
+    trackedForm.addEventListener('focusin', () => {
+      if (!started) { started = true; track('form_start', { form_id: 'contactForm' }); }
+    });
   }
 
   function appEvent(link) {
@@ -94,6 +123,14 @@
       link_location: linkLocation(link),
       destination: cleanDestination(absoluteHref)
     };
+
+    const declaredEvent = link.dataset.gaEvent;
+    if (declaredEvent && declaredEvent !== 'customer_phone_click' && declaredEvent !== 'sales_phone_click') {
+      track(declaredEvent, Object.assign(common, {
+        work_type: link.dataset.workType || undefined
+      }));
+      return;
+    }
 
     const phoneEvent = link.dataset.gaEvent;
     if (phoneEvent === 'customer_phone_click' || phoneEvent === 'sales_phone_click') {

@@ -1,0 +1,7 @@
+import{existsSync,readFileSync}from'node:fs';
+const required=['index.html','analytics.js','matsuyama-carport/index.html','matsuyama-carport/styles.css','matsuyama-carport/script.js','works/2026-003/after.jpg','works/2026-010/after.jpg','works/2026-011/after.jpg','ops/ad-lead-quality-template.csv','sitemap.xml'];
+for(const file of required)if(!existsSync(file))throw new Error(`Missing: ${file}`);
+const lp=readFileSync('matsuyama-carport/index.html','utf8');
+for(const value of['<title>','rel="canonical"','<h1>','data-ga-event="line_inquiry_click"','data-ga-view-event="price_section_view"','id="contactForm"'])if(!lp.includes(value))throw new Error(`LP validation failed: ${value}`);
+if(!readFileSync('sitemap.xml','utf8').includes('/matsuyama-carport/'))throw new Error('LP missing from sitemap');
+console.log('Production build validation passed.');

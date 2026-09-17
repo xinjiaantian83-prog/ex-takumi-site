@@ -1,0 +1,12 @@
+Keyword,Match type,Reason
+DIY,Phrase,施工依頼ではなく自己施工目的
+自作,Phrase,施工依頼ではなく自己施工目的
+中古,Phrase,新品施工の対象外
+部品,Phrase,部品単体購入の意図
+部材,Phrase,部材単体購入の意図
+屋根材のみ,Phrase,材料単体購入の意図
+ポリカのみ,Phrase,材料単体購入の意図
+材料のみ,Phrase,材料単体購入の意図
+撤去のみ,Phrase,新設工事につながりにくい
+ホームセンター,Phrase,店舗・材料購入の意図
+通販,Phrase,商品購入のみの意図
