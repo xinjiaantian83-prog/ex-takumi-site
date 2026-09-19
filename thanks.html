@@ -78,6 +78,19 @@
     </p>
     <a href="/">トップページへ戻る</a>
   </main>
-  <script>if(new URLSearchParams(location.search).get('source')==='matsuyama-carport'){window.addEventListener('load',()=>window.exTakumiAnalytics?.track('form_submit_complete',{source:'matsuyama_carport_lp'}),{once:true})}</script>
+  <script>
+    window.addEventListener('load', () => {
+      const completed = sessionStorage.getItem('ex_takumi_form_completed') === '1';
+      if (!completed) return;
+      sessionStorage.removeItem('ex_takumi_form_completed');
+      const isCarport = new URLSearchParams(location.search).get('source') === 'matsuyama-carport';
+      if (isCarport) {
+        window.exTakumiAnalytics?.track('form_submit_complete', { source: 'matsuyama_carport_lp' });
+      }
+      window.exTakumiAnalytics?.trackMeta('Lead', {
+        content_name: isCarport ? 'Carport inquiry form' : 'Website inquiry form'
+      });
+    }, { once: true });
+  </script>
 </body>
 </html>

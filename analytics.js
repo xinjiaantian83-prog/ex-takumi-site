@@ -2,6 +2,7 @@
   'use strict';
 
   const MEASUREMENT_ID = 'G-4MR1TG0NJK';
+  const META_PIXEL_ID = '1880670813316341';
   const debugMode = new URLSearchParams(window.location.search).get('ga_debug') === '1';
 
   window.dataLayer = window.dataLayer || [];
@@ -18,6 +19,26 @@
     tag.src = `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`;
     document.head.appendChild(tag);
   }
+
+  // Meta Pixel is initialized once from this shared analytics file so it can
+  // coexist with GA4 without adding duplicate listeners to individual pages.
+  window.fbq = window.fbq || function () {
+    if (window.fbq.callMethod) window.fbq.callMethod.apply(window.fbq, arguments);
+    else window.fbq.queue.push(arguments);
+  };
+  if (!window.fbq.loaded) {
+    window.fbq.loaded = true;
+    window.fbq.version = '2.0';
+    window.fbq.queue = [];
+  }
+  if (!document.querySelector('script[src="https://connect.facebook.net/en_US/fbevents.js"]')) {
+    const metaTag = document.createElement('script');
+    metaTag.async = true;
+    metaTag.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(metaTag);
+  }
+  window.fbq('init', META_PIXEL_ID);
+  window.fbq('track', 'PageView');
 
   const pageName = (() => {
     if (document.body?.dataset.pageName) return document.body.dataset.pageName;
@@ -46,7 +67,17 @@
     window.gtag('event', eventName, Object.assign({ page_name: pageName }, params || {}));
   }
 
-  window.exTakumiAnalytics = Object.freeze({ track, pageName, measurementId: MEASUREMENT_ID });
+  function trackMeta(eventName, params) {
+    window.fbq('track', eventName, params || {});
+  }
+
+  window.exTakumiAnalytics = Object.freeze({
+    track,
+    trackMeta,
+    pageName,
+    measurementId: MEASUREMENT_ID,
+    metaPixelId: META_PIXEL_ID
+  });
 
   function trackPageContent() {
     const file = window.location.pathname.split('/').pop() || 'index.html';
@@ -123,6 +154,15 @@
       link_location: linkLocation(link),
       destination: cleanDestination(absoluteHref)
     };
+
+    // This runs independently of the GA4 event routing below. Each user click
+    // reaches this branch only once, including links with data-ga-event.
+    if (absoluteHref.includes('line.me/')) {
+      trackMeta('Contact', {
+        content_name: 'LINE inquiry',
+        content_category: pageName
+      });
+    }
 
     const declaredEvent = link.dataset.gaEvent;
     if (declaredEvent && declaredEvent !== 'customer_phone_click' && declaredEvent !== 'sales_phone_click') {

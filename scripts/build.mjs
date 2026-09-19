@@ -4,4 +4,8 @@ for(const file of required)if(!existsSync(file))throw new Error(`Missing: ${file
 const lp=readFileSync('matsuyama-carport/index.html','utf8');
 for(const value of['<title>','rel="canonical"','<h1>','data-ga-event="line_inquiry_click"','data-ga-view-event="price_section_view"','id="contactForm"'])if(!lp.includes(value))throw new Error(`LP validation failed: ${value}`);
 if(!readFileSync('sitemap.xml','utf8').includes('/matsuyama-carport/'))throw new Error('LP missing from sitemap');
+const analytics=readFileSync('analytics.js','utf8');
+for(const value of["const META_PIXEL_ID = '1880670813316341'","window.fbq('track', 'PageView')","trackMeta('Contact'"])if(!analytics.includes(value))throw new Error(`Meta Pixel validation failed: ${value}`);
+const thanks=readFileSync('thanks.html','utf8');
+if(!thanks.includes("trackMeta('Lead'"))throw new Error('Meta Lead validation failed');
 console.log('Production build validation passed.');

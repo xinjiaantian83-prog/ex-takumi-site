@@ -1969,6 +1969,7 @@ if (contactForm && formStatus) {
         throw new Error(result.error || `Basin submission failed: ${response.status}`);
       }
 
+      sessionStorage.setItem('ex_takumi_form_completed', '1');
       window.location.assign(redirectUrl);
     } catch (error) {
       console.error('お問い合わせ送信に失敗しました:', error);
