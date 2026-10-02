@@ -4,6 +4,8 @@
   const MEASUREMENT_ID = 'G-4MR1TG0NJK';
   const META_PIXEL_ID = '1880670813316341';
   const debugMode = new URLSearchParams(window.location.search).get('ga_debug') === '1';
+  const ATTRIBUTION_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid'];
+  const ATTRIBUTION_STORAGE_KEY = 'ex_takumi_attribution';
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () {
@@ -47,6 +49,28 @@
     return file.replace(/\.html$/, '').replace(/[^a-z0-9-]/gi, '_');
   })();
 
+  function loadAttribution() {
+    let stored = {};
+    try {
+      stored = JSON.parse(sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY) || '{}');
+    } catch (_) {
+      stored = {};
+    }
+    const search = new URLSearchParams(window.location.search);
+    let changed = false;
+    ATTRIBUTION_KEYS.forEach((key) => {
+      const value = search.get(key);
+      if (value) {
+        stored[key] = value;
+        changed = true;
+      }
+    });
+    if (changed) sessionStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(stored));
+    return stored;
+  }
+
+  const attribution = loadAttribution();
+
   function cleanDestination(rawHref) {
     try {
       const url = new URL(rawHref, window.location.href);
@@ -64,7 +88,23 @@
   }
 
   function track(eventName, params) {
-    window.gtag('event', eventName, Object.assign({ page_name: pageName }, params || {}));
+    const payload = Object.assign({
+      page_name: pageName,
+      traffic_source: attribution.utm_source || undefined,
+      traffic_medium: attribution.utm_medium || undefined,
+      traffic_campaign: attribution.utm_campaign || undefined,
+      traffic_term: attribution.utm_term || undefined,
+      traffic_content: attribution.utm_content || undefined,
+      google_click_id: attribution.gclid || undefined,
+      google_braid: attribution.gbraid || undefined,
+      google_wbraid: attribution.wbraid || undefined,
+      is_test_event: debugMode || undefined
+    }, params || {});
+    window.gtag('event', eventName, payload);
+    if (debugMode) {
+      window.__trackingAudit = window.__trackingAudit || [];
+      window.__trackingAudit.push({ event: eventName, params: payload });
+    }
   }
 
   function trackMeta(eventName, params) {
@@ -173,13 +213,22 @@
     }
 
     const phoneEvent = link.dataset.gaEvent;
-    if (phoneEvent === 'customer_phone_click' || phoneEvent === 'sales_phone_click') {
-      track(phoneEvent, common);
+    if (phoneEvent === 'customer_phone_click') {
+      track('phone_click', Object.assign(common, { phone_type: 'customer_inquiry' }));
+      return;
+    }
+    if (phoneEvent === 'sales_phone_click') {
+      track('sales_phone_click', Object.assign(common, { phone_type: 'sales' }));
       return;
     }
 
     if (absoluteHref.includes('line.me/')) {
       track('line_inquiry_click', common);
+      return;
+    }
+    if (href.startsWith('tel:')) {
+      const phoneType = href.replace(/\D/g, '') === '09028235513' ? 'customer_inquiry' : 'other';
+      track('phone_click', Object.assign(common, { phone_type: phoneType }));
       return;
     }
     if (href === '#contact' || /(?:^|\/)index\.html#contact$/.test(href)) {

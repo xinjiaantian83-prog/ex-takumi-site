@@ -1,10 +1,10 @@
 import{existsSync,readFileSync}from'node:fs';
-const required=['index.html','analytics.js','matsuyama-carport/index.html','matsuyama-carport/styles.css','matsuyama-carport/script.js','works/2026-003/after.jpg','works/2026-010/after.jpg','works/2026-011/after.jpg','ops/ad-lead-quality-template.csv','sitemap.xml'];
+const required=['index.html','site-core.js','matsuyama-carport/index.html','matsuyama-carport/styles.css','matsuyama-carport/script.js','works/2026-003/after.jpg','works/2026-010/after.jpg','works/2026-011/after.jpg','ops/ad-lead-quality-template.csv','sitemap.xml'];
 for(const file of required)if(!existsSync(file))throw new Error(`Missing: ${file}`);
 const lp=readFileSync('matsuyama-carport/index.html','utf8');
 for(const value of['<title>','rel="canonical"','<h1>','data-ga-event="line_inquiry_click"','data-ga-view-event="price_section_view"','id="contactForm"'])if(!lp.includes(value))throw new Error(`LP validation failed: ${value}`);
 if(!readFileSync('sitemap.xml','utf8').includes('/matsuyama-carport/'))throw new Error('LP missing from sitemap');
-const analytics=readFileSync('analytics.js','utf8');
+const analytics=readFileSync('site-core.js','utf8');
 for(const value of["const META_PIXEL_ID = '1880670813316341'","window.fbq('track', 'PageView')","trackMeta('Contact'"])if(!analytics.includes(value))throw new Error(`Meta Pixel validation failed: ${value}`);
 const thanks=readFileSync('thanks.html','utf8');
 if(!thanks.includes("trackMeta('Lead'"))throw new Error('Meta Lead validation failed');

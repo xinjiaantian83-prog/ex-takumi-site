@@ -66,7 +66,7 @@
     text-decoration: none;
   }
 </style>
-  <script src="analytics.js?v=20260920" defer></script>
+<script src="site-core.js?v=20261003" defer></script>
 </head>
 <body data-page-name="form_thanks">
   <main class="thanks-card">
@@ -84,9 +84,10 @@
       if (!completed) return;
       sessionStorage.removeItem('ex_takumi_form_completed');
       const isCarport = new URLSearchParams(location.search).get('source') === 'matsuyama-carport';
-      if (isCarport) {
-        window.exTakumiAnalytics?.track('form_submit_complete', { source: 'matsuyama_carport_lp' });
-      }
+      window.exTakumiAnalytics?.track('form_submit_complete', {
+        source: isCarport ? 'matsuyama_carport_lp' : 'main_site',
+        form_id: 'contactForm'
+      });
       window.exTakumiAnalytics?.trackMeta('Lead', {
         content_name: isCarport ? 'Carport inquiry form' : 'Website inquiry form'
       });
