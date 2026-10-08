@@ -8,4 +8,6 @@ const analytics=readFileSync('site-core.js','utf8');
 for(const value of["const META_PIXEL_ID = '1880670813316341'","window.fbq('track', 'PageView')","trackMeta('Contact'"])if(!analytics.includes(value))throw new Error(`Meta Pixel validation failed: ${value}`);
 const thanks=readFileSync('thanks.html','utf8');
 if(!thanks.includes("trackMeta('Lead'"))throw new Error('Meta Lead validation failed');
+const home=readFileSync('index.html','utf8');
+for(const value of['data-line-outage-active="true"','既にLINEでお問い合わせいただいているお客様','href="tel:09028235513"','TEL：090-2823-5513','LINE一時停止中・電話する'])if(!home.includes(value))throw new Error(`LINE outage notice validation failed: ${value}`);
 console.log('Production build validation passed.');

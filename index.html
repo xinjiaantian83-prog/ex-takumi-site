@@ -1457,10 +1457,88 @@ button {
     font-size: 56px;
   }
 }
+
+/* LINE障害告知: 復旧時は body の data-line-outage-active を "false" に変更 */
+.line-outage-notice {
+  display: none;
+}
+
+body[data-line-outage-active="true"] .line-outage-notice {
+  display: block;
+  background: #fff8e8;
+  border-top: 1px solid #e8c979;
+  border-bottom: 1px solid #e8c979;
+  color: #332b1d;
+}
+
+.line-outage-notice-inner {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 18px 0;
+}
+
+.line-outage-notice-title {
+  margin: 0 0 8px;
+  color: #8a4f00;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.line-outage-notice p {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.line-outage-notice-phone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-top: 2px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #8a4f00;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.line-outage-notice-apology {
+  margin-top: 8px !important;
+  margin-bottom: 0 !important;
+  font-size: 13px !important;
+}
+
+.line-outage-phone-redirect {
+  background: #8a4f00 !important;
+  border-color: #8a4f00 !important;
+}
+
+@media (max-width: 767px) {
+  .line-outage-notice-inner {
+    width: min(100% - 24px, 1120px);
+    padding: 14px 0 16px;
+  }
+
+  .line-outage-notice-title {
+    font-size: 16px;
+  }
+
+  .line-outage-notice p {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .line-outage-notice-phone {
+    width: 100%;
+  }
+}
 </style>
 <script src="site-core.js?v=20261003"></script>
 </head>
-<body>
+<body data-line-outage-active="true">
 
 <!-- ============================================
      ヘッダー
@@ -1483,6 +1561,17 @@ button {
   </div>
 </header>
 
+<!-- LINE障害告知: 復旧時は body の data-line-outage-active を "false" にするだけで非表示になります -->
+<aside class="line-outage-notice" role="alert" aria-labelledby="lineOutageTitle">
+  <div class="line-outage-notice-inner">
+    <h2 class="line-outage-notice-title" id="lineOutageTitle">【LINE公式アカウントに関するお知らせ】</h2>
+    <p>現在、LINE公式アカウントに不具合が発生しており、お問い合わせへの返信ができない状況となっております。</p>
+    <p>お急ぎの方や、<strong>既にLINEでお問い合わせいただいているお客様</strong>は、お手数ですが下記番号までお電話くださいますようお願いいたします。</p>
+    <a class="line-outage-notice-phone" href="tel:09028235513" data-ga-event="customer_phone_click" aria-label="090-2823-5513へ電話する">TEL：090-2823-5513</a>
+    <p class="line-outage-notice-apology">ご不便をおかけして申し訳ございません。</p>
+  </div>
+</aside>
+
 <!-- ============================================
      ファーストビュー
 ============================================ -->
@@ -1498,7 +1587,7 @@ button {
     </h1>
     <p class="hero-sub">
       施工1000台超の現場職人が直接対応。<br />
-      写真だけの概算相談もLINEで気軽に送れます。
+      <span data-line-outage-copy data-normal-copy="写真だけの概算相談もLINEで気軽に送れます。" data-outage-copy="LINEは一時利用停止中です。お急ぎの方はお電話ください。">写真だけの概算相談もLINEで気軽に送れます。</span>
     </p>
     <div class="hero-cta">
       <a href="#" class="btn btn-line icon-line" id="lineBtnHero">LINEで気軽に相談</a>
@@ -1564,7 +1653,7 @@ button {
         <div class="reason-num">03</div>
         <h3 class="reason-title">写真だけでも概算相談可能</h3>
         <p class="reason-text">
-          設置場所の写真や寸法があれば、まずは概算や進め方をLINEで相談できます。
+          <span data-line-outage-copy data-normal-copy="設置場所の写真や寸法があれば、まずは概算や進め方をLINEで相談できます。" data-outage-copy="設置場所の写真や寸法がある方も、現在はお電話またはフォームでご相談ください。">設置場所の写真や寸法があれば、まずは概算や進め方をLINEで相談できます。</span>
         </p>
       </div>
     </div>
@@ -1710,7 +1799,7 @@ button {
     <div class="section-label">CONSULTATION</div>
     <h2 class="section-title">相談方法</h2>
     <p class="section-lead">
-      写真だけならLINE、内容をまとめるならフォーム。お急ぎの場合は画面下の電話ボタンからどうぞ。
+      <span data-line-outage-copy data-normal-copy="写真だけならLINE、内容をまとめるならフォーム。お急ぎの場合は画面下の電話ボタンからどうぞ。" data-outage-copy="LINEは一時利用停止中です。内容をまとめる場合はフォーム、お急ぎの場合は電話をご利用ください。">写真だけならLINE、内容をまとめるならフォーム。お急ぎの場合は画面下の電話ボタンからどうぞ。</span>
     </p>
 
     <div class="contact-options">
@@ -1846,7 +1935,7 @@ button {
       <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
 
       <p class="form-note">
-        ※ 写真添付で相談したい場合はLINEがスムーズです。<br />
+        <span data-line-outage-copy data-normal-copy="※ 写真添付で相談したい場合はLINEがスムーズです。" data-outage-copy="※ LINEは一時利用停止中です。お急ぎの場合はお電話ください。">※ 写真添付で相談したい場合はLINEがスムーズです。</span><br />
         ※ 個人情報は当社からのご連絡以外には使用しません。
       </p>
     </form>
@@ -1906,10 +1995,24 @@ button {
 // 年号自動表示
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// LINE導線
+// LINE導線。復旧時は body の data-line-outage-active を "false" に戻してください。
 const LINE_URL = 'https://line.me/R/ti/p/@953wnidc';
+const LINE_OUTAGE_ACTIVE = document.body.dataset.lineOutageActive === 'true';
+
+document.querySelectorAll('[data-line-outage-copy]').forEach((el) => {
+  el.textContent = LINE_OUTAGE_ACTIVE ? el.dataset.outageCopy : el.dataset.normalCopy;
+});
 
 document.querySelectorAll('#lineBtnNav, #lineBtnHero, #lineBtnHub, #lineBtnMaterials, #lineBtnFixed').forEach((el) => {
+  if (LINE_OUTAGE_ACTIVE) {
+    el.href = 'tel:09028235513';
+    el.removeAttribute('target');
+    el.removeAttribute('rel');
+    el.classList.add('line-outage-phone-redirect');
+    el.setAttribute('aria-label', 'LINEは一時利用停止中です。090-2823-5513へ電話する');
+    el.textContent = 'LINE一時停止中・電話する';
+    return;
+  }
   el.href = LINE_URL;
   el.target = '_blank';
   el.rel = 'noopener noreferrer';
