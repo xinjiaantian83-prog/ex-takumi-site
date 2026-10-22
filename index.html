@@ -606,9 +606,7 @@ button {
   line-height: 1;
 }
 
-/* ============================================
-   無料アプリ
-============================================ */
+/* Legacy app-card styles are retained only to avoid unrelated stylesheet churn. */
 .apps {
   background: var(--color-bg-soft);
   padding-top: 48px;
@@ -713,7 +711,7 @@ button {
   justify-content: flex-end;
   background-image:
     linear-gradient(rgba(12, 12, 12, 0.22), rgba(12, 12, 12, 0.22)),
-    url("assets/materials/delivery-box-gatepost/product-front.webp");
+    url("assets/hero/carport-hero.jpg");
   background-size: cover;
   background-position: center 36%;
   color: #fff;
@@ -1473,10 +1471,8 @@ button {
     </a>
     <nav class="nav-pc">
       <a href="#works">施工事例</a>
-      <a href="diy.html">DIY応援</a>
-      <a href="materials.html">資材販売</a>
-      <a href="#apps">無料アプリ</a>
       <a href="#reasons">選ばれる理由</a>
+      <a href="#materials-only">資材のみ購入</a>
       <a href="#contact-style">相談について</a>
       <a href="#" class="btn btn-line btn-small" id="lineBtnNav">LINE相談</a>
     </nav>
@@ -1572,33 +1568,26 @@ button {
 </section>
 
 <!-- ============================================
-     資材販売導線
+     カーポート資材販売への案内
 ============================================ -->
-<section class="section hub" id="hub">
+<section class="section hub" id="materials-only">
   <div class="container">
-    <div class="section-label">MATERIAL SALE</div>
-    <h2 class="section-title">資材販売・施主支給応援</h2>
+    <div class="section-label">MATERIALS ONLY</div>
+    <h2 class="section-title">カーポート資材のみのご購入はこちら</h2>
     <p class="section-lead">
-      宅配ボックス付き機能門柱、防草シートなど、施主支給やDIYで使いやすい資材を現場目線で案内しています。
-      資材購入から近郊配送、購入者向けのDIY工具貸出まで対応し、難しい作業は施工も相談できます。
+      愛媛・香川・徳島・高知の四国4県を対象に、カーポート資材の販売を行っています。施工を別途手配される方や、資材のみをご希望の方は、カーポート格安専門店をご利用ください。
     </p>
 
     <div class="hub-grid">
       <article class="hub-card is-materials">
-        <h3 class="hub-card-title">資材販売・施主支給応援</h3>
-        <p class="hub-card-text">地元向けの商品販売・近郊配送に対応しています。資材購入後はDIY工具を借りられ、DIYでは難しい部分は施工まで相談できます。一度しか使わない道具で困る方も、気軽に声をかけてください。</p>
+        <h3 class="hub-card-title">カーポート格安専門店</h3>
+        <p class="hub-card-text">※カーポート格安専門店は資材販売のサービスです。施工サービスは含まれません。</p>
         <div class="hub-card-actions">
-          <a href="materials.html" class="btn btn-outline">資材販売ページを見る</a>
-          <a href="diy-tools.html" class="btn btn-outline">貸出道具一覧を見る</a>
-          <a href="https://gardenliving-ex.net/" class="btn btn-outline" target="_blank" rel="noopener noreferrer">全国販売・商品購入はこちら｜Garden Living</a>
+          <a href="https://carport-direct.jp/" class="btn btn-outline" target="_blank" rel="noopener noreferrer">資材販売サイトを見る</a>
         </div>
       </article>
     </div>
 
-    <div class="btn-row">
-      <a href="#" class="btn btn-line icon-line" id="lineBtnHub">LINEで相談する</a>
-      <a href="tel:09028235513" class="btn btn-phone icon-phone">電話で相談する</a>
-    </div>
   </div>
 </section>
 
@@ -1722,57 +1711,6 @@ button {
         </p>
         <a href="#contact" class="btn btn-outline">フォームへ</a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     無料アプリ
-============================================ -->
-<section class="section apps" id="apps">
-  <div class="container">
-    <div class="section-label">APPS</div>
-    <h2 class="section-title">EXた組が開発・運営する無料アプリ</h2>
-    <p class="section-lead">
-      EXた組では施工だけでなく、現場や地域で役立つ無料アプリの開発・運営も行っています。
-    </p>
-
-    <div class="apps-grid">
-      <article class="app-card">
-        <h3 class="app-card-title">現場電卓</h3>
-        <p class="app-card-text">外構・土木向け簡易計算ツール</p>
-        <div class="app-store-links">
-          <a class="app-store-link" href="https://apps.apple.com/jp/app/%E7%8F%BE%E5%A0%B4%E9%9B%BB%E5%8D%93/id6776547872" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をApp Storeで開く">
-            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
-          </a>
-          <a class="app-store-link" href="https://play.google.com/store/apps/details?id=com.genbatoolbox.genbacalcnew" target="_blank" rel="noopener noreferrer" aria-label="現場電卓をGoogle Playで開く">
-            <img src="assets/store-badges/google-play-badge-tight.png" alt="Google Play で手に入れよう">
-          </a>
-        </div>
-      </article>
-
-      <article class="app-card">
-        <h3 class="app-card-title">LIFE MAP</h3>
-        <p class="app-card-text">古紙回収・避難所・AEDを地図で確認</p>
-        <div class="app-store-links">
-          <a class="app-store-link" href="https://apps.apple.com/jp/app/life-map/id6776938203" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをApp Storeで開く">
-            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
-          </a>
-          <a class="app-store-link" href="https://play.google.com/store/apps/details?id=jp.lifemap.ehime" target="_blank" rel="noopener noreferrer" aria-label="LIFE MAPをGoogle Playで開く">
-            <img src="assets/store-badges/google-play-badge-tight.png" alt="Google Play で手に入れよう">
-          </a>
-        </div>
-      </article>
-
-      <article class="app-card">
-        <h3 class="app-card-title">わんわんコイン</h3>
-        <p class="app-card-text">給水所・自販機を地図で探せる</p>
-        <div class="app-store-links">
-          <a class="app-store-link" href="https://apps.apple.com/app/%E3%82%8F%E3%82%93%E3%82%8F%E3%82%93%E3%82%B3%E3%82%A4%E3%83%B3/id6780428018" target="_blank" rel="noopener noreferrer" aria-label="わんわんコインをApp Storeで開く">
-            <img src="assets/store-badges/app-store-badge.svg" alt="Download on the App Store">
-          </a>
-        </div>
-      </article>
     </div>
   </div>
 </section>

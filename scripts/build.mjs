@@ -4,6 +4,9 @@ for(const file of required)if(!existsSync(file))throw new Error(`Missing: ${file
 const lp=readFileSync('matsuyama-carport/index.html','utf8');
 for(const value of['<title>','rel="canonical"','<h1>','data-ga-event="line_inquiry_click"','data-ga-view-event="price_section_view"','id="contactForm"'])if(!lp.includes(value))throw new Error(`LP validation failed: ${value}`);
 if(!readFileSync('sitemap.xml','utf8').includes('/matsuyama-carport/'))throw new Error('LP missing from sitemap');
+const home=readFileSync('index.html','utf8');
+for(const value of['https://carport-direct.jp/','カーポート資材のみのご購入はこちら','施工サービスは含まれません'])if(!home.includes(value))throw new Error(`Material shop link validation failed: ${value}`);
+for(const value of['gardenliving-ex.net','diy.html','diy-tools.html','materials.html','gate-ft.html','weed-sheet.html'])if(home.includes(value)||readFileSync('sitemap.xml','utf8').includes(value))throw new Error(`Obsolete route remains: ${value}`);
 const analytics=readFileSync('site-core.js','utf8');
 for(const value of["const META_PIXEL_ID = '1880670813316341'","window.fbq('track', 'PageView')","trackMeta('Contact'"])if(!analytics.includes(value))throw new Error(`Meta Pixel validation failed: ${value}`);
 const thanks=readFileSync('thanks.html','utf8');

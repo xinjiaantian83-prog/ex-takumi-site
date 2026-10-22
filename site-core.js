@@ -122,12 +122,6 @@
   function trackPageContent() {
     const file = window.location.pathname.split('/').pop() || 'index.html';
     if (file === 'works.html') track('works_view');
-    if (file === 'materials.html') track('materials_view');
-    if (file === 'diy.html') track('diy_view');
-    if (/^diy-tool-.+\.html$/.test(file)) {
-      const productName = document.querySelector('#toolDetail h1, h1.title')?.textContent?.trim();
-      track('diy_tool_view', productName ? { product_name: productName } : {});
-    }
     if (document.body?.dataset.pageName === 'matsuyama_carport_lp') {
       const search = new URLSearchParams(window.location.search);
       track('carport_lp_view', {
@@ -156,17 +150,6 @@
     trackedForm.addEventListener('focusin', () => {
       if (!started) { started = true; track('form_start', { form_id: 'contactForm' }); }
     });
-  }
-
-  function appEvent(link) {
-    const card = link.closest('.app-card');
-    const name = card?.querySelector('.app-card-title')?.textContent?.trim().toLowerCase() || '';
-    const href = link.href.toLowerCase();
-    const store = href.includes('play.google.com') ? 'google_play' : href.includes('apps.apple.com') ? 'app_store' : 'other';
-    if (name.includes('現場電卓')) return { name: 'genba_tool_click', store };
-    if (name.includes('life map')) return { name: 'lifemap_click', store };
-    if (name.includes('わんわんコイン')) return { name: 'wanwan_coin_click', store };
-    return null;
   }
 
   document.addEventListener('DOMContentLoaded', trackPageContent, { once: true });
@@ -235,12 +218,5 @@
       track('contact_form_click', common);
       return;
     }
-    if (/^https?:\/\/(?:www\.)?gardenliving-ex\.net(?:\/|$)/i.test(absoluteHref)) {
-      track('garden_living_click', common);
-      return;
-    }
-
-    const app = appEvent(link);
-    if (app) track(app.name, Object.assign(common, { store: app.store }));
   });
 })();
