@@ -12,6 +12,13 @@
     window.dataLayer.push(arguments);
   };
 
+  window.gtag('consent', 'default', {
+    analytics_storage: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 500
+  });
   window.gtag('js', new Date());
   window.gtag('config', MEASUREMENT_ID, { send_page_view: true, debug_mode: debugMode });
 
@@ -70,6 +77,13 @@
   }
 
   const attribution = loadAttribution();
+
+  document.querySelectorAll('form').forEach((form) => {
+    ATTRIBUTION_KEYS.forEach((key) => {
+      const input = form.querySelector(`input[name="${key}"]`);
+      if (input) input.value = attribution[key] || '';
+    });
+  });
 
   function cleanDestination(rawHref) {
     try {

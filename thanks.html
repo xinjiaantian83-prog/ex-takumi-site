@@ -84,9 +84,10 @@
       if (!completed) return;
       sessionStorage.removeItem('ex_takumi_form_completed');
       const isCarport = new URLSearchParams(location.search).get('source') === 'matsuyama-carport';
-      window.exTakumiAnalytics?.track('form_submit_complete', {
+      window.exTakumiAnalytics?.track('generate_lead', {
         source: isCarport ? 'matsuyama_carport_lp' : 'main_site',
-        form_id: 'contactForm'
+        form_id: 'contactForm',
+        currency: 'JPY'
       });
       window.exTakumiAnalytics?.trackMeta('Lead', {
         content_name: isCarport ? 'Carport inquiry form' : 'Website inquiry form'

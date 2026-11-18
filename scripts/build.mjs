@@ -9,6 +9,9 @@ for(const value of['https://carport-direct.jp/','カーポート資材のみの�
 for(const value of['gardenliving-ex.net','diy.html','diy-tools.html','materials.html','gate-ft.html','weed-sheet.html'])if(home.includes(value)||readFileSync('sitemap.xml','utf8').includes(value))throw new Error(`Obsolete route remains: ${value}`);
 const analytics=readFileSync('site-core.js','utf8');
 for(const value of["const META_PIXEL_ID = '1880670813316341'","window.fbq('track', 'PageView')","trackMeta('Contact'"])if(!analytics.includes(value))throw new Error(`Meta Pixel validation failed: ${value}`);
+for(const value of["window.gtag('consent', 'default'", "ad_user_data: 'denied'", "ATTRIBUTION_KEYS.forEach"] )if(!analytics.includes(value))throw new Error(`Analytics validation failed: ${value}`);
+for(const value of['name="gclid"','name="utm_campaign"'])if(!home.includes(value))throw new Error(`Home attribution field missing: ${value}`);
 const thanks=readFileSync('thanks.html','utf8');
 if(!thanks.includes("trackMeta('Lead'"))throw new Error('Meta Lead validation failed');
+if(!thanks.includes("track('generate_lead'"))throw new Error('GA4 generate_lead validation failed');
 console.log('Production build validation passed.');
