@@ -78,12 +78,14 @@
 
   const attribution = loadAttribution();
 
-  document.querySelectorAll('form').forEach((form) => {
-    ATTRIBUTION_KEYS.forEach((key) => {
-      const input = form.querySelector(`input[name="${key}"]`);
-      if (input) input.value = attribution[key] || '';
+  function applyAttributionToForms() {
+    document.querySelectorAll('form').forEach((form) => {
+      ATTRIBUTION_KEYS.forEach((key) => {
+        const input = form.querySelector(`input[name="${key}"]`);
+        if (input) input.value = attribution[key] || '';
+      });
     });
-  });
+  }
 
   function cleanDestination(rawHref) {
     try {
@@ -146,27 +148,36 @@
     }
   }
 
-  const priceTarget = document.querySelector('[data-ga-view-event]');
-  if (priceTarget && 'IntersectionObserver' in window) {
-    let viewed = false;
-    new IntersectionObserver((entries, observer) => {
-      if (!viewed && entries.some(entry => entry.isIntersecting)) {
-        viewed = true;
-        track(priceTarget.dataset.gaViewEvent, { section_id: priceTarget.id || 'price' });
-        observer.disconnect();
-      }
-    }, { threshold: 0.25 }).observe(priceTarget);
+  function initializeDomFeatures() {
+    applyAttributionToForms();
+    trackPageContent();
+
+    const priceTarget = document.querySelector('[data-ga-view-event]');
+    if (priceTarget && 'IntersectionObserver' in window) {
+      let viewed = false;
+      new IntersectionObserver((entries, observer) => {
+        if (!viewed && entries.some(entry => entry.isIntersecting)) {
+          viewed = true;
+          track(priceTarget.dataset.gaViewEvent, { section_id: priceTarget.id || 'price' });
+          observer.disconnect();
+        }
+      }, { threshold: 0.25 }).observe(priceTarget);
+    }
+
+    const trackedForm = document.querySelector('#contactForm');
+    if (trackedForm) {
+      let started = false;
+      trackedForm.addEventListener('focusin', () => {
+        if (!started) { started = true; track('form_start', { form_id: 'contactForm' }); }
+      });
+    }
   }
 
-  const trackedForm = document.querySelector('#contactForm');
-  if (trackedForm) {
-    let started = false;
-    trackedForm.addEventListener('focusin', () => {
-      if (!started) { started = true; track('form_start', { form_id: 'contactForm' }); }
-    });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeDomFeatures, { once: true });
+  } else {
+    initializeDomFeatures();
   }
-
-  document.addEventListener('DOMContentLoaded', trackPageContent, { once: true });
 
   document.addEventListener('click', function (event) {
     const workPhoto = event.target.closest('.work-photo');
